@@ -1,0 +1,576 @@
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
+import type { Product } from "@shared/schema";
+import dovitoLogo from "@assets/white_1749151126542.png";
+import SplashCursor from "./SplashCursor";
+
+export default function BeamStyleLanding() {
+  const [activeSection, setActiveSection] = useState("home");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: ""
+  });
+  const { toast } = useToast();
+
+  const { data: products = [], isLoading } = useQuery<Product[]>({
+    queryKey: ["/api/products"],
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "products", "value", "contact"];
+      const scrollPosition = window.scrollY + 200;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const top = element.offsetTop;
+          const bottom = top + element.offsetHeight;
+          
+          if (scrollPosition >= top && scrollPosition < bottom) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.company || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Message sent successfully",
+      description: "We'll get back to you within 24 hours.",
+    });
+
+    setFormData({ name: "", email: "", company: "", message: "" });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleProductClick = (product: Product) => {
+    if (product.status === "live" && product.url) {
+      window.open(product.url, "_blank");
+    } else {
+      setSelectedProduct(product);
+    }
+  };
+
+  const renderPeriodicTable = () => {
+    if (isLoading) {
+      return (
+        <div className="flex items-center justify-center py-24">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-primary/20 rounded-full animate-spin border-t-primary"></div>
+            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent rounded-full animate-ping border-t-primary/40"></div>
+          </div>
+        </div>
+      );
+    }
+
+    const maxX = Math.max(...products.map(p => p.positionX), 4);
+    const maxY = Math.max(...products.map(p => p.positionY), 3);
+
+    const grid = [];
+    for (let y = 1; y <= maxY; y++) {
+      const row = [];
+      for (let x = 1; x <= maxX; x++) {
+        const product = products.find(p => p.positionX === x && p.positionY === y);
+        row.push(
+          <motion.div 
+            key={`${x}-${y}`} 
+            className="aspect-square"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: (x + y) * 0.1, type: "spring", stiffness: 100 }}
+          >
+            {product ? (
+              <motion.div
+                className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border backdrop-blur-sm ${
+                  product.status === "live" 
+                    ? "border-primary/40 bg-primary/5 hover:bg-primary/10 hover:border-primary/60" 
+                    : "border-border/40 bg-card/30 hover:bg-card/50"
+                }`}
+                onClick={() => handleProductClick(product)}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -8,
+                  boxShadow: product.status === "live" 
+                    ? "0 20px 40px rgba(96, 102, 255, 0.3)" 
+                    : "0 20px 40px rgba(255, 255, 255, 0.1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="p-6 flex flex-col items-center justify-center h-full text-center relative">
+                  <div className={`text-3xl font-bold mb-3 ${
+                    product.status === "live" ? "text-primary" : "text-muted-foreground"
+                  }`}>
+                    {product.abbreviation}
+                  </div>
+                  <div className="text-sm font-medium mb-3 opacity-90">{product.name}</div>
+                  <Badge 
+                    variant={product.status === "live" ? "default" : "secondary"} 
+                    className="text-xs px-2 py-1"
+                  >
+                    {product.status === "live" ? "Live" : "Coming Soon"}
+                  </Badge>
+                  {product.status === "live" && (
+                    <ExternalLink className="w-4 h-4 mt-2 opacity-60" />
+                  )}
+                  
+                  {/* Glow effect for live products */}
+                  {product.status === "live" && (
+                    <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  )}
+                </div>
+              </motion.div>
+            ) : (
+              <div className="h-full border-2 border-dashed border-border/20 rounded-2xl opacity-30"></div>
+            )}
+          </motion.div>
+        );
+      }
+      grid.push(
+        <div key={y} className="grid grid-cols-4 gap-6 mb-6">
+          {row}
+        </div>
+      );
+    }
+    return grid;
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SplashCursor />
+      
+      {/* Navigation */}
+      <motion.nav 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <motion.div 
+              className="flex items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+            </motion.div>
+            
+            <div className="hidden md:flex items-center space-x-8">
+              {[
+                { id: "home", label: "Home" },
+                { id: "products", label: "Universe" },
+                { id: "value", label: "Impact" },
+                { id: "contact", label: "Connect" }
+              ].map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                    activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeSection"
+                      className="absolute inset-0 bg-primary/10 rounded-lg"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button 
+                  onClick={() => scrollToSection("contact")}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Hero Section */}
+      <section id="home" className="pt-20 min-h-screen flex items-center relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50"></div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div 
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm text-primary mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4" />
+              Business Process Automation
+            </motion.div>
+            
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold mb-8 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Automation That<br />
+              <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                Delivers Results
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              Reduce manual tasks by 25-40% and improve lead conversion by 15-30%. 
+              Guaranteed ROI within 90 days or we work for free.
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+            >
+              <Button 
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                onClick={() => scrollToSection("contact")}
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                Get Free Consultation
+              </Button>
+              <Button 
+                variant="outline"
+                size="lg"
+                className="border-border/50 hover:border-primary/50 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                onClick={() => scrollToSection("products")}
+              >
+                Explore Universe
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Periodic Table Section */}
+      <section id="products" className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+              The Dovito Universe
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              A growing ecosystem of automation tools designed to transform business operations
+            </p>
+          </motion.div>
+          
+          <div className="max-w-5xl mx-auto">
+            {renderPeriodicTable()}
+          </div>
+          
+          <motion.div 
+            className="text-center mt-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-muted-foreground">
+              Click live products to visit • Click coming soon for early access
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Value Proposition Section */}
+      <section id="value" className="py-32 bg-card/20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Guaranteed Impact
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Measurable results that transform your business operations
+            </p>
+          </motion.div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { 
+                icon: Target, 
+                value: "25-40%", 
+                label: "Task Reduction",
+                description: "Eliminate manual work"
+              },
+              { 
+                icon: TrendingUp, 
+                value: "15-30%", 
+                label: "Conversion Boost",
+                description: "Improve lead-to-close"
+              },
+              { 
+                icon: Zap, 
+                value: "$15K-$50K", 
+                label: "Monthly Savings",
+                description: "Direct cost reduction"
+              },
+              { 
+                icon: Clock, 
+                value: "90-Day", 
+                label: "ROI Guarantee",
+                description: "Or we work for free"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <Card className="text-center border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
+                  <CardContent className="p-8">
+                    <item.icon className="w-12 h-12 text-primary mx-auto mb-6" />
+                    <div className="text-3xl font-bold text-primary mb-2">{item.value}</div>
+                    <div className="text-sm font-medium mb-3">{item.label}</div>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-32">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Ready to Transform?
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Schedule your free consultation and discover how automation can revolutionize your business
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <form onSubmit={handleFormSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Input
+                      placeholder="Your Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="bg-background/50 border-border/50 focus:border-primary"
+                      required
+                    />
+                    <Input
+                      type="email"
+                      placeholder="Business Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="bg-background/50 border-border/50 focus:border-primary"
+                      required
+                    />
+                  </div>
+                  
+                  <Input
+                    placeholder="Company Name"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="bg-background/50 border-border/50 focus:border-primary"
+                    required
+                  />
+                  
+                  <Textarea
+                    placeholder="Tell us about your biggest operational challenges..."
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    className="bg-background/50 border-border/50 focus:border-primary"
+                    required
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                  >
+                    Schedule Free Consultation
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Product Detail Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div 
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProduct(null)}
+          >
+            <motion.div
+              className="max-w-lg w-full"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Card className="border-border/50 bg-card/95 backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <div className="flex justify-between items-start mb-6">
+                    <div>
+                      <div className="flex items-center gap-4 mb-3">
+                        <span className="text-3xl font-bold text-primary">
+                          {selectedProduct.abbreviation}
+                        </span>
+                        <h3 className="text-xl font-semibold">{selectedProduct.name}</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{selectedProduct.category}</p>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setSelectedProduct(null)}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      ✕
+                    </Button>
+                  </div>
+                  
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    {selectedProduct.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-between mb-6">
+                    <Badge variant={selectedProduct.status === "live" ? "default" : "secondary"}>
+                      {selectedProduct.status === "live" ? "Live" : "Coming Soon"}
+                    </Badge>
+                    {selectedProduct.launchDate && (
+                      <span className="text-sm text-muted-foreground">
+                        Expected: {new Date(selectedProduct.launchDate).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {selectedProduct.status === "coming_soon" && (
+                    <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Be the first to experience this revolutionary automation tool. 
+                        Contact us for early access and exclusive beta testing opportunities.
+                      </p>
+                      <Button 
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full" 
+                        onClick={() => {
+                          setSelectedProduct(null);
+                          scrollToSection("contact");
+                        }}
+                      >
+                        Get Early Access
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

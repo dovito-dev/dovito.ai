@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ExternalLink, Zap, Target, TrendingUp, Users, Clock, CheckCircle } from "lucide-react";
+import { ExternalLink, ArrowRight, Sparkles, Zap, Clock, CheckCircle2, Users2, Target, TrendingUp, Users, CheckCircle } from "lucide-react";
 import type { Product } from "@shared/schema";
-import dovitoLogo from "@assets/dovito logo_color-pos_1749151126542.png";
+import dovitoLogo from "@assets/white_1749151126542.png";
+import SplashCursor from "./SplashCursor";
 
 export default function DovitoLanding() {
   const [activeSection, setActiveSection] = useState("home");
@@ -143,45 +145,74 @@ export default function DovitoLanding() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
+      <SplashCursor />
+      
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-b z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
-            </div>
+      <motion.nav 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <motion.div 
+              className="flex items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-7 w-auto" />
+            </motion.div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
-                {[
-                  { id: "home", label: "Home" },
-                  { id: "products", label: "Products" },
-                  { id: "value", label: "Value" },
-                  { id: "about", label: "About" },
-                  { id: "contact", label: "Contact" }
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      activeSection === item.id
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
+            <div className="hidden md:flex items-center space-x-8">
+              {[
+                { id: "home", label: "Home" },
+                { id: "products", label: "Universe" },
+                { id: "value", label: "Impact" },
+                { id: "contact", label: "Connect" }
+              ].map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 hover:text-primary ${
+                    activeSection === item.id ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeSection"
+                      className="absolute inset-0 bg-primary/10 rounded-lg"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button 
+                  onClick={() => scrollToSection("contact")}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground border-0 px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </motion.div>
             </div>
             
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -192,32 +223,36 @@ export default function DovitoLanding() {
         </div>
         
         {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-background border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {[
-                { id: "home", label: "Home" },
-                { id: "products", label: "Products" },
-                { id: "value", label: "Value" },
-                { id: "about", label: "About" },
-                { id: "contact", label: "Contact" }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                    activeSection === item.id
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/50"
+            >
+              <div className="px-6 py-4 space-y-3">
+                {[
+                  { id: "home", label: "Home" },
+                  { id: "products", label: "Universe" },
+                  { id: "value", label: "Impact" },
+                  { id: "contact", label: "Connect" }
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`block w-full text-left py-3 text-base font-medium transition-colors ${
+                      activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-primary"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
 
       {/* Hero Section */}
       <section id="home" className="pt-16 min-h-screen flex items-center bg-gradient-to-br from-background to-muted/20">

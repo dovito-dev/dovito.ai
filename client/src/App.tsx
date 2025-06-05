@@ -3,13 +3,13 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import DovitoLanding from "./components/DovitoLanding";
+import BeamStyleLanding from "./components/BeamStyleLanding";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={DovitoLanding} />
+      <Route path="/" component={BeamStyleLanding} />
       <Route component={NotFound} />
     </Switch>
   );
