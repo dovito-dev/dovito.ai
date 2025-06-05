@@ -1,0 +1,214 @@
+# Dovito.ai Landing Page - Comprehensive Development Prompt
+
+## Project Overview
+Build a modern, interactive landing page for dovito.ai inspired by beam.ai's design aesthetics. The centerpiece will be a "Periodic Table of Apps" showcasing our software products with CMS functionality for easy management and automatic logo generation.
+
+## Brand Assets
+**Dovito Logo**: [UPLOAD YOUR DOVITO LOGO FILE HERE - The agent will use this as the primary brand element and reference for consistent styling across all generated logos and design elements]
+
+## Design References & Inspiration
+- **Primary Reference**: https://beam.ai (study their modern UI, animations, and layout structure)
+- **Animation Library**: https://github.com/DavidHDev/react-bits 
+  - Specifically implement the splash cursor animation: https://www.reactbits.dev/animations/splash-cursor
+  - Explore other suitable animations from their collection
+- **Visual Style**: Clean, modern, tech-forward aesthetic with smooth animations and professional typography
+
+## Core Features & Requirements
+
+### 1. Periodic Table Showcase
+- **Layout**: Grid-based periodic table design with product tiles
+- **Tile Design**: Square format (either 90-degree corners or rounded)
+- **Product Representation**: Each app gets a tile with its abbreviation (Pe for pe.dovito.com, SM for sm.dovito.com, etc.)
+- **Interactive Elements**: 
+  - Hover effects with product details
+  - Click to navigate to product URLs
+  - "Coming Soon" states for products in development
+  - Smooth transitions and animations
+
+### 2. Content Management System (CMS)
+- **Admin Interface**: Simple, intuitive CMS for non-technical users
+- **Product Management**:
+  - Add/edit/delete products
+  - Product name, abbreviation, description, status (live/coming soon)
+  - Product URL, category, launch date
+  - Upload product images/icons
+  - Set periodic table position
+- **Content Management**:
+  - Hero section content
+  - Company information
+  - Feature highlights
+  - Testimonials/case studies
+- **User Authentication**: Secure admin login system
+
+### 3. Automatic Logo Generation
+- **Input System**: Upload product information through CMS
+- **Logo Generation**: 
+  - Auto-create professional product logos based on uploaded info
+  - Generate downloadable PNG files
+  - Multiple size variants (favicon, social media, print)
+  - Consistent brand styling across all generated logos
+- **Display**: Showcase generated logos on homepage in a dedicated section
+
+### 4. Page Structure & Content
+
+#### Hero Section
+- **Dovito Logo**: Prominently display the uploaded Dovito logo
+- **Headline**: "Business Process Automation That Delivers Results"
+- **Subheading**: Focus on Dovito's value proposition (25-40% reduction in manual tasks, guaranteed ROI)
+- **CTA**: "Get Started" button leading to consultation booking
+- **Visual**: Animated background or hero graphic incorporating brand elements
+
+#### Periodic Table Section
+- **Title**: "Our Software Ecosystem" or "The Dovito Product Universe"
+- **Interactive Grid**: Periodic table layout with product tiles
+- **Product Details**: Modal or sidebar with detailed product information on click
+
+#### Value Proposition Section
+- **Key Benefits**: 
+  - 25-40% reduction in manual administrative tasks
+  - 15-30% improvement in lead-to-close conversion
+  - $15K-$50K monthly savings through automation
+  - 90-day ROI guarantee
+- **Visual Elements**: Icons, animations, or infographics
+
+#### Social Proof Section
+- **Target Customers**: $3-25M annual revenue companies
+- **Industries**: Construction, manufacturing, professional services
+- **Results**: Specific case studies and metrics
+
+#### Contact/CTA Section
+- **Multiple Contact Options**: Consultation booking, contact form, direct links
+- **Company Information**: Professional presentation of Dovito's expertise
+
+### 5. Technical Requirements
+
+#### Frontend Stack
+- **Framework**: Next.js 14 with TypeScript
+- **Styling**: Tailwind CSS for responsive design
+- **Animations**: 
+  - React-bits splash cursor animation (mandatory)
+  - Additional smooth transitions and micro-interactions
+  - Framer Motion for complex animations
+- **Icons**: Lucide React or similar professional icon library
+
+#### Backend & Database
+- **Database**: Supabase for CMS data storage
+- **Authentication**: Supabase Auth for admin access
+- **File Storage**: Supabase Storage for images and generated logos
+- **API**: Next.js API routes for CMS operations
+
+#### Logo Generation System
+- **Technology**: Canvas API or similar for dynamic logo creation
+- **Brand Consistency**: Use uploaded Dovito logo as style reference for all generated product logos
+- **Templates**: Professional design templates maintaining Dovito's visual identity
+- **Export**: High-quality PNG generation and download functionality
+- **Automation**: Trigger generation when product information is updated
+
+#### Performance & SEO
+- **Mobile-First**: Fully responsive design
+- **Performance**: Optimized images, lazy loading, fast page speeds
+- **SEO**: Proper meta tags, structured data, sitemap
+- **Accessibility**: WCAG compliance, keyboard navigation, screen reader support
+
+### 6. User Experience Flow
+
+#### Public User Journey
+1. Land on homepage with animated hero section
+2. Explore periodic table to discover products
+3. Click products to learn more or visit live applications
+4. View company value proposition and social proof
+5. Take action via contact forms or consultation booking
+
+#### Admin User Journey
+1. Secure login to CMS dashboard
+2. Manage products (add, edit, delete, reorder)
+3. Upload product information and trigger logo generation
+4. Update homepage content and messaging
+5. Preview changes before publishing
+6. Download generated logos and assets
+
+### 7. Content Strategy
+
+#### Messaging Framework
+- **Primary Value**: "Guaranteed ROI through intelligent automation"
+- **Target Audience**: CEOs and Operations leaders of $10M-$50M companies
+- **Differentiation**: Personal CEO involvement, 30-60 day implementation, industry expertise
+- **Proof Points**: Specific metrics, case studies, guaranteed results
+
+#### Product Showcase Content
+- **Current Products**:
+  - **Pe (Prompt Engineer)**: AI prompt optimization platform
+  - **SM (Septic Management)**: Waste tracking automation system
+- **Coming Soon**: Display slots for products in development
+- **Categories**: Organize products by industry or function
+
+### 8. Design Specifications
+
+#### Visual Identity
+- **Primary Branding**: Use uploaded Dovito logo as the foundation for all design decisions
+- **Color Scheme**: Extract and extend colors from the Dovito logo for consistent palette
+- **Typography**: Clean, readable fonts that complement the logo's style (Inter, Poppins, or similar)
+- **Spacing**: Generous whitespace, consistent margins and padding
+- **Components**: Reusable design system components that align with Dovito's brand identity
+
+#### Animation Guidelines
+- **Splash Cursor**: Implement the react-bits splash cursor animation
+- **Micro-interactions**: Hover states, button animations, loading states
+- **Page Transitions**: Smooth scrolling, fade-ins, slide effects
+- **Performance**: 60fps animations, optimized for mobile devices
+
+#### Responsive Design
+- **Breakpoints**: Mobile-first approach with tablet and desktop optimization
+- **Periodic Table**: Adapt grid layout for different screen sizes
+- **Navigation**: Mobile-friendly menu and interaction patterns
+- **Content**: Scalable text and flexible layouts
+
+### 9. Development Approach
+
+#### Phase 1: Foundation (Week 1)
+- Set up Next.js project with TypeScript and Tailwind
+- Implement basic page structure and navigation
+- Add Supabase integration for database and auth
+- Create initial design system and components
+
+#### Phase 2: Core Features (Week 2)
+- Build periodic table grid layout and interactions
+- Implement CMS dashboard and product management
+- Add authentication and admin routes
+- Create responsive design across all devices
+
+#### Phase 3: Advanced Features (Week 3)
+- Implement logo generation system
+- Add react-bits animations and micro-interactions
+- Build contact forms and consultation booking
+- Optimize performance and SEO
+
+#### Phase 4: Polish & Launch (Week 4)
+- Content creation and population
+- Testing across devices and browsers
+- Security audit and optimization
+- Deploy to production with monitoring
+
+### 10. Success Metrics
+
+#### Technical KPIs
+- **Page Load Speed**: <3 seconds initial load
+- **Performance Score**: 90+ on Lighthouse
+- **Mobile Responsiveness**: Perfect rendering on all device sizes
+- **Accessibility**: WCAG AA compliance
+
+#### Business KPIs
+- **Lead Generation**: Increase consultation bookings by 50%
+- **Product Discovery**: Higher engagement with individual product pages
+- **Brand Perception**: Professional, trustworthy presentation of capabilities
+- **Admin Efficiency**: Easy content management for non-technical users
+
+## Getting Started
+1. **Brand Foundation**: First, examine the uploaded Dovito logo to understand the brand aesthetic, color palette, and design direction
+2. Analyze beam.ai thoroughly for design inspiration and user experience patterns
+3. Set up the development environment with the specified tech stack
+4. Focus on creating a stunning visual experience with the periodic table as the centerpiece
+5. Ensure the CMS is intuitive and the logo generation works flawlessly, maintaining brand consistency
+6. Test extensively across devices and optimize for performance
+
+Remember: This landing page represents dovito.ai's professional brand and technical capabilities. Every detail should reflect the quality and innovation that clients can expect from our automation solutions, while maintaining perfect consistency with the Dovito brand identity.
