@@ -32,6 +32,9 @@ export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  url: z.string().nullable().optional(),
+  launchDate: z.date().nullable().optional(),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
