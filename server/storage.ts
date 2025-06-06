@@ -1,151 +1,138 @@
-import { users, type User, type InsertUser, type Product, type InsertProduct } from "@shared/schema";
+import {
+  users,
+  products,
+  contentSections,
+  type User,
+  type InsertUser,
+  type Product,
+  type InsertProduct,
+  type ContentSection,
+  type InsertContentSection,
+} from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+import bcrypt from "bcryptjs";
 
 export interface IStorage {
+  // User operations
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  authenticateUser(username: string, password: string): Promise<User | null>;
   
+  // Product operations
   getProducts(): Promise<Product[]>;
   getProduct(id: number): Promise<Product | undefined>;
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: number, product: Partial<InsertProduct>): Promise<Product | undefined>;
   deleteProduct(id: number): Promise<boolean>;
+  
+  // Content management
+  getContentSections(): Promise<ContentSection[]>;
+  getContentSection(sectionKey: string): Promise<ContentSection | undefined>;
+  createContentSection(section: InsertContentSection): Promise<ContentSection>;
+  updateContentSection(id: number, section: Partial<InsertContentSection>): Promise<ContentSection | undefined>;
+  deleteContentSection(id: number): Promise<boolean>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private products: Map<number, Product>;
-  private currentUserId: number;
-  private currentProductId: number;
-
-  constructor() {
-    this.users = new Map();
-    this.products = new Map();
-    this.currentUserId = 1;
-    this.currentProductId = 1;
-    
-    // Initialize with Dovito's current products
-    this.initializeProducts();
-  }
-
-  private initializeProducts() {
-    const initialProducts: Omit<Product, 'id'>[] = [
-      {
-        name: "Prompt Engineer",
-        abbreviation: "Pe",
-        description: "AI prompt optimization platform for enhanced productivity and consistent results",
-        url: "https://pe.dovito.com",
-        category: "AI Tools",
-        status: "live",
-        positionX: 1,
-        positionY: 1,
-        launchDate: new Date('2024-01-15'),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        name: "Septic Management",
-        abbreviation: "SM",
-        description: "Waste tracking automation system for septic and environmental services",
-        url: "https://sm.dovito.com",
-        category: "Environmental",
-        status: "live",
-        positionX: 2,
-        positionY: 1,
-        launchDate: new Date('2024-02-01'),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        name: "Process Automation",
-        abbreviation: "PA",
-        description: "Comprehensive business process automation suite",
-        url: null,
-        category: "Automation",
-        status: "coming_soon",
-        positionX: 3,
-        positionY: 1,
-        launchDate: new Date('2024-06-01'),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        name: "Lead Optimizer",
-        abbreviation: "LO",
-        description: "Lead-to-close conversion optimization platform",
-        url: null,
-        category: "Sales",
-        status: "coming_soon",
-        positionX: 1,
-        positionY: 2,
-        launchDate: new Date('2024-07-01'),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ];
-
-    initialProducts.forEach(product => {
-      const id = this.currentProductId++;
-      this.products.set(id, { ...product, id });
-    });
-  }
-
+export class DatabaseStorage implements IStorage {
+  // User operations
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const hashedPassword = await bcrypt.hash(insertUser.password, 10);
+    const [user] = await db
+      .insert(users)
+      .values({
+        ...insertUser,
+        password: hashedPassword,
+      })
+      .returning();
     return user;
   }
 
+  async authenticateUser(username: string, password: string): Promise<User | null> {
+    const user = await this.getUserByUsername(username);
+    if (!user) return null;
+    
+    const isValid = await bcrypt.compare(password, user.password);
+    return isValid ? user : null;
+  }
+
+  // Product operations
   async getProducts(): Promise<Product[]> {
-    return Array.from(this.products.values());
+    return await db.select().from(products);
   }
 
   async getProduct(id: number): Promise<Product | undefined> {
-    return this.products.get(id);
+    const [product] = await db.select().from(products).where(eq(products.id, id));
+    return product || undefined;
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const id = this.currentProductId++;
-    const product: Product = {
-      ...insertProduct,
-      id,
-      status: insertProduct.status || "coming_soon",
-      url: insertProduct.url || null,
-      launchDate: insertProduct.launchDate || null,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.products.set(id, product);
+    const [product] = await db
+      .insert(products)
+      .values(insertProduct)
+      .returning();
     return product;
   }
 
   async updateProduct(id: number, updateData: Partial<InsertProduct>): Promise<Product | undefined> {
-    const existing = this.products.get(id);
-    if (!existing) return undefined;
-
-    const updated: Product = {
-      ...existing,
-      ...updateData,
-      updatedAt: new Date()
-    };
-    this.products.set(id, updated);
-    return updated;
+    const [product] = await db
+      .update(products)
+      .set({ ...updateData, updatedAt: new Date() })
+      .where(eq(products.id, id))
+      .returning();
+    return product || undefined;
   }
 
   async deleteProduct(id: number): Promise<boolean> {
-    return this.products.delete(id);
+    const result = await db.delete(products).where(eq(products.id, id));
+    return result.rowCount > 0;
+  }
+
+  // Content management
+  async getContentSections(): Promise<ContentSection[]> {
+    return await db.select().from(contentSections);
+  }
+
+  async getContentSection(sectionKey: string): Promise<ContentSection | undefined> {
+    const [section] = await db
+      .select()
+      .from(contentSections)
+      .where(eq(contentSections.sectionKey, sectionKey));
+    return section || undefined;
+  }
+
+  async createContentSection(section: InsertContentSection): Promise<ContentSection> {
+    const [created] = await db
+      .insert(contentSections)
+      .values(section)
+      .returning();
+    return created;
+  }
+
+  async updateContentSection(id: number, updateData: Partial<InsertContentSection>): Promise<ContentSection | undefined> {
+    const [section] = await db
+      .update(contentSections)
+      .set({ ...updateData, updatedAt: new Date() })
+      .where(eq(contentSections.id, id))
+      .returning();
+    return section || undefined;
+  }
+
+  async deleteContentSection(id: number): Promise<boolean> {
+    const result = await db.delete(contentSections).where(eq(contentSections.id, id));
+    return result.rowCount > 0;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
