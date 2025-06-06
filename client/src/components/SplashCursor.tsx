@@ -1,22 +1,28 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-interface SplashEffect {
+interface Splash {
   id: number;
   x: number;
   y: number;
-  timestamp: number;
 }
 
 export default function SplashCursor() {
-  const [splashes, setSplashes] = useState<SplashEffect[]>([]);
+  const [splashes, setSplashes] = useState<Splash[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const lastSplashTime = useRef(0);
+  const splashInterval = 100; // Create splash every 100ms while moving
 
-  const createSplash = useCallback((e: MouseEvent) => {
-    const newSplash: SplashEffect = {
-      id: Date.now() + Math.random(),
-      x: e.clientX,
-      y: e.clientY,
-      timestamp: Date.now(),
+  const createSplash = useCallback((x: number, y: number) => {
+    const now = Date.now();
+    if (now - lastSplashTime.current < splashInterval) return;
+    
+    lastSplashTime.current = now;
+    
+    const newSplash: Splash = {
+      id: now + Math.random(),
+      x,
+      y,
     };
 
     setSplashes((prev) => [...prev, newSplash]);
@@ -24,95 +30,82 @@ export default function SplashCursor() {
     // Clean up after animation
     setTimeout(() => {
       setSplashes((prev) => prev.filter((splash) => splash.id !== newSplash.id));
-    }, 1200);
+    }, 1000);
   }, []);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      createSplash(e);
+    let animationFrame: number;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      
+      // Create splash on movement
+      createSplash(e.clientX, e.clientY);
     };
 
-    document.addEventListener("click", handleClick);
+    const handleMouseEnter = () => {
+      document.addEventListener("mousemove", handleMouseMove);
+    };
+
+    const handleMouseLeave = () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+
+    document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("mouseleave", handleMouseLeave);
+    
+    // Start tracking immediately if mouse is already over the document
+    document.addEventListener("mousemove", handleMouseMove);
+
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
     };
   }, [createSplash]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
-      <AnimatePresence mode="popLayout">
-        {splashes.map((splash) => (
-          <motion.div
-            key={splash.id}
-            className="absolute"
-            style={{
-              left: splash.x,
-              top: splash.y,
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 1.2, opacity: 0 }}
-            transition={{
-              duration: 0.6,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
-            {/* Main splash circle */}
+    <>
+      {/* Mouse follower dot */}
+      <motion.div
+        className="fixed pointer-events-none z-[9998] w-2 h-2 bg-primary/60 rounded-full mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 500,
+          damping: 28,
+        }}
+      />
+      
+      {/* Splash effects */}
+      <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
+        <AnimatePresence>
+          {splashes.map((splash) => (
             <motion.div
-              className="absolute rounded-full"
+              key={splash.id}
+              className="absolute w-8 h-8 rounded-full"
               style={{
-                width: 80,
-                height: 80,
-                left: -40,
-                top: -40,
-                background: "radial-gradient(circle, rgba(96, 102, 255, 0.6) 0%, rgba(96, 102, 255, 0.3) 30%, rgba(96, 102, 255, 0.1) 60%, transparent 100%)",
-              }}
-              initial={{ scale: 0, opacity: 1 }}
-              animate={{ scale: [0, 1.2, 2], opacity: [1, 0.7, 0] }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                times: [0, 0.3, 1],
-              }}
-            />
-            
-            {/* Secondary ripple */}
-            <motion.div
-              className="absolute rounded-full border-2 border-primary/40"
-              style={{
-                width: 60,
-                height: 60,
-                left: -30,
-                top: -30,
+                left: splash.x - 16,
+                top: splash.y - 16,
+                background: "radial-gradient(circle, rgba(96, 102, 255, 0.4) 0%, rgba(96, 102, 255, 0.2) 50%, transparent 70%)",
               }}
               initial={{ scale: 0, opacity: 0.8 }}
-              animate={{ scale: [0, 1, 1.8], opacity: [0.8, 0.5, 0] }}
+              animate={{ scale: 3, opacity: 0 }}
+              exit={{ scale: 4, opacity: 0 }}
               transition={{
-                duration: 1,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.1,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
               }}
             />
-            
-            {/* Inner pulse */}
-            <motion.div
-              className="absolute rounded-full bg-primary/80"
-              style={{
-                width: 12,
-                height: 12,
-                left: -6,
-                top: -6,
-              }}
-              initial={{ scale: 1, opacity: 1 }}
-              animate={{ scale: [1, 0.8, 0], opacity: [1, 0.8, 0] }}
-              transition={{
-                duration: 0.5,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </>
   );
 }
