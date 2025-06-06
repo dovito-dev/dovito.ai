@@ -96,7 +96,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteProduct(id: number): Promise<boolean> {
     const result = await db.delete(products).where(eq(products.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   // Content management
@@ -131,7 +131,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteContentSection(id: number): Promise<boolean> {
     const result = await db.delete(contentSections).where(eq(contentSections.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 }
 
