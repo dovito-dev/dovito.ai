@@ -11,10 +11,12 @@ import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, Che
 import type { Product } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
+import AnimationToggle from "./AnimationToggle";
 
 export default function BeamStyleLanding() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -177,20 +179,21 @@ export default function BeamStyleLanding() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SplashCursor />
+      {animationsEnabled && <SplashCursor />}
+      <AnimationToggle onToggle={setAnimationsEnabled} />
       
       {/* Navigation */}
       <motion.nav 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={animationsEnabled ? { opacity: 0, y: -20 } : false}
+        animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
         className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <motion.div 
               className="flex items-center"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              whileHover={animationsEnabled ? { scale: 1.05 } : {}}
+              transition={animationsEnabled ? { type: "spring", stiffness: 400, damping: 10 } : {}}
             >
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
             </motion.div>
