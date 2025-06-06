@@ -12,11 +12,14 @@ import type { Product } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
 import AnimationToggle from "./AnimationToggle";
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
 
 export default function BeamStyleLanding() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
+  const [adminUser, setAdminUser] = useState<any>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -566,6 +569,23 @@ export default function BeamStyleLanding() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Footer with Admin Access */}
+      <footer className="bg-background/80 backdrop-blur-sm border-t border-border/50 py-8 mt-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between items-center">
+            <div className="text-sm text-muted-foreground">
+              © 2024 Dovito.ai. All rights reserved.
+            </div>
+            <button
+              onClick={() => setActiveSection("admin")}
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Admin
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
