@@ -39,7 +39,7 @@ export default function BeamStyleLanding() {
         if (element) {
           const top = element.offsetTop;
           const bottom = top + element.offsetHeight;
-          
+
           if (scrollPosition >= top && scrollPosition < bottom) {
             setActiveSection(section);
             break;
@@ -61,7 +61,7 @@ export default function BeamStyleLanding() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.company || !formData.message) {
       toast({
         title: "Error",
@@ -155,7 +155,7 @@ export default function BeamStyleLanding() {
                   {product.status === "live" && (
                     <ExternalLink className="w-4 h-4 mt-2 opacity-60" />
                   )}
-                  
+
                   {/* Glow effect for live products */}
                   {product.status === "live" && (
                     <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -196,7 +196,7 @@ export default function BeamStyleLanding() {
             >
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
             </motion.div>
-            
+
             <div className="hidden md:flex items-center space-x-8">
               {[
                 { id: "home", label: "Home" },
@@ -224,7 +224,7 @@ export default function BeamStyleLanding() {
                   )}
                 </motion.button>
               ))}
-              
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -261,7 +261,7 @@ export default function BeamStyleLanding() {
               <Sparkles className="w-4 h-4" />
               Business Process Automation
             </motion.div>
-            
+
             <motion.h1 
               className="text-5xl md:text-7xl font-bold mb-8 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 20 }}
@@ -273,7 +273,7 @@ export default function BeamStyleLanding() {
                 Delivers Results
               </span>
             </motion.h1>
-            
+
             <motion.p 
               className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -283,7 +283,7 @@ export default function BeamStyleLanding() {
               Reduce manual tasks by 25-40% and improve lead conversion by 15-30%. 
               Guaranteed ROI within 90 days or we work for free.
             </motion.p>
-            
+
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
@@ -328,11 +328,11 @@ export default function BeamStyleLanding() {
               A growing ecosystem of automation tools designed to transform business operations
             </p>
           </motion.div>
-          
+
           <div className="max-w-5xl mx-auto">
             {renderPeriodicTable()}
           </div>
-          
+
           <motion.div 
             className="text-center mt-16"
             initial={{ opacity: 0 }}
@@ -361,7 +361,7 @@ export default function BeamStyleLanding() {
               Measurable results that transform your business operations
             </p>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { 
@@ -386,7 +386,7 @@ export default function BeamStyleLanding() {
                 icon: Clock, 
                 value: "90-Day", 
                 label: "ROI Guarantee",
-                description: "Or we work for free"
+                description: "Real value for real people"
               }
             ].map((item, index) => (
               <motion.div
@@ -426,7 +426,7 @@ export default function BeamStyleLanding() {
               Schedule your free consultation and discover how automation can revolutionize your business
             </p>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -455,7 +455,7 @@ export default function BeamStyleLanding() {
                       required
                     />
                   </div>
-                  
+
                   <Input
                     placeholder="Company Name"
                     name="company"
@@ -464,7 +464,7 @@ export default function BeamStyleLanding() {
                     className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
-                  
+
                   <Textarea
                     placeholder="Tell us about your biggest operational challenges..."
                     name="message"
@@ -474,7 +474,7 @@ export default function BeamStyleLanding() {
                     className="bg-background/50 border-border/50 focus:border-primary"
                     required
                   />
-                  
+
                   <Button 
                     type="submit" 
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
@@ -526,11 +526,11 @@ export default function BeamStyleLanding() {
                       ✕
                     </Button>
                   </div>
-                  
+
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {selectedProduct.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between mb-6">
                     <Badge variant={selectedProduct.status === "live" ? "default" : "secondary"}>
                       {selectedProduct.status === "live" ? "Live" : "Coming Soon"}
@@ -541,7 +541,7 @@ export default function BeamStyleLanding() {
                       </span>
                     )}
                   </div>
-                  
+
                   {selectedProduct.status === "coming_soon" && (
                     <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
                       <p className="text-sm text-muted-foreground mb-4">
