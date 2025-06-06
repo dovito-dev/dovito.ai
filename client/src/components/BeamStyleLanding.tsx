@@ -181,7 +181,6 @@ export default function BeamStyleLanding() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {animationsEnabled && <SplashCursor />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      
       {/* Navigation */}
       <motion.nav 
         initial={animationsEnabled ? { opacity: 0, y: -20 } : false}
@@ -243,7 +242,6 @@ export default function BeamStyleLanding() {
           </div>
         </div>
       </motion.nav>
-
       {/* Hero Section */}
       <section id="home" className="pt-20 min-h-screen flex items-center relative">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50"></div>
@@ -313,7 +311,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Periodic Table Section */}
       <section id="products" className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -349,7 +346,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Value Proposition Section */}
       <section id="value" className="py-32 bg-card/20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -360,9 +356,7 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Guaranteed Impact
-            </h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">Transformational SaaS</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Measurable results that transform your business operations
             </p>
@@ -415,7 +409,6 @@ export default function BeamStyleLanding() {
           </div>
         </div>
       </section>
-
       {/* Contact Section */}
       <section id="contact" className="py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -495,7 +488,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Product Detail Modal */}
       <AnimatePresence>
         {selectedProduct && (
