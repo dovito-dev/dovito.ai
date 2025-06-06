@@ -577,12 +577,12 @@ export default function BeamStyleLanding() {
             <div className="text-sm text-muted-foreground">
               © 2024 Dovito.ai. All rights reserved.
             </div>
-            <button
-              onClick={() => setActiveSection("admin")}
+            <a
+              href="/admin"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Admin
-            </button>
+            </a>
           </div>
         </div>
       </footer>
