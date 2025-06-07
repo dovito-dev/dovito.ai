@@ -173,6 +173,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin user management routes
+  app.get("/api/admin/users", requireAdmin, async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+
+  app.post("/api/admin/users", requireAdmin, async (req, res) => {
+    try {
+      const { username, password, role = "admin" } = req.body;
+      const newUser = await storage.createUser({
+        username,
+        password,
+        role
+      });
+      res.json(newUser);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(500).json({ message: "Failed to create user" });
+    }
+  });
+
+  app.put("/api/admin/users/:id/password", requireAdmin, async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const { newPassword } = req.body;
+      await storage.changeUserPassword(userId, newPassword);
+      res.json({ message: "Password updated successfully" });
+    } catch (error) {
+      console.error("Error changing password:", error);
+      res.status(500).json({ message: "Failed to change password" });
+    }
+  });
+
   // Content management routes
   app.get("/api/content", async (req, res) => {
     try {

@@ -69,6 +69,18 @@ export class DatabaseStorage implements IStorage {
     return isValid ? user : null;
   }
 
+  async getAllUsers(): Promise<User[]> {
+    return await db.select().from(users);
+  }
+
+  async changeUserPassword(userId: number, newPassword: string): Promise<void> {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await db
+      .update(users)
+      .set({ password: hashedPassword })
+      .where(eq(users.id, userId));
+  }
+
   // Product operations
   async getProducts(): Promise<Product[]> {
     return await db.select().from(products);
