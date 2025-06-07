@@ -123,9 +123,12 @@ export class DatabaseStorage implements IStorage {
       existingProducts.map(p => `${p.positionX},${p.positionY}`)
     );
 
-    // Start from position (1,1) and find the first available spot
-    for (let y = 1; y <= 7; y++) {
-      for (let x = 1; x <= 18; x++) {
+    // Use 4-column grid layout to match frontend display
+    const maxCols = 4;
+    
+    // Find the first available position going left to right, top to bottom
+    for (let y = 1; y <= 20; y++) {
+      for (let x = 1; x <= maxCols; x++) {
         const position = `${x},${y}`;
         if (!occupiedPositions.has(position)) {
           return { x, y };
@@ -133,8 +136,8 @@ export class DatabaseStorage implements IStorage {
       }
     }
 
-    // If all positions are taken, start a new row
-    return { x: 1, y: 8 };
+    // Fallback - should rarely be needed
+    return { x: 1, y: 21 };
   }
 
   async updateProduct(id: number, updateData: Partial<InsertProduct>): Promise<Product | undefined> {

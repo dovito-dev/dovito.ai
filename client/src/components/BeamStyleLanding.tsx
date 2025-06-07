@@ -111,8 +111,8 @@ export default function BeamStyleLanding() {
 
     if (!products || products.length === 0) return null;
 
-    const maxX = Math.max(...products.map(p => p.positionX), 4);
-    const maxY = Math.max(...products.map(p => p.positionY), 3);
+    const maxX = 4; // Fixed 4-column layout
+    const maxY = Math.max(...products.map(p => p.positionY), 1);
 
     const grid = [];
     for (let y = 1; y <= maxY; y++) {
