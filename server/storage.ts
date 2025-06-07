@@ -78,11 +78,49 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    // Auto-generate abbreviation if not provided
+    if (!insertProduct.abbreviation) {
+      insertProduct.abbreviation = this.generateShortcode(insertProduct.name);
+    }
+
+    // Auto-assign position
+    const position = await this.getNextAvailablePosition();
+    insertProduct.positionX = position.x;
+    insertProduct.positionY = position.y;
+
     const [product] = await db
       .insert(products)
       .values(insertProduct)
       .returning();
     return product;
+  }
+
+  private generateShortcode(name: string): string {
+    return name
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase())
+      .join("")
+      .slice(0, 3);
+  }
+
+  private async getNextAvailablePosition(): Promise<{ x: number; y: number }> {
+    const existingProducts = await this.getProducts();
+    const occupiedPositions = new Set(
+      existingProducts.map(p => `${p.positionX},${p.positionY}`)
+    );
+
+    // Start from position (1,1) and find the first available spot
+    for (let y = 1; y <= 7; y++) {
+      for (let x = 1; x <= 18; x++) {
+        const position = `${x},${y}`;
+        if (!occupiedPositions.has(position)) {
+          return { x, y };
+        }
+      }
+    }
+
+    // If all positions are taken, start a new row
+    return { x: 1, y: 8 };
   }
 
   async updateProduct(id: number, updateData: Partial<InsertProduct>): Promise<Product | undefined> {

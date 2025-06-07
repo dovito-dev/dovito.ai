@@ -99,6 +99,14 @@ export default function AdminPage() {
     },
   });
 
+  const generateShortcode = (name: string): string => {
+    return name
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase())
+      .join("")
+      .slice(0, 3);
+  };
+
   const handleProductSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -109,8 +117,6 @@ export default function AdminPage() {
       category: formData.get("category") as string,
       status: formData.get("status") as string,
       url: formData.get("url") as string || null,
-      positionX: parseInt(formData.get("positionX") as string) || 1,
-      positionY: parseInt(formData.get("positionY") as string) || 1,
     };
 
     if (editingProduct) {
@@ -130,8 +136,6 @@ export default function AdminPage() {
       category: formData.get("category") as string,
       status: formData.get("status") as string,
       url: formData.get("url") as string || null,
-      positionX: parseInt(formData.get("positionX") as string) || 1,
-      positionY: parseInt(formData.get("positionY") as string) || 1,
     };
 
     createProductMutation.mutate(productData);
@@ -301,7 +305,12 @@ export default function AdminPage() {
                   </div>
                   <div>
                     <label className="text-sm font-medium">Abbreviation</label>
-                    <Input name="abbreviation" defaultValue={editingProduct.abbreviation} required />
+                    <Input 
+                      name="abbreviation" 
+                      defaultValue={editingProduct.abbreviation} 
+                      placeholder="Auto-generated from name"
+                      required 
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Description</label>
@@ -313,7 +322,7 @@ export default function AdminPage() {
                   </div>
                   <div>
                     <label className="text-sm font-medium">Status</label>
-                    <select name="status" defaultValue={editingProduct.status} className="w-full p-2 border rounded">
+                    <select name="status" defaultValue={editingProduct.status} className="w-full p-2 border rounded bg-background text-foreground">
                       <option value="live">Live</option>
                       <option value="coming_soon">Coming Soon</option>
                       <option value="development">Development</option>
@@ -323,16 +332,7 @@ export default function AdminPage() {
                     <label className="text-sm font-medium">URL (optional)</label>
                     <Input name="url" defaultValue={editingProduct.url || ""} />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium">Position X</label>
-                      <Input name="positionX" type="number" defaultValue={editingProduct.positionX} required />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Position Y</label>
-                      <Input name="positionY" type="number" defaultValue={editingProduct.positionY} required />
-                    </div>
-                  </div>
+
                   <div className="flex gap-2">
                     <Button type="submit" disabled={updateProductMutation.isPending}>
                       {updateProductMutation.isPending ? "Saving..." : "Save Changes"}
@@ -358,11 +358,27 @@ export default function AdminPage() {
                 <form onSubmit={handleAddNewProduct} className="space-y-4">
                   <div>
                     <label className="text-sm font-medium">Name</label>
-                    <Input name="name" placeholder="Product name" required />
+                    <Input 
+                      name="name" 
+                      placeholder="Product name" 
+                      onChange={(e) => {
+                        const abbField = e.target.form?.querySelector('[name="abbreviation"]') as HTMLInputElement;
+                        if (abbField && !abbField.dataset.userModified) {
+                          abbField.value = generateShortcode(e.target.value);
+                        }
+                      }}
+                      required 
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Abbreviation</label>
-                    <Input name="abbreviation" placeholder="Short code (e.g., PE)" required />
+                    <Input 
+                      name="abbreviation" 
+                      placeholder="Auto-generated from name (can override)" 
+                      onChange={(e) => {
+                        e.target.dataset.userModified = "true";
+                      }}
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-medium">Description</label>
@@ -374,7 +390,7 @@ export default function AdminPage() {
                   </div>
                   <div>
                     <label className="text-sm font-medium">Status</label>
-                    <select name="status" defaultValue="development" className="w-full p-2 border rounded">
+                    <select name="status" defaultValue="development" className="w-full p-2 border rounded bg-background text-foreground">
                       <option value="live">Live</option>
                       <option value="coming_soon">Coming Soon</option>
                       <option value="development">Development</option>
@@ -384,16 +400,7 @@ export default function AdminPage() {
                     <label className="text-sm font-medium">URL (optional)</label>
                     <Input name="url" placeholder="https://..." />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium">Position X</label>
-                      <Input name="positionX" type="number" defaultValue="1" min="1" max="18" required />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Position Y</label>
-                      <Input name="positionY" type="number" defaultValue="1" min="1" max="7" required />
-                    </div>
-                  </div>
+
                   <div className="flex gap-2">
                     <Button type="submit" disabled={createProductMutation.isPending}>
                       {createProductMutation.isPending ? "Creating..." : "Create Product"}
