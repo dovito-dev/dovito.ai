@@ -388,8 +388,8 @@ export default function BeamStyleLanding() {
               { 
                 icon: Clock, 
                 value: "90-Day", 
-                label: "ROI Guarantee",
-                description: "Real value for real people"
+                label: "Impactful Results",
+                description: "Impactful results for real people"
               }
             ].map((item, index) => (
               <motion.div
