@@ -295,6 +295,40 @@ export default function AdminPage() {
               </div>
             )}
           </TabsContent>
+
+          {/* Users Tab */}
+          <TabsContent value="users" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-semibold">User Management</h2>
+              <div className="flex gap-2">
+                <Button onClick={() => setIsChangingPassword(true)} variant="outline">
+                  Change Password
+                </Button>
+                <Button onClick={() => setIsAddingUser(true)}>
+                  Add User
+                </Button>
+              </div>
+            </div>
+
+            {usersLoading ? (
+              <div>Loading users...</div>
+            ) : (
+              <div className="grid gap-4">
+                {users && Array.isArray(users) && users.map((user: any) => (
+                  <Card key={user.id}>
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <CardTitle>{user.username}</CardTitle>
+                          <p className="text-sm text-muted-foreground">Role: {user.role}</p>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
 
         {/* Edit Product Modal */}

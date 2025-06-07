@@ -19,6 +19,8 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   authenticateUser(username: string, password: string): Promise<User | null>;
+  getAllUsers(): Promise<User[]>;
+  changeUserPassword(userId: number, newPassword: string): Promise<void>;
   
   // Product operations
   getProducts(): Promise<Product[]>;
