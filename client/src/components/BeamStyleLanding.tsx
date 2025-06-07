@@ -109,73 +109,80 @@ export default function BeamStyleLanding() {
       );
     }
 
+    if (!products || products.length === 0) return null;
+
     const maxX = Math.max(...products.map(p => p.positionX), 4);
     const maxY = Math.max(...products.map(p => p.positionY), 3);
 
     const grid = [];
     for (let y = 1; y <= maxY; y++) {
-      const row = [];
-      for (let x = 1; x <= maxX; x++) {
-        const product = products.find(p => p.positionX === x && p.positionY === y);
-        row.push(
-          <motion.div 
-            key={`${x}-${y}`} 
-            className="aspect-square"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: (x + y) * 0.1, type: "spring", stiffness: 100 }}
-          >
-            {product ? (
-              <motion.div
-                className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border backdrop-blur-sm ${
-                  product.status === "live" 
-                    ? "border-primary/40 bg-primary/5 hover:bg-primary/10 hover:border-primary/60" 
-                    : "border-border/40 bg-card/30 hover:bg-card/50"
-                }`}
-                onClick={() => handleProductClick(product)}
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -8,
-                  boxShadow: product.status === "live" 
-                    ? "0 20px 40px rgba(96, 102, 255, 0.3)" 
-                    : "0 20px 40px rgba(255, 255, 255, 0.1)"
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="p-6 flex flex-col items-center justify-center h-full text-center relative">
-                  <div className={`text-3xl font-bold mb-3 ${
-                    product.status === "live" ? "text-primary" : "text-muted-foreground"
-                  }`}>
-                    {product.abbreviation}
-                  </div>
-                  <div className="text-sm font-medium mb-3 opacity-90">{product.name}</div>
-                  <Badge 
-                    variant={product.status === "live" ? "default" : "secondary"} 
-                    className="text-xs px-2 py-1"
-                  >
-                    {product.status === "live" ? "Live" : "Coming Soon"}
-                  </Badge>
-                  {product.status === "live" && (
-                    <ExternalLink className="w-4 h-4 mt-2 opacity-60" />
-                  )}
+      // Check if this row has any products
+      const hasProductsInRow = products.some(p => p.positionY === y);
+      
+      if (hasProductsInRow) {
+        const row = [];
+        for (let x = 1; x <= maxX; x++) {
+          const product = products.find(p => p.positionX === x && p.positionY === y);
+          row.push(
+            <motion.div 
+              key={`${x}-${y}`} 
+              className="aspect-square"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: (x + y) * 0.1, type: "spring", stiffness: 100 }}
+            >
+              {product ? (
+                <motion.div
+                  className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border backdrop-blur-sm ${
+                    product.status === "live" 
+                      ? "border-primary/40 bg-primary/5 hover:bg-primary/10 hover:border-primary/60" 
+                      : "border-border/40 bg-card/30 hover:bg-card/50"
+                  }`}
+                  onClick={() => handleProductClick(product)}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -8,
+                    boxShadow: product.status === "live" 
+                      ? "0 20px 40px rgba(96, 102, 255, 0.3)" 
+                      : "0 20px 40px rgba(255, 255, 255, 0.1)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="p-6 flex flex-col items-center justify-center h-full text-center relative">
+                    <div className={`text-3xl font-bold mb-3 ${
+                      product.status === "live" ? "text-primary" : "text-muted-foreground"
+                    }`}>
+                      {product.abbreviation}
+                    </div>
+                    <div className="text-sm font-medium mb-3 opacity-90">{product.name}</div>
+                    <Badge 
+                      variant={product.status === "live" ? "default" : "secondary"} 
+                      className="text-xs px-2 py-1"
+                    >
+                      {product.status === "live" ? "Live" : "Coming Soon"}
+                    </Badge>
+                    {product.status === "live" && (
+                      <ExternalLink className="w-4 h-4 mt-2 opacity-60" />
+                    )}
 
-                  {/* Glow effect for live products */}
-                  {product.status === "live" && (
-                    <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                  )}
-                </div>
-              </motion.div>
-            ) : (
-              <div className="h-full border-2 border-dashed border-border/20 rounded-2xl opacity-30"></div>
-            )}
-          </motion.div>
+                    {/* Glow effect for live products */}
+                    {product.status === "live" && (
+                      <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    )}
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="h-full opacity-0"></div>
+              )}
+            </motion.div>
+          );
+        }
+        grid.push(
+          <div key={y} className="grid grid-cols-4 gap-6 mb-6">
+            {row}
+          </div>
         );
       }
-      grid.push(
-        <div key={y} className="grid grid-cols-4 gap-6 mb-6">
-          {row}
-        </div>
-      );
     }
     return grid;
   };
