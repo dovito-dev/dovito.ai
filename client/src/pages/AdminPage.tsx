@@ -17,11 +17,18 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAddingProduct, setIsAddingProduct] = useState(false);
+  const [isAddingUser, setIsAddingUser] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { data: products, isLoading: productsLoading } = useQuery({
     queryKey: ["/api/products"],
+    enabled: isLoggedIn,
+  });
+
+  const { data: users, isLoading: usersLoading } = useQuery({
+    queryKey: ["/api/admin/users"],
     enabled: isLoggedIn,
   });
 
@@ -187,11 +194,7 @@ export default function AdminPage() {
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
-              <div className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground">
-                <p>Demo credentials:</p>
-                <p>Username: <code className="font-mono">admin</code></p>
-                <p>Password: <code className="font-mono">admin123</code></p>
-              </div>
+
             </CardContent>
           </Card>
         </motion.div>
@@ -228,10 +231,14 @@ export default function AdminPage() {
         </div>
 
         <Tabs defaultValue="products" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-1">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="products">
               <Package className="h-4 w-4 mr-2" />
               Products
+            </TabsTrigger>
+            <TabsTrigger value="users">
+              <User className="h-4 w-4 mr-2" />
+              Users
             </TabsTrigger>
           </TabsList>
 

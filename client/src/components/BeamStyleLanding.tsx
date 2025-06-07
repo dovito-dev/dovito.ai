@@ -172,7 +172,7 @@ export default function BeamStyleLanding() {
                   </div>
                 </motion.div>
               ) : (
-                <div className="h-full opacity-0"></div>
+                <div className="h-full border border-border/10 rounded-2xl bg-card/5 backdrop-blur-sm"></div>
               )}
             </motion.div>
           );
