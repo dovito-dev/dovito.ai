@@ -270,7 +270,7 @@ export default function BeamStyleLanding() {
               transition={{ delay: 0.5, duration: 0.8 }}
             >
               Reduce manual tasks by 25-40% and improve lead conversion by 15-30%. 
-              Guaranteed ROI within 90 days or we work for free.
+              Most clients see measurable results within 90 days or less.
             </motion.p>
 
             <motion.div 
