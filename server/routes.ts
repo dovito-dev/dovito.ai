@@ -162,12 +162,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/admin/products", requireAdmin, async (req, res) => {
     try {
+      console.log("Creating product with data:", req.body);
       const productData = insertProductSchema.parse(req.body);
+      console.log("Parsed product data:", productData);
       const product = await storage.createProduct(productData);
+      console.log("Created product:", product);
       res.status(201).json(product);
     } catch (error) {
       console.error("Error creating product:", error);
-      res.status(400).json({ error: "Invalid product data" });
+      if (error.issues) {
+        console.error("Validation errors:", error.issues);
+        res.status(400).json({ error: "Validation failed", details: error.issues });
+      } else {
+        res.status(500).json({ error: "Failed to create product", message: error.message });
+      }
     }
   });
 

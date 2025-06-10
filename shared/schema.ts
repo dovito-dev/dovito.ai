@@ -64,9 +64,13 @@ export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  positionX: true,
+  positionY: true,
 }).extend({
   url: z.string().nullable().optional(),
   launchDate: z.date().nullable().optional(),
+  abbreviation: z.string().optional(),
+  status: z.string().optional(),
 });
 
 export const insertContentSectionSchema = createInsertSchema(contentSections).omit({
