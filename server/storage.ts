@@ -72,7 +72,7 @@ const mockUsers: User[] = [
   {
     id: 1,
     username: "info@dovito.com",
-    password: "$2b$10$fzj.ko5x/7J77tPdPEVU.uKiYzZTFK7pVF1zhn7WZ83V/9ujrj1PC",
+    password: "$2b$10$.H.oTeb8cZEGd/1JRGpJxOj9AYjc9Mg4WFhTHnba5w1SPvwUEqLEO",
     email: "info@dovito.com",
     role: "admin",
     firstName: null,
@@ -140,10 +140,15 @@ export class MemoryStorage implements IStorage {
   }
 
   async authenticateUser(username: string, password: string): Promise<User | null> {
+    console.log("Authenticating user:", username);
     const user = await this.getUserByUsername(username);
+    console.log("Found user:", user ? user.username : "not found");
     if (!user) return null;
     
+    console.log("Stored hash:", user.password);
+    console.log("Provided password:", password);
     const isValid = await bcrypt.compare(password, user.password);
+    console.log("Password valid:", isValid);
     return isValid ? user : null;
   }
 
