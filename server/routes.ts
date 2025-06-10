@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertProductSchema } from "@shared/schema";
+import { insertProductSchema, insertUserSchema } from "@shared/schema";
+import { sendWelcomeInvite, generateTempPassword } from "./email";
 import session from "express-session";
 import ConnectPg from "connect-pg-simple";
 import { pool } from "./db";
@@ -186,16 +187,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/admin/users", requireAdmin, async (req, res) => {
     try {
-      const { username, password, role = "admin" } = req.body;
+      const userData = insertUserSchema.parse(req.body);
+      const tempPassword = generateTempPassword();
+      
       const newUser = await storage.createUser({
-        username,
-        password,
-        role
+        ...userData,
+        password: tempPassword,
       });
-      res.json(newUser);
+
+      // Send welcome email with credentials
+      const emailSent = await sendWelcomeInvite({
+        to: userData.email || userData.username,
+        username: userData.username,
+        tempPassword,
+        inviterName: req.session?.user?.username,
+      });
+
+      res.json({ 
+        user: { ...newUser, password: undefined }, 
+        emailSent,
+        tempPassword: emailSent ? undefined : tempPassword
+      });
     } catch (error) {
       console.error("Error creating user:", error);
       res.status(500).json({ message: "Failed to create user" });
+    }
+  });
+
+  app.put("/api/admin/users/:id", requireAdmin, async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const updateData = req.body;
+      const updatedUser = await storage.updateUser(userId, updateData);
+      if (!updatedUser) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.json({ ...updatedUser, password: undefined });
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ error: "Failed to update user" });
+    }
+  });
+
+  app.delete("/api/admin/users/:id", requireAdmin, async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      if (userId === req.session?.user?.id) {
+        return res.status(400).json({ error: "Cannot delete your own account" });
+      }
+      const deleted = await storage.deleteUser(userId);
+      if (!deleted) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ error: "Failed to delete user" });
     }
   });
 

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { LogOut, Package, FileText, Pencil, Trash2, User, Lock, ArrowLeft } from "lucide-react";
+import { LogOut, Package, FileText, Pencil, Trash2, Trash, User, Lock, ArrowLeft } from "lucide-react";
 import type { Product } from "@shared/schema";
 
 export default function AdminPage() {
@@ -18,7 +18,9 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAddingProduct, setIsAddingProduct] = useState(false);
   const [isAddingUser, setIsAddingUser] = useState(false);
+  const [editingUser, setEditingUser] = useState<any>(null);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -146,6 +148,59 @@ export default function AdminPage() {
     };
 
     createProductMutation.mutate(productData);
+  };
+
+  // User management functions
+  const handleDeleteUser = async (userId: number) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        const response = await fetch(`/api/admin/users/${userId}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
+          toast({ title: "User deleted successfully" });
+        } else {
+          throw new Error("Failed to delete user");
+        }
+      } catch (error) {
+        toast({ title: "Failed to delete user", variant: "destructive" });
+      }
+    }
+  };
+
+  const handleUserSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const userData = {
+      username: formData.get("username") as string,
+      email: formData.get("email") as string,
+      role: formData.get("role") as string,
+    };
+
+    try {
+      const response = await fetch("/api/admin/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
+        setIsAddingUser(false);
+        toast({ 
+          title: "User created successfully",
+          description: result.emailSent 
+            ? "Welcome email sent to user" 
+            : `Temporary password: ${result.tempPassword}`
+        });
+      } else {
+        throw new Error("Failed to create user");
+      }
+    } catch (error) {
+      toast({ title: "Failed to create user", variant: "destructive" });
+    }
   };
 
   // Login form
@@ -320,7 +375,29 @@ export default function AdminPage() {
                       <div className="flex justify-between items-center">
                         <div>
                           <CardTitle>{user.username}</CardTitle>
-                          <p className="text-sm text-muted-foreground">Role: {user.role}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Role: {user.role} • Created: {new Date(user.createdAt).toLocaleDateString()}
+                          </p>
+                          {user.email && (
+                            <p className="text-sm text-muted-foreground">Email: {user.email}</p>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setEditingUser(user)}
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDeleteUser(user.id)}
+                            disabled={user.id === currentUser?.id}
+                          >
+                            <Trash className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
                     </CardHeader>
