@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
-import type { Product } from "@shared/schema";
+import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
 import AnimationToggle from "./AnimationToggle";
@@ -30,6 +30,10 @@ export default function BeamStyleLanding() {
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ["/api/products"],
+  });
+
+  const { data: contentSections = [] } = useQuery({
+    queryKey: ["/api/content"],
   });
 
   useEffect(() => {
@@ -95,6 +99,11 @@ export default function BeamStyleLanding() {
     } else {
       setSelectedProduct(product);
     }
+  };
+
+  const getContentByKey = (key: string, fallback: string = "") => {
+    const section = contentSections.find((s: any) => s.sectionKey === key && s.isActive);
+    return section?.content || fallback;
   };
 
   const renderPeriodicTable = () => {
@@ -311,10 +320,10 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-              The Dovito Universe
+              {getContentByKey("periodic_table_title", "The Dovito Universe")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              A growing ecosystem of automation tools designed to transform business operations
+              {getContentByKey("periodic_table_description", "A growing ecosystem of automation tools designed to transform business operations")}
             </p>
           </motion.div>
 
@@ -330,7 +339,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
           >
             <p className="text-muted-foreground">
-              Click live products to visit • Click coming soon for early access
+              {getContentByKey("periodic_table_footer", "Click live products to visit • Click coming soon for early access")}
             </p>
           </motion.div>
         </div>

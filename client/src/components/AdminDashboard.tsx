@@ -88,38 +88,21 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
     },
   });
 
-  const handleLogout = async () => {
-    try {
-      await apiRequest("/api/auth/logout", { method: "POST" });
-      onLogout();
-    } catch (error) {
-      console.error("Logout error:", error);
-      onLogout();
-    }
-  };
-
-  const handleProductSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleProductSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct) return;
 
-    const formData = new FormData(e.currentTarget);
-    const updates = {
-      name: formData.get("name") as string,
-      abbreviation: formData.get("abbreviation") as string,
-      description: formData.get("description") as string,
-      category: formData.get("category") as string,
-      status: formData.get("status") as string,
-      url: formData.get("url") as string || null,
-    };
+    const formData = new FormData(e.target as HTMLFormElement);
+    const updates = Object.fromEntries(formData.entries());
 
     updateProductMutation.mutate({ id: editingProduct.id, updates });
   };
 
-  const handleContentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleContentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingContent) return;
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.target as HTMLFormElement);
     const updates = {
       title: formData.get("title") as string,
       content: formData.get("content") as string,
@@ -132,115 +115,78 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+          <div>
             <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground">Welcome back, {user.username}</p>
-          </motion.div>
-          <Button onClick={handleLogout} variant="outline">
+            <p className="text-muted-foreground">Manage your content and products</p>
+          </div>
+          <Button onClick={onLogout} variant="outline">
             <LogOut className="h-4 w-4 mr-2" />
             Logout
           </Button>
         </div>
 
-        <Tabs defaultValue="products" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="products">
-              <Package className="h-4 w-4 mr-2" />
-              Products
-            </TabsTrigger>
-            <TabsTrigger value="content">
-              <FileText className="h-4 w-4 mr-2" />
-              Content
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Products Tab */}
-          <TabsContent value="products" className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold">Product Management</h2>
-            </div>
-
-            {productsLoading ? (
-              <div>Loading products...</div>
-            ) : (
-              <div className="grid gap-6">
-                {products?.map((product: Product) => (
-                  <Card key={product.id}>
-                    <CardHeader>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Products Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Package className="h-5 w-5" />
+                Products
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {productsLoading ? (
+                <div>Loading products...</div>
+              ) : (
+                <div className="space-y-4">
+                  {products?.map((product: Product) => (
+                    <div key={product.id} className="p-4 border rounded-lg">
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="flex items-center gap-2">
-                            {product.name}
-                            <Badge variant={product.status === "live" ? "default" : "secondary"}>
-                              {product.status}
-                            </Badge>
-                          </CardTitle>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {product.abbreviation} • {product.category}
-                          </p>
+                          <h3 className="font-semibold">{product.name}</h3>
+                          <p className="text-sm text-muted-foreground">{product.abbreviation}</p>
+                          <Badge variant={product.status === "live" ? "default" : "secondary"}>
+                            {product.status}
+                          </Badge>
                         </div>
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setEditingProduct(product)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => deleteProductMutation.mutate(product.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setEditingProduct(product)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm mb-2">{product.description}</p>
-                      {product.url && (
-                        <p className="text-sm text-blue-600">URL: {product.url}</p>
-                      )}
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Position: ({product.positionX}, {product.positionY})
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
-          {/* Content Tab */}
-          <TabsContent value="content" className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold">Content Management</h2>
-            </div>
-
-            {contentLoading ? (
-              <div>Loading content...</div>
-            ) : (
-              <div className="grid gap-6">
-                {contentSections?.map((section: ContentSection) => (
-                  <Card key={section.id}>
-                    <CardHeader>
+          {/* Content Management Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                Content Sections
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {contentLoading ? (
+                <div>Loading content...</div>
+              ) : (
+                <div className="space-y-4">
+                  {contentSections?.map((section: ContentSection) => (
+                    <div key={section.id} className="p-4 border rounded-lg">
                       <div className="flex justify-between items-start">
                         <div>
-                          <CardTitle className="flex items-center gap-2">
-                            {section.title || section.sectionKey}
-                            <Badge variant={section.isActive ? "default" : "secondary"}>
-                              {section.isActive ? "Active" : "Inactive"}
-                            </Badge>
-                          </CardTitle>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            Key: {section.sectionKey}
-                          </p>
+                          <h3 className="font-semibold">{section.title || section.sectionKey}</h3>
+                          <p className="text-sm text-muted-foreground truncate">{section.content}</p>
+                          <Badge variant={section.isActive ? "default" : "secondary"}>
+                            {section.isActive ? "Active" : "Inactive"}
+                          </Badge>
                         </div>
                         <Button
                           size="sm"
@@ -250,16 +196,13 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                           <Pencil className="h-4 w-4" />
                         </Button>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm">{section.content}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Edit Product Modal */}
         {editingProduct && (
@@ -288,7 +231,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                   </div>
                   <div>
                     <label className="text-sm font-medium">Status</label>
-                    <select name="status" defaultValue={editingProduct.status} className="w-full p-2 border rounded">
+                    <select name="status" defaultValue={editingProduct.status} className="w-full p-2 border rounded bg-background text-foreground">
                       <option value="live">Live</option>
                       <option value="coming_soon">Coming Soon</option>
                       <option value="development">Development</option>
@@ -321,6 +264,10 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleContentSubmit} className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Section Key</label>
+                    <Input value={editingContent.sectionKey} disabled className="bg-muted" />
+                  </div>
                   <div>
                     <label className="text-sm font-medium">Title</label>
                     <Input name="title" defaultValue={editingContent.title || ""} />

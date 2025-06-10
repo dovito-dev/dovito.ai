@@ -82,6 +82,39 @@ const mockUsers: User[] = [
   },
 ];
 
+const mockContentSections: ContentSection[] = [
+  {
+    id: 1,
+    sectionKey: "periodic_table_title",
+    title: "Periodic Table Section Title",
+    content: "The Dovito Universe",
+    metadata: {},
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    sectionKey: "periodic_table_description",
+    title: "Periodic Table Section Description",
+    content: "A growing ecosystem of automation tools designed to transform business operations",
+    metadata: {},
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 3,
+    sectionKey: "periodic_table_footer",
+    title: "Periodic Table Section Footer",
+    content: "Click live products to visit • Click coming soon for early access",
+    metadata: {},
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
 export interface IStorage {
   // User operations
   getUser(id: number): Promise<User | undefined>;
@@ -111,7 +144,7 @@ export interface IStorage {
 export class MemoryStorage implements IStorage {
   private nextUserId = 2;
   private nextProductId = 5;
-  private nextContentId = 1;
+  private nextContentId = 4;
 
   // User operations
   async getUser(id: number): Promise<User | undefined> {
@@ -382,11 +415,11 @@ export class MemoryStorage implements IStorage {
 
   // Content management
   async getContentSections(): Promise<ContentSection[]> {
-    return [];
+    return [...mockContentSections];
   }
 
   async getContentSection(sectionKey: string): Promise<ContentSection | undefined> {
-    return undefined;
+    return mockContentSections.find(s => s.sectionKey === sectionKey);
   }
 
   async createContentSection(section: InsertContentSection): Promise<ContentSection> {
@@ -396,19 +429,33 @@ export class MemoryStorage implements IStorage {
       title: section.title || null,
       content: section.content || null,
       metadata: {},
-      isActive: section.isActive ?? null,
+      isActive: section.isActive ?? true,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+    mockContentSections.push(newSection);
     return newSection;
   }
 
   async updateContentSection(id: number, updateData: Partial<InsertContentSection>): Promise<ContentSection | undefined> {
-    return undefined;
+    const index = mockContentSections.findIndex(s => s.id === id);
+    if (index === -1) return undefined;
+    
+    mockContentSections[index] = {
+      ...mockContentSections[index],
+      ...updateData as any,
+      updatedAt: new Date(),
+    };
+    
+    return mockContentSections[index];
   }
 
   async deleteContentSection(id: number): Promise<boolean> {
-    return false;
+    const index = mockContentSections.findIndex(s => s.id === id);
+    if (index === -1) return false;
+    
+    mockContentSections.splice(index, 1);
+    return true;
   }
 }
 
