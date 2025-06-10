@@ -346,7 +346,38 @@ export class MemoryStorage implements IStorage {
     if (index === -1) return false;
     
     mockProducts.splice(index, 1);
+    
+    // Reorganize positions to fill gaps
+    await this.reorganizePositions();
+    
     return true;
+  }
+
+  private async reorganizePositions(): Promise<void> {
+    // Sort products by current position (row first, then column)
+    const sortedProducts = mockProducts.sort((a, b) => {
+      if (a.positionY !== b.positionY) {
+        return a.positionY - b.positionY;
+      }
+      return a.positionX - b.positionX;
+    });
+
+    // Reassign positions in a tight grid
+    const maxCols = 4;
+    let currentX = 1;
+    let currentY = 1;
+
+    for (const product of sortedProducts) {
+      product.positionX = currentX;
+      product.positionY = currentY;
+      product.updatedAt = new Date();
+
+      currentX++;
+      if (currentX > maxCols) {
+        currentX = 1;
+        currentY++;
+      }
+    }
   }
 
   // Content management
