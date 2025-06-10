@@ -110,6 +110,23 @@ export default function AdminPage() {
     },
   });
 
+  const deleteProductMutation = useMutation({
+    mutationFn: async (productId: number) => {
+      const response = await fetch(`/api/admin/products/${productId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete product");
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+      toast({ title: "Product deleted successfully" });
+    },
+    onError: () => {
+      toast({ title: "Failed to delete product", variant: "destructive" });
+    },
+  });
+
   const generateShortcode = (name: string, existingProducts: any[] = []): string => {
     const existingAbbreviations = new Set(
       existingProducts.map(p => p.abbreviation.toLowerCase())
@@ -288,6 +305,12 @@ export default function AdminPage() {
     }
   };
 
+  const handleDeleteProduct = (productId: number) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      deleteProductMutation.mutate(productId);
+    }
+  };
+
   // Login form
   if (!isLoggedIn) {
     return (
@@ -417,6 +440,13 @@ export default function AdminPage() {
                             onClick={() => setEditingProduct(product)}
                           >
                             <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDeleteProduct(product.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
