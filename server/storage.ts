@@ -140,15 +140,10 @@ export class MemoryStorage implements IStorage {
   }
 
   async authenticateUser(username: string, password: string): Promise<User | null> {
-    console.log("Authenticating user:", username);
     const user = await this.getUserByUsername(username);
-    console.log("Found user:", user ? user.username : "not found");
     if (!user) return null;
     
-    console.log("Stored hash:", user.password);
-    console.log("Provided password:", password);
     const isValid = await bcrypt.compare(password, user.password);
-    console.log("Password valid:", isValid);
     return isValid ? user : null;
   }
 
