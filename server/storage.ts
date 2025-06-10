@@ -72,7 +72,7 @@ const mockUsers: User[] = [
   {
     id: 1,
     username: "info@dovito.com",
-    password: "$2a$10$HEhK8z8yQkGV5zk8WNX5WeyVVx9xo0vbKz9XC1qgqU1uL2KfS8z/.",
+    password: "$2b$10$fzj.ko5x/7J77tPdPEVU.uKiYzZTFK7pVF1zhn7WZ83V/9ujrj1PC",
     email: "info@dovito.com",
     role: "admin",
     firstName: null,
