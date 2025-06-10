@@ -1,7 +1,4 @@
 import {
-  users,
-  products,
-  contentSections,
   type User,
   type InsertUser,
   type Product,
@@ -9,8 +6,7 @@ import {
   type ContentSection,
   type InsertContentSection,
 } from "@shared/schema";
-import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { nocoService, type NocoProduct, type NocoUser, type NocoContentSection } from "./nocodb";
 import bcrypt from "bcryptjs";
 
 export interface IStorage {
@@ -37,7 +33,7 @@ export interface IStorage {
   deleteContentSection(id: number): Promise<boolean>;
 }
 
-export class DatabaseStorage implements IStorage {
+export class NocoStorage implements IStorage {
   // User operations
   async getUser(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
