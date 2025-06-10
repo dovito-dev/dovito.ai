@@ -532,6 +532,42 @@ export default function AdminPage() {
             </Card>
           </div>
         )}
+
+        {/* Add User Modal */}
+        {isAddingUser && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <CardTitle>Add New User</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleUserSubmit} className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Username/Email</label>
+                    <Input name="username" type="email" required />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Email (optional)</label>
+                    <Input name="email" type="email" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Role</label>
+                    <select name="role" className="w-full p-2 border rounded" required>
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button type="submit">Create User & Send Invite</Button>
+                    <Button type="button" variant="outline" onClick={() => setIsAddingUser(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
