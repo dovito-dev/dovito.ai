@@ -421,7 +421,7 @@ export default function BeamStyleLanding() {
               Ready to Transform?
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Schedule your free consultation and discover how automation can revolutionize your business
+              Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
             </p>
           </motion.div>
 
