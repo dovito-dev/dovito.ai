@@ -6,8 +6,81 @@ import {
   type ContentSection,
   type InsertContentSection,
 } from "@shared/schema";
-import { nocoService, type NocoProduct, type NocoUser, type NocoContentSection } from "./nocodb";
 import bcrypt from "bcryptjs";
+
+// Current products from the database
+const mockProducts: Product[] = [
+  {
+    id: 1,
+    name: "Prompt Engineer",
+    abbreviation: "PE",
+    description: "AI prompt optimization and engineering",
+    category: "AI Tools",
+    status: "live",
+    url: "",
+    positionX: 1,
+    positionY: 1,
+    launchDate: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    name: "Septic Management",
+    abbreviation: "SM",
+    description: "Smart septic system management",
+    category: "Property",
+    status: "live",
+    url: "",
+    positionX: 2,
+    positionY: 1,
+    launchDate: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 3,
+    name: "Process Automation",
+    abbreviation: "PA",
+    description: "Business process automation tools",
+    category: "Business",
+    status: "live",
+    url: "",
+    positionX: 3,
+    positionY: 1,
+    launchDate: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 4,
+    name: "Load Organizer",
+    abbreviation: "LO",
+    description: "Logistics and load management",
+    category: "Logistics",
+    status: "live",
+    url: "",
+    positionX: 4,
+    positionY: 1,
+    launchDate: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+const mockUsers: User[] = [
+  {
+    id: 1,
+    username: "info@dovito.com",
+    password: "$2a$10$HEhK8z8yQkGV5zk8WNX5WeyVVx9xo0vbKz9XC1qgqU1uL2KfS8z/.",
+    email: "info@dovito.com",
+    role: "admin",
+    firstName: null,
+    lastName: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
 
 export interface IStorage {
   // User operations
@@ -17,6 +90,8 @@ export interface IStorage {
   authenticateUser(username: string, password: string): Promise<User | null>;
   getAllUsers(): Promise<User[]>;
   changeUserPassword(userId: number, newPassword: string): Promise<void>;
+  updateUser(id: number, userData: Partial<InsertUser>): Promise<User | undefined>;
+  deleteUser(id: number): Promise<boolean>;
   
   // Product operations
   getProducts(): Promise<Product[]>;
@@ -33,27 +108,34 @@ export interface IStorage {
   deleteContentSection(id: number): Promise<boolean>;
 }
 
-export class NocoStorage implements IStorage {
+export class MemoryStorage implements IStorage {
+  private nextUserId = 2;
+  private nextProductId = 5;
+  private nextContentId = 1;
+
   // User operations
   async getUser(id: number): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
+    return mockUsers.find(u => u.id === id);
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user || undefined;
+    return mockUsers.find(u => u.username === username);
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const hashedPassword = await bcrypt.hash(insertUser.password, 10);
-    const [user] = await db
-      .insert(users)
-      .values({
-        ...insertUser,
-        password: hashedPassword,
-      })
-      .returning();
+    const user: User = {
+      id: this.nextUserId++,
+      username: insertUser.username,
+      password: hashedPassword,
+      email: insertUser.email || null,
+      role: insertUser.role,
+      firstName: null,
+      lastName: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    mockUsers.push(user);
     return user;
   }
 
@@ -66,42 +148,72 @@ export class NocoStorage implements IStorage {
   }
 
   async getAllUsers(): Promise<User[]> {
-    return await db.select().from(users);
+    return [...mockUsers];
   }
 
   async changeUserPassword(userId: number, newPassword: string): Promise<void> {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await db
-      .update(users)
-      .set({ password: hashedPassword })
-      .where(eq(users.id, userId));
+    const user = mockUsers.find(u => u.id === userId);
+    if (user) {
+      user.password = await bcrypt.hash(newPassword, 10);
+      user.updatedAt = new Date();
+    }
+  }
+
+  async updateUser(id: number, userData: Partial<InsertUser>): Promise<User | undefined> {
+    const index = mockUsers.findIndex(u => u.id === id);
+    if (index === -1) return undefined;
+    
+    const updatedData: any = { ...userData };
+    if (userData.password) {
+      updatedData.password = await bcrypt.hash(userData.password, 10);
+    }
+    
+    mockUsers[index] = {
+      ...mockUsers[index],
+      ...updatedData,
+      updatedAt: new Date(),
+    };
+    
+    return mockUsers[index];
+  }
+
+  async deleteUser(id: number): Promise<boolean> {
+    const index = mockUsers.findIndex(u => u.id === id);
+    if (index === -1) return false;
+    
+    mockUsers.splice(index, 1);
+    return true;
   }
 
   // Product operations
   async getProducts(): Promise<Product[]> {
-    return await db.select().from(products);
+    return [...mockProducts];
   }
 
   async getProduct(id: number): Promise<Product | undefined> {
-    const [product] = await db.select().from(products).where(eq(products.id, id));
-    return product || undefined;
+    return mockProducts.find(p => p.id === id);
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    // Auto-generate abbreviation if not provided
-    if (!insertProduct.abbreviation) {
-      insertProduct.abbreviation = this.generateShortcode(insertProduct.name);
-    }
-
-    // Auto-assign position
+    const abbreviation = this.generateShortcode(insertProduct.name);
     const position = await this.getNextAvailablePosition();
-    insertProduct.positionX = position.x;
-    insertProduct.positionY = position.y;
-
-    const [product] = await db
-      .insert(products)
-      .values(insertProduct)
-      .returning();
+    
+    const product: Product = {
+      id: this.nextProductId++,
+      name: insertProduct.name,
+      abbreviation,
+      description: insertProduct.description ?? "",
+      category: insertProduct.category,
+      status: insertProduct.status,
+      url: insertProduct.url || null,
+      positionX: position.x,
+      positionY: position.y,
+      launchDate: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    
+    mockProducts.push(product);
     return product;
   }
 
@@ -119,10 +231,8 @@ export class NocoStorage implements IStorage {
       existingProducts.map(p => `${p.positionX},${p.positionY}`)
     );
 
-    // Use 4-column grid layout to match frontend display
     const maxCols = 4;
     
-    // Find the first available position going left to right, top to bottom
     for (let y = 1; y <= 20; y++) {
       for (let x = 1; x <= maxCols; x++) {
         const position = `${x},${y}`;
@@ -132,58 +242,60 @@ export class NocoStorage implements IStorage {
       }
     }
 
-    // Fallback - should rarely be needed
     return { x: 1, y: 21 };
   }
 
   async updateProduct(id: number, updateData: Partial<InsertProduct>): Promise<Product | undefined> {
-    const [product] = await db
-      .update(products)
-      .set({ ...updateData, updatedAt: new Date() })
-      .where(eq(products.id, id))
-      .returning();
-    return product || undefined;
+    const index = mockProducts.findIndex(p => p.id === id);
+    if (index === -1) return undefined;
+    
+    mockProducts[index] = {
+      ...mockProducts[index],
+      ...updateData as any,
+      updatedAt: new Date(),
+    };
+    
+    return mockProducts[index];
   }
 
   async deleteProduct(id: number): Promise<boolean> {
-    const result = await db.delete(products).where(eq(products.id, id));
-    return (result.rowCount || 0) > 0;
+    const index = mockProducts.findIndex(p => p.id === id);
+    if (index === -1) return false;
+    
+    mockProducts.splice(index, 1);
+    return true;
   }
 
   // Content management
   async getContentSections(): Promise<ContentSection[]> {
-    return await db.select().from(contentSections);
+    return [];
   }
 
   async getContentSection(sectionKey: string): Promise<ContentSection | undefined> {
-    const [section] = await db
-      .select()
-      .from(contentSections)
-      .where(eq(contentSections.sectionKey, sectionKey));
-    return section || undefined;
+    return undefined;
   }
 
   async createContentSection(section: InsertContentSection): Promise<ContentSection> {
-    const [created] = await db
-      .insert(contentSections)
-      .values(section)
-      .returning();
-    return created;
+    const newSection: ContentSection = {
+      id: this.nextContentId++,
+      sectionKey: section.sectionKey,
+      title: section.title || null,
+      content: section.content || null,
+      metadata: {},
+      isActive: section.isActive ?? null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    return newSection;
   }
 
   async updateContentSection(id: number, updateData: Partial<InsertContentSection>): Promise<ContentSection | undefined> {
-    const [section] = await db
-      .update(contentSections)
-      .set({ ...updateData, updatedAt: new Date() })
-      .where(eq(contentSections.id, id))
-      .returning();
-    return section || undefined;
+    return undefined;
   }
 
   async deleteContentSection(id: number): Promise<boolean> {
-    const result = await db.delete(contentSections).where(eq(contentSections.id, id));
-    return (result.rowCount || 0) > 0;
+    return false;
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new MemoryStorage();
