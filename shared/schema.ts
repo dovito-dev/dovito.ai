@@ -51,6 +51,20 @@ export const contentSections = pgTable("content_sections", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const formSubmissions = pgTable("form_submissions", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  company: text("company").notNull(),
+  message: text("message").notNull(),
+  source: text("source").default("contact_form"),
+  status: text("status").default("new"), // new, contacted, qualified, closed
+  webhookSent: boolean("webhook_sent").default(false),
+  webhookResponse: text("webhook_response"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -79,9 +93,19 @@ export const insertContentSectionSchema = createInsertSchema(contentSections).om
   updatedAt: true,
 });
 
+export const insertFormSubmissionSchema = createInsertSchema(formSubmissions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  webhookSent: true,
+  webhookResponse: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof products.$inferSelect;
 export type InsertContentSection = z.infer<typeof insertContentSectionSchema>;
 export type ContentSection = typeof contentSections.$inferSelect;
+export type InsertFormSubmission = z.infer<typeof insertFormSubmissionSchema>;
+export type FormSubmission = typeof formSubmissions.$inferSelect;

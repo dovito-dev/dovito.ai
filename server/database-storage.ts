@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { users, products, contentSections, type User, type Product, type ContentSection, type InsertUser, type InsertProduct, type InsertContentSection } from "@shared/schema";
+import { users, products, contentSections, formSubmissions, type User, type Product, type ContentSection, type FormSubmission, type InsertUser, type InsertProduct, type InsertContentSection, type InsertFormSubmission } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import type { IStorage } from "./storage";
