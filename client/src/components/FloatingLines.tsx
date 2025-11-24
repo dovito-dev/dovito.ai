@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import * as THREE from 'three';
 
 interface WavePosition {
@@ -26,8 +26,8 @@ interface FloatingLinesProps {
 }
 
 const defaultGradient = [
-  '#ff0000', '#ff7700', '#ffdd00', '#00ff00',
-  '#0099ff', '#6600ff', '#ff00ff', '#ff0066'
+  '#8B5CF6', '#A78BFA', '#C4B5FD', '#7C3AED',
+  '#6D28D9', '#5B21B6', '#9333EA', '#A855F7'
 ];
 
 export default function FloatingLines({
@@ -35,9 +35,9 @@ export default function FloatingLines({
   enabledWaves = ['top', 'middle', 'bottom'],
   lineCount = 6,
   lineDistance = 5,
-  topWavePosition = { x: 0, y: 0.8, rotate: 0.3 },
+  topWavePosition = { x: 0, y: 2, rotate: 0.2 },
   middleWavePosition = { x: 0, y: 0, rotate: 0 },
-  bottomWavePosition = { x: 2.0, y: -0.7, rotate: -1 },
+  bottomWavePosition = { x: 0, y: -2, rotate: -0.2 },
   animationSpeed = 1,
   interactive = true,
   bendRadius = 10.0,
@@ -45,17 +45,16 @@ export default function FloatingLines({
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
-  mixBlendMode = 'screen',
+  mixBlendMode = 'normal',
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const targetMouseRef = useRef({ x: 0, y: 0 });
   const animationIdRef = useRef<number | null>(null);
   const wavesRef = useRef<THREE.Group[]>([]);
+  const [webglSupported, setWebglSupported] = useState(true);
 
   const lineCounts = useMemo(() => {
     if (Array.isArray(lineCount)) return lineCount;
@@ -73,23 +72,29 @@ export default function FloatingLines({
     const container = containerRef.current;
     const canvas = canvasRef.current;
 
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+      });
+    } catch (e) {
+      console.warn('WebGL not supported, FloatingLines disabled');
+      setWebglSupported(false);
+      return;
+    }
+
     const scene = new THREE.Scene();
-    sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(
-      75,
+      60,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    camera.position.z = 5;
-    cameraRef.current = camera;
+    camera.position.z = 8;
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-    });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
@@ -109,13 +114,14 @@ export default function FloatingLines({
       const waveGroup = new THREE.Group();
       const count = lineCounts[config.index] || 6;
       const distance = lineDistances[config.index] || 5;
+      const spacing = distance / 20;
 
       for (let i = 0; i < count; i++) {
         const points: THREE.Vector3[] = [];
-        const segments = 100;
+        const segments = 200;
 
         for (let j = 0; j <= segments; j++) {
-          const x = (j / segments) * 20 - 10;
+          const x = (j / segments) * 40 - 20;
           const y = 0;
           const z = 0;
           points.push(new THREE.Vector3(x, y, z));
@@ -129,16 +135,15 @@ export default function FloatingLines({
         const material = new THREE.LineBasicMaterial({
           color,
           transparent: true,
-          opacity: 0.8,
-          linewidth: 2,
+          opacity: 0.7,
         });
 
         const line = new THREE.Line(geometry, material);
-        line.position.y = (i - count / 2) * (distance / 100);
+        line.position.y = (i - (count - 1) / 2) * spacing;
         line.userData = { 
           originalY: line.position.y,
           index: i,
-          phase: Math.random() * Math.PI * 2,
+          phase: i * 0.5,
         };
         waveGroup.add(line);
       }
@@ -155,10 +160,17 @@ export default function FloatingLines({
     const handleMouseMove = (event: MouseEvent) => {
       if (!container) return;
       const rect = container.getBoundingClientRect();
-      targetMouseRef.current = {
-        x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-        y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
-      };
+      if (
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom
+      ) {
+        targetMouseRef.current = {
+          x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
+          y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
+        };
+      }
     };
 
     const handleResize = () => {
@@ -169,14 +181,14 @@ export default function FloatingLines({
     };
 
     if (interactive) {
-      container.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove);
     }
     window.addEventListener('resize', handleResize);
 
     let time = 0;
 
     const animate = () => {
-      time += 0.016 * animationSpeed;
+      time += 0.01 * animationSpeed;
 
       if (interactive) {
         mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
@@ -185,8 +197,9 @@ export default function FloatingLines({
 
       wavesRef.current.forEach((waveGroup, waveIndex) => {
         if (parallax) {
-          const parallaxOffset = parallaxStrength * (waveIndex + 1) * 0.3;
-          waveGroup.position.x += (mouseRef.current.x * parallaxOffset - waveGroup.position.x) * 0.02;
+          const parallaxOffset = parallaxStrength * (waveIndex + 1);
+          const targetX = mouseRef.current.x * parallaxOffset;
+          waveGroup.position.x += (targetX - waveGroup.position.x) * 0.05;
         }
 
         waveGroup.children.forEach((child) => {
@@ -199,24 +212,26 @@ export default function FloatingLines({
             for (let i = 0; i < positions.count; i++) {
               const x = positions.getX(i);
               
-              let waveY = Math.sin(x * 0.5 + time + userData.phase) * 0.3;
-              waveY += Math.sin(x * 0.3 + time * 0.7 + userData.phase) * 0.2;
+              let waveY = Math.sin(x * 0.15 + time + userData.phase) * 0.8;
+              waveY += Math.sin(x * 0.1 + time * 0.5 + userData.phase * 2) * 0.4;
+              waveY += Math.sin(x * 0.05 + time * 0.3) * 0.2;
 
-              if (interactive) {
-                const worldX = x + waveGroup.position.x;
-                const worldY = userData.originalY + waveGroup.position.y;
-                const dx = mouseRef.current.x * 5 - worldX;
-                const dy = mouseRef.current.y * 3 - worldY;
+              if (interactive && bendRadius > 0) {
+                const worldX = x;
+                const worldY = userData.originalY;
+                const mouseWorldX = mouseRef.current.x * 10;
+                const mouseWorldY = mouseRef.current.y * 5;
+                const dx = mouseWorldX - worldX;
+                const dy = mouseWorldY - worldY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 
                 if (dist < bendRadius) {
-                  const influence = 1 - dist / bendRadius;
-                  const bend = influence * influence * bendStrength * 0.1;
-                  waveY += bend * (dy > 0 ? 1 : -1);
+                  const influence = Math.pow(1 - dist / bendRadius, 2);
+                  waveY += influence * bendStrength * 0.5;
                 }
               }
 
-              positions.setY(i, waveY);
+              positions.setY(i, waveY + userData.originalY);
             }
 
             positions.needsUpdate = true;
@@ -235,7 +250,7 @@ export default function FloatingLines({
         cancelAnimationFrame(animationIdRef.current);
       }
       if (interactive) {
-        container.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mousemove', handleMouseMove);
       }
       window.removeEventListener('resize', handleResize);
       
@@ -267,16 +282,20 @@ export default function FloatingLines({
     linesGradient,
   ]);
 
+  if (!webglSupported) {
+    return null;
+  }
+
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
+      className="absolute inset-0 w-full h-full"
       data-testid="floating-lines-container"
     >
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ mixBlendMode }}
+        style={{ mixBlendMode, opacity: 0.6 }}
         data-testid="floating-lines-canvas"
       />
     </div>
