@@ -11,6 +11,7 @@ import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, Che
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
+import FloatingLines from "./FloatingLines";
 import AnimationToggle from "./AnimationToggle";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
@@ -311,8 +312,19 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Periodic Table Section */}
-      <section id="products" className="py-32 relative">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section id="products" className="py-32 relative overflow-hidden">
+        {animationsEnabled && (
+          <FloatingLines
+            enabledWaves={['middle']}
+            lineCount={4}
+            lineDistance={75}
+            bendRadius={5.0}
+            bendStrength={-0.5}
+            interactive={true}
+            parallax={true}
+          />
+        )}
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center mb-20"
             initial={{ opacity: 0, y: 30 }}
