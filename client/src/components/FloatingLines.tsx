@@ -1,5 +1,4 @@
-import { useEffect, useRef, useMemo, useState } from 'react';
-import * as THREE from 'three';
+import { useEffect, useRef, useState } from 'react';
 
 interface WavePosition {
   x: number;
@@ -22,12 +21,11 @@ interface FloatingLinesProps {
   mouseDamping?: number;
   parallax?: boolean;
   parallaxStrength?: number;
-  mixBlendMode?: React.CSSProperties['mixBlendMode'];
 }
 
 const defaultGradient = [
-  '#8B5CF6', '#A78BFA', '#C4B5FD', '#7C3AED',
-  '#6D28D9', '#5B21B6', '#9333EA', '#A855F7'
+  '#00d4ff', '#7b68ee', '#9945ff', '#14f195',
+  '#00bcd4', '#8b5cf6', '#c084fc', '#06b6d4'
 ];
 
 export default function FloatingLines({
@@ -35,292 +33,220 @@ export default function FloatingLines({
   enabledWaves = ['top', 'middle', 'bottom'],
   lineCount = 6,
   lineDistance = 5,
-  topWavePosition = { x: 0, y: 2, rotate: 0.2 },
-  middleWavePosition = { x: 0, y: 0, rotate: 0 },
-  bottomWavePosition = { x: 0, y: -2, rotate: -0.2 },
+  topWavePosition = { x: 0, y: -150, rotate: -5 },
+  middleWavePosition = { x: 0, y: 100, rotate: 3 },
+  bottomWavePosition = { x: 0, y: 250, rotate: -2 },
   animationSpeed = 1,
   interactive = true,
   bendRadius = 10.0,
-  bendStrength = -5.0,
+  bendStrength = -0.5,
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
 }: FloatingLinesProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number>(0);
   const mouseRef = useRef({ x: 0, y: 0 });
   const targetMouseRef = useRef({ x: 0, y: 0 });
-  const animationIdRef = useRef<number | null>(null);
-  const wavesRef = useRef<THREE.Group[]>([]);
-  const glowLinesRef = useRef<THREE.Line[]>([]);
-  const [webglSupported, setWebglSupported] = useState(true);
-  const isHoveringRef = useRef(false);
-  const hoverIntensityRef = useRef(0);
-
-  const lineCounts = useMemo(() => {
-    if (Array.isArray(lineCount)) return lineCount;
-    return [lineCount, lineCount, lineCount];
-  }, [lineCount]);
-
-  const lineDistances = useMemo(() => {
-    if (Array.isArray(lineDistance)) return lineDistance;
-    return [lineDistance, lineDistance, lineDistance];
-  }, [lineDistance]);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current || !canvasRef.current) return;
-
-    const container = containerRef.current;
     const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({
-        canvas,
-        antialias: true,
-        alpha: true,
-      });
-    } catch (e) {
-      console.warn('WebGL not supported, FloatingLines disabled');
-      setWebglSupported(false);
-      return;
-    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const scene = new THREE.Scene();
+    const resize = () => {
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
 
-    const camera = new THREE.PerspectiveCamera(
-      60,
-      container.clientWidth / container.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = 8;
+    resize();
+    setIsReady(true);
 
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-    rendererRef.current = renderer;
+    const getLineCount = (index: number): number => {
+      if (Array.isArray(lineCount)) return lineCount[index] || 4;
+      return lineCount;
+    };
+
+    const getLineDistance = (index: number): number => {
+      if (Array.isArray(lineDistance)) return lineDistance[index] || 5;
+      return lineDistance;
+    };
 
     const waveConfigs = [
-      { name: 'top', position: topWavePosition, index: 0 },
-      { name: 'middle', position: middleWavePosition, index: 1 },
-      { name: 'bottom', position: bottomWavePosition, index: 2 },
-    ];
-
-    wavesRef.current = [];
-    glowLinesRef.current = [];
-
-    waveConfigs.forEach((config) => {
-      if (!enabledWaves.includes(config.name as 'top' | 'middle' | 'bottom')) return;
-
-      const waveGroup = new THREE.Group();
-      const count = lineCounts[config.index] || 6;
-      const distance = lineDistances[config.index] || 5;
-      const spacing = distance / 20;
-
-      for (let i = 0; i < count; i++) {
-        const points: THREE.Vector3[] = [];
-        const segments = 200;
-
-        for (let j = 0; j <= segments; j++) {
-          const x = (j / segments) * 40 - 20;
-          const y = 0;
-          const z = 0;
-          points.push(new THREE.Vector3(x, y, z));
-        }
-
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        
-        const colorIndex = i % linesGradient.length;
-        const color = new THREE.Color(linesGradient[colorIndex]);
-        
-        const glowGeometry = geometry.clone();
-        const glowMaterial = new THREE.LineBasicMaterial({
-          color,
-          transparent: true,
-          opacity: 0.3,
-        });
-        const glowLine = new THREE.Line(glowGeometry, glowMaterial);
-        glowLine.position.y = (i - (count - 1) / 2) * spacing;
-        glowLine.position.z = -0.01;
-        glowLine.scale.set(1.02, 1.02, 1);
-        glowLine.userData = { 
-          originalY: glowLine.position.y,
-          index: i,
-          phase: i * 0.5,
-          isGlow: true,
-          baseOpacity: 0.3,
-        };
-        waveGroup.add(glowLine);
-        glowLinesRef.current.push(glowLine);
-
-        const material = new THREE.LineBasicMaterial({
-          color,
-          transparent: true,
-          opacity: 0.8,
-        });
-
-        const line = new THREE.Line(geometry, material);
-        line.position.y = (i - (count - 1) / 2) * spacing;
-        line.userData = { 
-          originalY: line.position.y,
-          index: i,
-          phase: i * 0.5,
-          baseOpacity: 0.8,
-        };
-        waveGroup.add(line);
-      }
-
-      waveGroup.position.x = config.position.x;
-      waveGroup.position.y = config.position.y;
-      waveGroup.rotation.z = config.position.rotate;
-      waveGroup.userData = { name: config.name };
-
-      scene.add(waveGroup);
-      wavesRef.current.push(waveGroup);
-    });
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      
-      const isInside = 
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top &&
-        event.clientY <= rect.bottom;
-      
-      isHoveringRef.current = isInside;
-      
-      if (isInside) {
-        targetMouseRef.current = {
-          x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-          y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
-        };
-      }
-    };
-
-    const handleMouseLeave = () => {
-      isHoveringRef.current = false;
-    };
-
-    const handleResize = () => {
-      if (!container || !camera || !renderer) return;
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
-    };
-
-    if (interactive) {
-      window.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseleave', handleMouseLeave);
-    }
-    window.addEventListener('resize', handleResize);
+      { name: 'top' as const, position: topWavePosition, index: 0 },
+      { name: 'middle' as const, position: middleWavePosition, index: 1 },
+      { name: 'bottom' as const, position: bottomWavePosition, index: 2 },
+    ].filter(w => enabledWaves.includes(w.name));
 
     let time = 0;
 
-    const animate = () => {
-      time += 0.01 * animationSpeed;
+    const drawWaveLine = (
+      yOffset: number,
+      color: string,
+      phase: number,
+      amplitude: number,
+      frequency: number,
+      thickness: number,
+      rotation: number,
+      xOffset: number,
+      mouseInfluence: { x: number; y: number }
+    ) => {
+      const rect = container.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+      const centerY = height / 2 + yOffset;
+      const centerX = width / 2 + xOffset;
 
-      if (isHoveringRef.current) {
-        hoverIntensityRef.current = Math.min(1, hoverIntensityRef.current + 0.05);
-      } else {
-        hoverIntensityRef.current = Math.max(0, hoverIntensityRef.current - 0.02);
-      }
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate((rotation * Math.PI) / 180);
+      ctx.translate(-centerX, -centerY);
 
-      if (interactive) {
-        mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
-        mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * mouseDamping;
-      }
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = thickness;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
-      wavesRef.current.forEach((waveGroup, waveIndex) => {
-        if (parallax) {
-          const parallaxOffset = parallaxStrength * (waveIndex + 1);
-          const targetX = mouseRef.current.x * parallaxOffset;
-          waveGroup.position.x += (targetX - waveGroup.position.x) * 0.05;
+      const segments = 150;
+      const extendedWidth = width * 1.5;
+
+      for (let i = 0; i <= segments; i++) {
+        const x = (i / segments) * extendedWidth - extendedWidth * 0.25;
+        const normalizedX = x / width;
+        
+        let y = centerY;
+        y += Math.sin(normalizedX * frequency * Math.PI + time + phase) * amplitude;
+        y += Math.sin(normalizedX * frequency * 0.5 * Math.PI + time * 0.7 + phase) * amplitude * 0.5;
+        y += Math.sin(normalizedX * frequency * 0.25 * Math.PI + time * 0.3) * amplitude * 0.25;
+
+        if (interactive && bendRadius > 0) {
+          const dx = mouseInfluence.x - x;
+          const dy = mouseInfluence.y - (y - centerY + height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const radius = bendRadius * 30;
+          
+          if (dist < radius) {
+            const influence = Math.pow(1 - dist / radius, 2);
+            y += influence * bendStrength * 100 * Math.sign(dy);
+          }
         }
 
-        waveGroup.children.forEach((child) => {
-          if (child instanceof THREE.Line) {
-            const line = child;
-            const geometry = line.geometry as THREE.BufferGeometry;
-            const positions = geometry.attributes.position;
-            const userData = line.userData;
-            const material = line.material as THREE.LineBasicMaterial;
+        if (parallax) {
+          const parallaxOffset = (mouseInfluence.x / width - 0.5) * parallaxStrength * 50;
+          y += parallaxOffset * (1 - Math.abs(normalizedX - 0.5) * 2) * 0.5;
+        }
 
-            const glowBoost = hoverIntensityRef.current * 0.4;
-            const baseOpacity = userData.baseOpacity || 0.8;
-            
-            if (userData.isGlow) {
-              material.opacity = baseOpacity + glowBoost * 1.5;
-              line.scale.set(1.02 + glowBoost * 0.03, 1.02 + glowBoost * 0.03, 1);
-            } else {
-              material.opacity = baseOpacity + glowBoost * 0.2;
-            }
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
 
-            for (let i = 0; i < positions.count; i++) {
-              const x = positions.getX(i);
-              
-              const hoverAmplitude = 1 + hoverIntensityRef.current * 0.3;
-              let waveY = Math.sin(x * 0.15 + time + userData.phase) * 0.8 * hoverAmplitude;
-              waveY += Math.sin(x * 0.1 + time * 0.5 + userData.phase * 2) * 0.4 * hoverAmplitude;
-              waveY += Math.sin(x * 0.05 + time * 0.3) * 0.2;
+      ctx.stroke();
+      ctx.restore();
+    };
 
-              if (interactive && bendRadius > 0) {
-                const worldX = x;
-                const worldY = userData.originalY;
-                const mouseWorldX = mouseRef.current.x * 10;
-                const mouseWorldY = mouseRef.current.y * 5;
-                const dx = mouseWorldX - worldX;
-                const dy = mouseWorldY - worldY;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                if (dist < bendRadius) {
-                  const influence = Math.pow(1 - dist / bendRadius, 2);
-                  waveY += influence * bendStrength * 0.5 * (1 + hoverIntensityRef.current);
-                }
-              }
+    const animate = () => {
+      const rect = container.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
 
-              positions.setY(i, waveY + userData.originalY);
-            }
+      ctx.clearRect(0, 0, width, height);
 
-            positions.needsUpdate = true;
-          }
-        });
+      time += 0.015 * animationSpeed;
+
+      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
+      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * mouseDamping;
+
+      waveConfigs.forEach((wave) => {
+        const count = getLineCount(wave.index);
+        const distance = getLineDistance(wave.index);
+
+        for (let i = 0; i < count; i++) {
+          const colorIndex = i % linesGradient.length;
+          const color = linesGradient[colorIndex];
+          
+          const lineOffset = (i - (count - 1) / 2) * distance;
+          const yPos = wave.position.y + lineOffset;
+          
+          const baseAmplitude = 80 + i * 10;
+          const frequency = 2 + i * 0.3;
+          const phase = i * 0.8;
+          const thickness = 3 - i * 0.3;
+
+          ctx.shadowColor = color;
+          ctx.shadowBlur = 20;
+
+          drawWaveLine(
+            yPos,
+            color,
+            phase,
+            baseAmplitude,
+            frequency,
+            Math.max(1.5, thickness),
+            wave.position.rotate,
+            wave.position.x,
+            mouseRef.current
+          );
+
+          ctx.shadowBlur = 40;
+          ctx.globalAlpha = 0.3;
+          drawWaveLine(
+            yPos,
+            color,
+            phase,
+            baseAmplitude,
+            frequency,
+            Math.max(1.5, thickness) * 3,
+            wave.position.rotate,
+            wave.position.x,
+            mouseRef.current
+          );
+          ctx.globalAlpha = 1;
+          ctx.shadowBlur = 0;
+        }
       });
 
-      renderer.render(scene, camera);
-      animationIdRef.current = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      targetMouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+
+    window.addEventListener('resize', resize);
+    if (interactive) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
 
     animate();
 
     return () => {
-      if (animationIdRef.current) {
-        cancelAnimationFrame(animationIdRef.current);
-      }
+      window.removeEventListener('resize', resize);
       if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
       }
-      window.removeEventListener('resize', handleResize);
-      
-      wavesRef.current.forEach((wave) => {
-        wave.children.forEach((child) => {
-          if (child instanceof THREE.Line) {
-            child.geometry.dispose();
-            (child.material as THREE.Material).dispose();
-          }
-        });
-      });
-      
-      renderer.dispose();
+      cancelAnimationFrame(animationRef.current);
     };
   }, [
     enabledWaves,
-    lineCounts,
-    lineDistances,
+    lineCount,
+    lineDistance,
     topWavePosition,
     middleWavePosition,
     bottomWavePosition,
@@ -334,29 +260,21 @@ export default function FloatingLines({
     linesGradient,
   ]);
 
-  if (!webglSupported) {
-    return null;
-  }
-
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full overflow-hidden"
       data-testid="floating-lines-container"
     >
       <canvas
         ref={canvasRef}
         className="w-full h-full"
         style={{ 
-          filter: 'blur(0.5px)',
+          opacity: isReady ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
         }}
         data-testid="floating-lines-canvas"
       />
-      <style>{`
-        [data-testid="floating-lines-canvas"] {
-          filter: blur(0.5px) drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
-        }
-      `}</style>
     </div>
   );
 }
