@@ -96,6 +96,11 @@ export default function FloatingLines({
 
     let time = 0;
 
+    const smoothstep = (edge0: number, edge1: number, x: number): number => {
+      const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+      return t * t * (3 - 2 * t);
+    };
+
     const drawWaveLine = (
       yOffset: number,
       color: string,
@@ -117,14 +122,10 @@ export default function FloatingLines({
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.translate(-centerX, -centerY);
 
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.lineWidth = thickness;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-
       const segments = 200;
-      const influenceRadius = bendRadius * 30;
+      const influenceRadius = bendRadius * 40;
+      
+      const points: { x: number; y: number }[] = [];
 
       for (let i = 0; i <= segments; i++) {
         const t = i / segments;
@@ -138,24 +139,41 @@ export default function FloatingLines({
 
         if (interactive && mouseX > 0 && mouseY > 0) {
           const dx = x - mouseX;
-          const dy = y - mouseY;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const horizontalDist = Math.abs(dx);
+          const verticalDist = y - mouseY;
           
-          if (distance < influenceRadius && distance > 0) {
-            const force = (1 - distance / influenceRadius);
-            const smoothForce = force * force * force;
-            const pushStrength = smoothForce * bendStrength * 150;
+          const horizontalInfluence = 1 - smoothstep(0, influenceRadius, horizontalDist);
+          
+          if (horizontalInfluence > 0) {
+            const gaussianFalloff = Math.exp(-(horizontalDist * horizontalDist) / (2 * influenceRadius * influenceRadius * 0.3));
+            const pushDirection = verticalDist > 0 ? 1 : -1;
+            const proximityBoost = 1 - smoothstep(0, influenceRadius * 0.5, Math.abs(verticalDist));
+            const pushAmount = gaussianFalloff * proximityBoost * Math.abs(bendStrength) * 120 * pushDirection;
             
-            const normalizedDy = dy / distance;
-            y += normalizedDy * Math.abs(pushStrength);
+            y += pushAmount;
           }
         }
 
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
+        points.push({ x, y });
+      }
+
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = thickness;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (points.length > 2) {
+        ctx.moveTo(points[0].x, points[0].y);
+        
+        for (let i = 1; i < points.length - 1; i++) {
+          const xc = (points[i].x + points[i + 1].x) / 2;
+          const yc = (points[i].y + points[i + 1].y) / 2;
+          ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
         }
+        
+        const last = points[points.length - 1];
+        ctx.lineTo(last.x, last.y);
       }
 
       ctx.stroke();
