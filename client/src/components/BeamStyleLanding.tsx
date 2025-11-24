@@ -315,13 +315,13 @@ export default function BeamStyleLanding() {
       <section id="products" className="py-32 relative overflow-hidden">
         <FloatingLines
           linesGradient={["#FF6B35", "#FF8C42", "#FFD166", "#06D6A0", "#118AB2", "#073B4C"]}
-          enabledWaves={['top', 'middle', 'bottom']}
-          lineCount={[5, 6, 4]}
-          lineDistance={[6, 5, 7]}
+          enabledWaves={['middle']}
+          lineCount={[4, 4, 4]}
+          lineDistance={[74, 74, 74]}
           animationSpeed={0.8}
           interactive={true}
-          bendRadius={8}
-          bendStrength={-0.3}
+          bendRadius={5.0}
+          bendStrength={-0.5}
           parallax={true}
           parallaxStrength={0.15}
           mixBlendMode={"screen" as const}
