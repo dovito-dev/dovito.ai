@@ -24,8 +24,8 @@ interface FloatingLinesProps {
 }
 
 const defaultGradient = [
-  '#00d4ff', '#7b68ee', '#9945ff', '#14f195',
-  '#00bcd4', '#8b5cf6', '#c084fc', '#06b6d4'
+  '#06b6d4', '#0ea5e9', '#8b5cf6', '#a855f7',
+  '#d946ef', '#ec4899', '#14b8a6', '#22d3ee'
 ];
 
 export default function FloatingLines({
@@ -62,6 +62,7 @@ export default function FloatingLines({
 
     let width = 0;
     let height = 0;
+    const padding = 60;
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
@@ -108,7 +109,8 @@ export default function FloatingLines({
       rotation: number,
       xOffset: number
     ) => {
-      const centerY = height / 2 + yOffset;
+      const usableHeight = height - padding * 2;
+      const centerY = padding + usableHeight / 2 + yOffset;
       const centerX = width / 2 + xOffset;
 
       ctx.save();
@@ -123,12 +125,11 @@ export default function FloatingLines({
       ctx.lineJoin = 'round';
 
       const segments = 200;
-      const extendedWidth = width * 1.6;
-      const startX = -extendedWidth * 0.3;
 
       for (let i = 0; i <= segments; i++) {
-        const x = startX + (i / segments) * extendedWidth;
-        const normalizedX = (x + width * 0.3) / width;
+        const t = i / segments;
+        const x = padding + t * (width - padding * 2);
+        const normalizedX = t;
         
         let y = centerY;
         y += Math.sin(normalizedX * frequency * Math.PI + time + phase) * amplitude;
@@ -154,7 +155,7 @@ export default function FloatingLines({
             if (dist < radius) {
               const normalizedDist = dist / radius;
               const influence = easeOutQuad(1 - normalizedDist);
-              const bendAmount = influence * bendStrength * 80;
+              const bendAmount = influence * bendStrength * 60;
               y += bendAmount;
             }
           }
@@ -184,8 +185,10 @@ export default function FloatingLines({
         smoothMouseRef.current.y += (mouseRef.current.y - smoothMouseRef.current.y) * 0.15;
       }
 
+      ctx.save();
+      
       if (parallax && smoothMouseRef.current.x > 0) {
-        const parallaxX = (smoothMouseRef.current.x / width - 0.5) * parallaxStrength * 30;
+        const parallaxX = (smoothMouseRef.current.x / width - 0.5) * parallaxStrength * 20;
         ctx.translate(parallaxX, 0);
       }
 
@@ -200,15 +203,15 @@ export default function FloatingLines({
           const lineOffset = (i - (count - 1) / 2) * distance;
           const yPos = wave.position.y + lineOffset;
           
-          const baseAmplitude = 60 + i * 8;
-          const frequency = 1.8 + i * 0.2;
-          const phase = wave.index * 2 + i * 0.6;
-          const thickness = 2.5 - i * 0.2;
+          const baseAmplitude = 40 + i * 6;
+          const frequency = 1.8 + i * 0.15;
+          const phase = wave.index * 2 + i * 0.5;
+          const thickness = 2.2 - i * 0.15;
 
           ctx.save();
           ctx.shadowColor = color;
-          ctx.shadowBlur = 25;
-          ctx.globalAlpha = 0.9;
+          ctx.shadowBlur = 20;
+          ctx.globalAlpha = 0.95;
 
           drawWaveLine(
             yPos,
@@ -221,15 +224,15 @@ export default function FloatingLines({
             wave.position.x
           );
 
-          ctx.shadowBlur = 50;
-          ctx.globalAlpha = 0.25;
+          ctx.shadowBlur = 45;
+          ctx.globalAlpha = 0.2;
           drawWaveLine(
             yPos,
             color,
             phase,
             baseAmplitude,
             frequency,
-            Math.max(1.5, thickness) * 4,
+            Math.max(1.5, thickness) * 5,
             wave.position.rotate,
             wave.position.x
           );
@@ -238,7 +241,7 @@ export default function FloatingLines({
         }
       });
 
-      ctx.setTransform(Math.min(window.devicePixelRatio, 2), 0, 0, Math.min(window.devicePixelRatio, 2), 0, 0);
+      ctx.restore();
 
       animationRef.current = requestAnimationFrame(animate);
     };

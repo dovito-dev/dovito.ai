@@ -316,15 +316,15 @@ export default function BeamStyleLanding() {
         <FloatingLines
           enabledWaves={['top', 'middle', 'bottom']}
           lineCount={[3, 4, 3]}
-          lineDistance={[40, 50, 45]}
-          topWavePosition={{ x: 0, y: -100, rotate: -8 }}
-          middleWavePosition={{ x: 0, y: 150, rotate: 5 }}
-          bottomWavePosition={{ x: 0, y: 350, rotate: -3 }}
+          lineDistance={[25, 30, 28]}
+          topWavePosition={{ x: 0, y: -120, rotate: -6 }}
+          middleWavePosition={{ x: 0, y: 50, rotate: 4 }}
+          bottomWavePosition={{ x: 0, y: 180, rotate: -3 }}
           bendRadius={5.0}
           bendStrength={-0.5}
           interactive={true}
           parallax={true}
-          animationSpeed={1.2}
+          animationSpeed={1}
         />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div 
