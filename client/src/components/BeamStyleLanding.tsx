@@ -22,6 +22,7 @@ export default function BeamStyleLanding() {
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
+  const productsSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -312,7 +313,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Periodic Table Section */}
-      <section id="products" className="py-32 relative overflow-hidden">
+      <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden">
         <FloatingLines
           linesGradient={["#6366F1", "#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F472B6"]}
           enabledWaves={['middle']}
@@ -326,6 +327,7 @@ export default function BeamStyleLanding() {
           parallax={true}
           parallaxStrength={0.15}
           mixBlendMode={"screen" as const}
+          activeAreaRef={productsSectionRef}
         />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div 

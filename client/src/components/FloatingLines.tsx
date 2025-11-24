@@ -226,6 +226,7 @@ type FloatingLinesProps = {
   parallax?: boolean;
   parallaxStrength?: number;
   mixBlendMode?: CSSProperties['mixBlendMode'];
+  activeAreaRef?: React.RefObject<HTMLElement>;
 };
 
 function hexToVec3(hex: string): Vector3 {
@@ -267,7 +268,8 @@ export default function FloatingLines({
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
-  mixBlendMode = 'screen'
+  mixBlendMode = 'screen',
+  activeAreaRef
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
@@ -409,19 +411,19 @@ export default function FloatingLines({
     }
 
     const handlePointerMove = (event: PointerEvent) => {
-      const rect = renderer.domElement.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const canvasRect = renderer.domElement.getBoundingClientRect();
+      const x = event.clientX - canvasRect.left;
+      const y = event.clientY - canvasRect.top;
       const dpr = renderer.getPixelRatio();
 
-      targetMouseRef.current.set(x * dpr, (rect.height - y) * dpr);
+      targetMouseRef.current.set(x * dpr, (canvasRect.height - y) * dpr);
       targetInfluenceRef.current = 1.0;
 
       if (parallax) {
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const offsetX = (x - centerX) / rect.width;
-        const offsetY = -(y - centerY) / rect.height;
+        const centerX = canvasRect.width / 2;
+        const centerY = canvasRect.height / 2;
+        const offsetX = (x - centerX) / canvasRect.width;
+        const offsetY = -(y - centerY) / canvasRect.height;
         targetParallaxRef.current.set(offsetX * parallaxStrength, offsetY * parallaxStrength);
       }
     };
@@ -430,9 +432,11 @@ export default function FloatingLines({
       targetInfluenceRef.current = 0.0;
     };
 
+    const eventTarget = activeAreaRef?.current || renderer.domElement;
+    
     if (interactive) {
-      renderer.domElement.addEventListener('pointermove', handlePointerMove);
-      renderer.domElement.addEventListener('pointerleave', handlePointerLeave);
+      eventTarget.addEventListener('pointermove', handlePointerMove as EventListener);
+      eventTarget.addEventListener('pointerleave', handlePointerLeave as EventListener);
     }
 
     let raf = 0;
@@ -464,8 +468,8 @@ export default function FloatingLines({
       }
 
       if (interactive) {
-        renderer.domElement.removeEventListener('pointermove', handlePointerMove);
-        renderer.domElement.removeEventListener('pointerleave', handlePointerLeave);
+        eventTarget.removeEventListener('pointermove', handlePointerMove as EventListener);
+        eventTarget.removeEventListener('pointerleave', handlePointerLeave as EventListener);
       }
 
       geometry.dispose();
@@ -489,7 +493,8 @@ export default function FloatingLines({
     bendStrength,
     mouseDamping,
     parallax,
-    parallaxStrength
+    parallaxStrength,
+    activeAreaRef
   ]);
 
   return (
