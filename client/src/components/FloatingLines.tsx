@@ -45,7 +45,6 @@ export default function FloatingLines({
   mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
-  mixBlendMode = 'normal',
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -54,7 +53,10 @@ export default function FloatingLines({
   const targetMouseRef = useRef({ x: 0, y: 0 });
   const animationIdRef = useRef<number | null>(null);
   const wavesRef = useRef<THREE.Group[]>([]);
+  const glowLinesRef = useRef<THREE.Line[]>([]);
   const [webglSupported, setWebglSupported] = useState(true);
+  const isHoveringRef = useRef(false);
+  const hoverIntensityRef = useRef(0);
 
   const lineCounts = useMemo(() => {
     if (Array.isArray(lineCount)) return lineCount;
@@ -107,6 +109,7 @@ export default function FloatingLines({
     ];
 
     wavesRef.current = [];
+    glowLinesRef.current = [];
 
     waveConfigs.forEach((config) => {
       if (!enabledWaves.includes(config.name as 'top' | 'middle' | 'bottom')) return;
@@ -132,10 +135,30 @@ export default function FloatingLines({
         const colorIndex = i % linesGradient.length;
         const color = new THREE.Color(linesGradient[colorIndex]);
         
+        const glowGeometry = geometry.clone();
+        const glowMaterial = new THREE.LineBasicMaterial({
+          color,
+          transparent: true,
+          opacity: 0.3,
+        });
+        const glowLine = new THREE.Line(glowGeometry, glowMaterial);
+        glowLine.position.y = (i - (count - 1) / 2) * spacing;
+        glowLine.position.z = -0.01;
+        glowLine.scale.set(1.02, 1.02, 1);
+        glowLine.userData = { 
+          originalY: glowLine.position.y,
+          index: i,
+          phase: i * 0.5,
+          isGlow: true,
+          baseOpacity: 0.3,
+        };
+        waveGroup.add(glowLine);
+        glowLinesRef.current.push(glowLine);
+
         const material = new THREE.LineBasicMaterial({
           color,
           transparent: true,
-          opacity: 0.7,
+          opacity: 0.8,
         });
 
         const line = new THREE.Line(geometry, material);
@@ -144,6 +167,7 @@ export default function FloatingLines({
           originalY: line.position.y,
           index: i,
           phase: i * 0.5,
+          baseOpacity: 0.8,
         };
         waveGroup.add(line);
       }
@@ -160,17 +184,25 @@ export default function FloatingLines({
     const handleMouseMove = (event: MouseEvent) => {
       if (!container) return;
       const rect = container.getBoundingClientRect();
-      if (
+      
+      const isInside = 
         event.clientX >= rect.left &&
         event.clientX <= rect.right &&
         event.clientY >= rect.top &&
-        event.clientY <= rect.bottom
-      ) {
+        event.clientY <= rect.bottom;
+      
+      isHoveringRef.current = isInside;
+      
+      if (isInside) {
         targetMouseRef.current = {
           x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
           y: -((event.clientY - rect.top) / rect.height) * 2 + 1,
         };
       }
+    };
+
+    const handleMouseLeave = () => {
+      isHoveringRef.current = false;
     };
 
     const handleResize = () => {
@@ -182,6 +214,7 @@ export default function FloatingLines({
 
     if (interactive) {
       window.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseLeave);
     }
     window.addEventListener('resize', handleResize);
 
@@ -189,6 +222,12 @@ export default function FloatingLines({
 
     const animate = () => {
       time += 0.01 * animationSpeed;
+
+      if (isHoveringRef.current) {
+        hoverIntensityRef.current = Math.min(1, hoverIntensityRef.current + 0.05);
+      } else {
+        hoverIntensityRef.current = Math.max(0, hoverIntensityRef.current - 0.02);
+      }
 
       if (interactive) {
         mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
@@ -208,12 +247,24 @@ export default function FloatingLines({
             const geometry = line.geometry as THREE.BufferGeometry;
             const positions = geometry.attributes.position;
             const userData = line.userData;
+            const material = line.material as THREE.LineBasicMaterial;
+
+            const glowBoost = hoverIntensityRef.current * 0.4;
+            const baseOpacity = userData.baseOpacity || 0.8;
+            
+            if (userData.isGlow) {
+              material.opacity = baseOpacity + glowBoost * 1.5;
+              line.scale.set(1.02 + glowBoost * 0.03, 1.02 + glowBoost * 0.03, 1);
+            } else {
+              material.opacity = baseOpacity + glowBoost * 0.2;
+            }
 
             for (let i = 0; i < positions.count; i++) {
               const x = positions.getX(i);
               
-              let waveY = Math.sin(x * 0.15 + time + userData.phase) * 0.8;
-              waveY += Math.sin(x * 0.1 + time * 0.5 + userData.phase * 2) * 0.4;
+              const hoverAmplitude = 1 + hoverIntensityRef.current * 0.3;
+              let waveY = Math.sin(x * 0.15 + time + userData.phase) * 0.8 * hoverAmplitude;
+              waveY += Math.sin(x * 0.1 + time * 0.5 + userData.phase * 2) * 0.4 * hoverAmplitude;
               waveY += Math.sin(x * 0.05 + time * 0.3) * 0.2;
 
               if (interactive && bendRadius > 0) {
@@ -227,7 +278,7 @@ export default function FloatingLines({
                 
                 if (dist < bendRadius) {
                   const influence = Math.pow(1 - dist / bendRadius, 2);
-                  waveY += influence * bendStrength * 0.5;
+                  waveY += influence * bendStrength * 0.5 * (1 + hoverIntensityRef.current);
                 }
               }
 
@@ -251,6 +302,7 @@ export default function FloatingLines({
       }
       if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
       }
       window.removeEventListener('resize', handleResize);
       
@@ -295,9 +347,16 @@ export default function FloatingLines({
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ mixBlendMode, opacity: 0.6 }}
+        style={{ 
+          filter: 'blur(0.5px)',
+        }}
         data-testid="floating-lines-canvas"
       />
+      <style>{`
+        [data-testid="floating-lines-canvas"] {
+          filter: blur(0.5px) drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+        }
+      `}</style>
     </div>
   );
 }

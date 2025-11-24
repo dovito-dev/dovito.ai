@@ -313,17 +313,15 @@ export default function BeamStyleLanding() {
       </section>
       {/* Periodic Table Section */}
       <section id="products" className="py-32 relative overflow-hidden">
-        {animationsEnabled && (
-          <FloatingLines
-            enabledWaves={['middle']}
-            lineCount={4}
-            lineDistance={75}
-            bendRadius={5.0}
-            bendStrength={-0.5}
-            interactive={true}
-            parallax={true}
-          />
-        )}
+        <FloatingLines
+          enabledWaves={['middle']}
+          lineCount={4}
+          lineDistance={75}
+          bendRadius={5.0}
+          bendStrength={-0.5}
+          interactive={true}
+          parallax={true}
+        />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div 
             className="text-center mb-20"
