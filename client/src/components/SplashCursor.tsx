@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, RefObject } from 'react';
 
 interface SplashCursorProps {
   SIM_RESOLUTION?: number;
@@ -15,6 +15,7 @@ interface SplashCursorProps {
   COLOR_UPDATE_SPEED?: number;
   BACK_COLOR?: { r: number; g: number; b: number };
   TRANSPARENT?: boolean;
+  activeAreaRef?: RefObject<HTMLElement>;
 }
 
 export default function SplashCursor({
@@ -32,6 +33,7 @@ export default function SplashCursor({
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0.5, g: 0, b: 0 },
   TRANSPARENT = true,
+  activeAreaRef,
 }: SplashCursorProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -1137,7 +1139,19 @@ export default function SplashCursor({
       return hash;
     }
 
+    const isInActiveArea = (clientX: number, clientY: number): boolean => {
+      if (!activeAreaRef?.current) return true;
+      const rect = activeAreaRef.current.getBoundingClientRect();
+      return (
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom
+      );
+    };
+
     const handleMouseDown = (e: MouseEvent) => {
+      if (!isInActiveArea(e.clientX, e.clientY)) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1146,6 +1160,7 @@ export default function SplashCursor({
     };
 
     const handleFirstMouseMove = (e: MouseEvent) => {
+      if (!isInActiveArea(e.clientX, e.clientY)) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1156,6 +1171,7 @@ export default function SplashCursor({
     };
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isInActiveArea(e.clientX, e.clientY)) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1167,6 +1183,7 @@ export default function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
+        if (!isInActiveArea(touches[i].clientX, touches[i].clientY)) continue;
         let posX = scaleByPixelRatio(touches[i].clientX);
         let posY = scaleByPixelRatio(touches[i].clientY);
         updateFrame(); // start animation loop
@@ -1179,6 +1196,7 @@ export default function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
+        if (!isInActiveArea(touches[i].clientX, touches[i].clientY)) continue;
         let posX = scaleByPixelRatio(touches[i].clientX);
         let posY = scaleByPixelRatio(touches[i].clientY);
         updatePointerDownData(pointer, touches[i].identifier, posX, posY);
@@ -1189,6 +1207,7 @@ export default function SplashCursor({
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
+        if (!isInActiveArea(touches[i].clientX, touches[i].clientY)) continue;
         let posX = scaleByPixelRatio(touches[i].clientX);
         let posY = scaleByPixelRatio(touches[i].clientY);
         updatePointerMoveData(pointer, posX, posY, pointer.color);
@@ -1237,6 +1256,7 @@ export default function SplashCursor({
     COLOR_UPDATE_SPEED,
     BACK_COLOR,
     TRANSPARENT,
+    activeAreaRef,
   ]);
 
   return (

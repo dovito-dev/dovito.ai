@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ export default function BeamStyleLanding() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -198,7 +199,7 @@ export default function BeamStyleLanding() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {animationsEnabled && <SplashCursor />}
+      {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50">
@@ -241,7 +242,7 @@ export default function BeamStyleLanding() {
         </div>
       </nav>
       {/* Hero Section */}
-      <section id="home" className="pt-20 min-h-screen flex items-center relative">
+      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
