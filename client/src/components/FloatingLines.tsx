@@ -40,16 +40,15 @@ export default function FloatingLines({
   interactive = true,
   bendRadius = 10.0,
   bendStrength = -0.5,
-  mouseDamping = 0.08,
+  mouseDamping = 0.05,
   parallax = true,
   parallaxStrength = 0.2,
 }: FloatingLinesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>(0);
-  const mouseRef = useRef({ x: -1000, y: -1000 });
-  const targetMouseRef = useRef({ x: -1000, y: -1000 });
-  const smoothMouseRef = useRef({ x: -1000, y: -1000 });
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const targetMouseRef = useRef({ x: 0, y: 0 });
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -97,8 +96,6 @@ export default function FloatingLines({
 
     let time = 0;
 
-    const easeOutQuad = (t: number): number => 1 - (1 - t) * (1 - t);
-
     const drawWaveLine = (
       yOffset: number,
       color: string,
@@ -107,7 +104,9 @@ export default function FloatingLines({
       frequency: number,
       thickness: number,
       rotation: number,
-      xOffset: number
+      xOffset: number,
+      mouseX: number,
+      mouseY: number
     ) => {
       const usableHeight = height - padding * 2;
       const centerY = padding + usableHeight / 2 + yOffset;
@@ -125,6 +124,7 @@ export default function FloatingLines({
       ctx.lineJoin = 'round';
 
       const segments = 200;
+      const influenceRadius = bendRadius * 30;
 
       for (let i = 0; i <= segments; i++) {
         const t = i / segments;
@@ -136,28 +136,18 @@ export default function FloatingLines({
         y += Math.sin(normalizedX * frequency * 0.5 * Math.PI + time * 0.7 + phase * 1.3) * amplitude * 0.4;
         y += Math.sin(normalizedX * frequency * 0.3 * Math.PI + time * 0.4 + phase * 0.7) * amplitude * 0.2;
 
-        if (interactive) {
-          const mouseX = smoothMouseRef.current.x;
-          const mouseY = smoothMouseRef.current.y;
+        if (interactive && mouseX > 0 && mouseY > 0) {
+          const dx = x - mouseX;
+          const dy = y - mouseY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (mouseX > 0 && mouseY > 0) {
-            const cosR = Math.cos((rotation * Math.PI) / 180);
-            const sinR = Math.sin((rotation * Math.PI) / 180);
+          if (distance < influenceRadius && distance > 0) {
+            const force = (1 - distance / influenceRadius);
+            const smoothForce = force * force * force;
+            const pushStrength = smoothForce * bendStrength * 150;
             
-            const rotatedX = centerX + (x - centerX) * cosR - (y - centerY) * sinR;
-            const rotatedY = centerY + (x - centerX) * sinR + (y - centerY) * cosR;
-            
-            const dx = mouseX - rotatedX;
-            const dy = mouseY - rotatedY;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const radius = bendRadius * 25;
-            
-            if (dist < radius) {
-              const normalizedDist = dist / radius;
-              const influence = easeOutQuad(1 - normalizedDist);
-              const bendAmount = influence * bendStrength * 60;
-              y += bendAmount;
-            }
+            const normalizedDy = dy / distance;
+            y += normalizedDy * Math.abs(pushStrength);
           }
         }
 
@@ -177,18 +167,13 @@ export default function FloatingLines({
 
       time += 0.012 * animationSpeed;
 
-      if (interactive) {
-        mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
-        mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * mouseDamping;
-        
-        smoothMouseRef.current.x += (mouseRef.current.x - smoothMouseRef.current.x) * 0.15;
-        smoothMouseRef.current.y += (mouseRef.current.y - smoothMouseRef.current.y) * 0.15;
-      }
+      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * mouseDamping;
+      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * mouseDamping;
 
       ctx.save();
       
-      if (parallax && smoothMouseRef.current.x > 0) {
-        const parallaxX = (smoothMouseRef.current.x / width - 0.5) * parallaxStrength * 20;
+      if (parallax && mouseRef.current.x > 0) {
+        const parallaxX = (mouseRef.current.x / width - 0.5) * parallaxStrength * 20;
         ctx.translate(parallaxX, 0);
       }
 
@@ -221,7 +206,9 @@ export default function FloatingLines({
             frequency,
             Math.max(1.5, thickness),
             wave.position.rotate,
-            wave.position.x
+            wave.position.x,
+            mouseRef.current.x,
+            mouseRef.current.y
           );
 
           ctx.shadowBlur = 45;
@@ -234,7 +221,9 @@ export default function FloatingLines({
             frequency,
             Math.max(1.5, thickness) * 5,
             wave.position.rotate,
-            wave.position.x
+            wave.position.x,
+            mouseRef.current.x,
+            mouseRef.current.y
           );
 
           ctx.restore();
@@ -248,12 +237,10 @@ export default function FloatingLines({
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      if (x >= 0 && x <= width && y >= 0 && y <= height) {
-        targetMouseRef.current = { x, y };
-      }
+      targetMouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
     };
 
     const handleMouseLeave = () => {
@@ -262,7 +249,7 @@ export default function FloatingLines({
 
     window.addEventListener('resize', resize);
     if (interactive) {
-      container.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
     }
 
@@ -271,7 +258,7 @@ export default function FloatingLines({
     return () => {
       window.removeEventListener('resize', resize);
       if (interactive) {
-        container.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);
       }
       cancelAnimationFrame(animationRef.current);
