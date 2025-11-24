@@ -107,10 +107,11 @@ vec3 getLineColor(float t, vec3 baseColor) {
   float amp        = sin(offset + time * 0.2) * 0.3;
   float y          = sin(uv.x + x_offset + x_movement) * amp;
 
-  if (shouldBend) {
+  if (shouldBend && bendInfluence > 0.01) {
     vec2 d = screenUv - mouseUv;
-    float influence = exp(-dot(d, d) * bendRadius);
-    float bendOffset = (mouseUv.y - screenUv.y) * influence * bendStrength * bendInfluence;
+    float dist = length(d);
+    float influence = smoothstep(bendRadius, 0.0, dist);
+    float bendOffset = influence * bendStrength * bendInfluence;
     y += bendOffset;
   }
 
@@ -494,9 +495,10 @@ export default function FloatingLines({
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full overflow-hidden"
+      className="absolute inset-0 w-full h-full overflow-hidden pointer-events-auto"
       style={{
-        mixBlendMode: mixBlendMode
+        mixBlendMode: mixBlendMode,
+        zIndex: 1
       }}
     />
   );

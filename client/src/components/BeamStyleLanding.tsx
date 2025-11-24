@@ -320,8 +320,9 @@ export default function BeamStyleLanding() {
           lineDistance={[74, 74, 74]}
           animationSpeed={0.8}
           interactive={true}
-          bendRadius={5.0}
-          bendStrength={-0.5}
+          bendRadius={1.5}
+          bendStrength={0.8}
+          mouseDamping={0.1}
           parallax={true}
           parallaxStrength={0.15}
           mixBlendMode={"screen" as const}
