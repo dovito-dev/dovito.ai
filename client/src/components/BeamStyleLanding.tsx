@@ -262,7 +262,7 @@ export default function BeamStyleLanding() {
 
         {/* Pill Navbar */}
         <motion.div
-          className="flex justify-center"
+          className="max-w-7xl mx-auto px-6 lg:px-8"
           initial={false}
           animate={{
             opacity: navbarCollapsed ? 0 : 1,
@@ -271,7 +271,7 @@ export default function BeamStyleLanding() {
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <nav className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 lg:px-8 shadow-lg shadow-black/20">
+          <nav className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 lg:px-8 shadow-lg shadow-black/20 w-full">
             <div className="flex justify-between items-center h-16 gap-8">
               <div className="flex items-center">
                 <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
