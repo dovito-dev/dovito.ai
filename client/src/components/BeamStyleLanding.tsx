@@ -428,6 +428,8 @@ export default function BeamStyleLanding() {
       </section>
       {/* Beams Background Container - Section 4 onwards */}
       <div className="relative">
+        {/* Fade gradient at top for smooth transition */}
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background to-transparent z-[2] pointer-events-none" />
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
             beamWidth={3}
