@@ -1,4 +1,4 @@
-import { useEffect, useRef, CSSProperties } from 'react';
+import { useEffect, useRef, useCallback, CSSProperties } from 'react';
 import {
   Scene,
   OrthographicCamera,
@@ -271,6 +271,13 @@ export default function FloatingLines({
   activeAreaRef
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const rendererRef = useRef<WebGLRenderer | null>(null);
+  const sceneRef = useRef<Scene | null>(null);
+  const clockRef = useRef<Clock | null>(null);
+  const uniformsRef = useRef<Record<string, { value: unknown }> | null>(null);
+  const rafRef = useRef<number>(0);
+  const isInitializedRef = useRef<boolean>(false);
+  
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
   const currentMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
   const targetInfluenceRef = useRef<number>(0);
@@ -278,43 +285,64 @@ export default function FloatingLines({
   const targetParallaxRef = useRef<Vector2>(new Vector2(0, 0));
   const currentParallaxRef = useRef<Vector2>(new Vector2(0, 0));
 
-  const getLineCount = (waveType: 'top' | 'middle' | 'bottom'): number => {
+  const propsRef = useRef({
+    interactive,
+    parallax,
+    parallaxStrength,
+    mouseDamping,
+    bendRadius,
+    bendStrength
+  });
+
+  propsRef.current = {
+    interactive,
+    parallax,
+    parallaxStrength,
+    mouseDamping,
+    bendRadius,
+    bendStrength
+  };
+
+  const getLineCount = useCallback((waveType: 'top' | 'middle' | 'bottom'): number => {
     if (typeof lineCount === 'number') return lineCount;
     if (!enabledWaves.includes(waveType)) return 0;
     const index = enabledWaves.indexOf(waveType);
     return lineCount[index] ?? 6;
-  };
+  }, [lineCount, enabledWaves]);
 
-  const getLineDistance = (waveType: 'top' | 'middle' | 'bottom'): number => {
+  const getLineDistance = useCallback((waveType: 'top' | 'middle' | 'bottom'): number => {
     if (typeof lineDistance === 'number') return lineDistance;
     if (!enabledWaves.includes(waveType)) return 0.1;
     const index = enabledWaves.indexOf(waveType);
     return lineDistance[index] ?? 0.1;
-  };
-
-  const topLineCount = enabledWaves.includes('top') ? getLineCount('top') : 0;
-  const middleLineCount = enabledWaves.includes('middle') ? getLineCount('middle') : 0;
-  const bottomLineCount = enabledWaves.includes('bottom') ? getLineCount('bottom') : 0;
-
-  const topLineDistance = enabledWaves.includes('top') ? getLineDistance('top') * 0.01 : 0.01;
-  const middleLineDistance = enabledWaves.includes('middle') ? getLineDistance('middle') * 0.01 : 0.01;
-  const bottomLineDistance = enabledWaves.includes('bottom') ? getLineDistance('bottom') * 0.01 : 0.01;
+  }, [lineDistance, enabledWaves]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || isInitializedRef.current) return;
+    isInitializedRef.current = true;
 
     const scene = new Scene();
+    sceneRef.current = scene;
 
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
     const renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    rendererRef.current = renderer;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     containerRef.current.appendChild(renderer.domElement);
 
-    const uniforms = {
+    const topLineCountVal = enabledWaves.includes('top') ? getLineCount('top') : 0;
+    const middleLineCountVal = enabledWaves.includes('middle') ? getLineCount('middle') : 0;
+    const bottomLineCountVal = enabledWaves.includes('bottom') ? getLineCount('bottom') : 0;
+
+    const topLineDistanceVal = enabledWaves.includes('top') ? getLineDistance('top') * 0.01 : 0.01;
+    const middleLineDistanceVal = enabledWaves.includes('middle') ? getLineDistance('middle') * 0.01 : 0.01;
+    const bottomLineDistanceVal = enabledWaves.includes('bottom') ? getLineDistance('bottom') * 0.01 : 0.01;
+
+    const uniforms: Record<string, { value: unknown }> = {
       iTime: { value: 0 },
       iResolution: { value: new Vector3(1, 1, 1) },
       animationSpeed: { value: animationSpeed },
@@ -323,13 +351,13 @@ export default function FloatingLines({
       enableMiddle: { value: enabledWaves.includes('middle') },
       enableBottom: { value: enabledWaves.includes('bottom') },
 
-      topLineCount: { value: topLineCount },
-      middleLineCount: { value: middleLineCount },
-      bottomLineCount: { value: bottomLineCount },
+      topLineCount: { value: topLineCountVal },
+      middleLineCount: { value: middleLineCountVal },
+      bottomLineCount: { value: bottomLineCountVal },
 
-      topLineDistance: { value: topLineDistance },
-      middleLineDistance: { value: middleLineDistance },
-      bottomLineDistance: { value: bottomLineDistance },
+      topLineDistance: { value: topLineDistanceVal },
+      middleLineDistance: { value: middleLineDistanceVal },
+      bottomLineDistance: { value: bottomLineDistanceVal },
 
       topWavePosition: {
         value: new Vector3(topWavePosition?.x ?? 10.0, topWavePosition?.y ?? 0.5, topWavePosition?.rotate ?? -0.4)
@@ -365,13 +393,15 @@ export default function FloatingLines({
       lineGradientCount: { value: 0 }
     };
 
+    uniformsRef.current = uniforms;
+
     if (linesGradient && linesGradient.length > 0) {
       const stops = linesGradient.slice(0, MAX_GRADIENT_STOPS);
       uniforms.lineGradientCount.value = stops.length;
 
       stops.forEach((hex, i) => {
         const color = hexToVec3(hex);
-        uniforms.lineGradient.value[i].set(color.x, color.y, color.z);
+        (uniforms.lineGradient.value as Vector3[])[i].set(color.x, color.y, color.z);
       });
     }
 
@@ -386,10 +416,11 @@ export default function FloatingLines({
     scene.add(mesh);
 
     const clock = new Clock();
+    clockRef.current = clock;
 
     const setSize = () => {
       const el = containerRef.current;
-      if (!el) return;
+      if (!el || !renderer) return;
       
       const width = el.clientWidth || 1;
       const height = el.clientHeight || 1;
@@ -398,7 +429,7 @@ export default function FloatingLines({
 
       const canvasWidth = renderer.domElement.width;
       const canvasHeight = renderer.domElement.height;
-      uniforms.iResolution.value.set(canvasWidth, canvasHeight, 1);
+      (uniforms.iResolution.value as Vector3).set(canvasWidth, canvasHeight, 1);
     };
 
     setSize();
@@ -410,6 +441,7 @@ export default function FloatingLines({
     }
 
     const handlePointerMove = (event: PointerEvent) => {
+      if (!renderer) return;
       const canvasRect = renderer.domElement.getBoundingClientRect();
       const x = event.clientX - canvasRect.left;
       const y = event.clientY - canvasRect.top;
@@ -418,12 +450,12 @@ export default function FloatingLines({
       targetMouseRef.current.set(x * dpr, (canvasRect.height - y) * dpr);
       targetInfluenceRef.current = 1.0;
 
-      if (parallax) {
+      if (propsRef.current.parallax) {
         const centerX = canvasRect.width / 2;
         const centerY = canvasRect.height / 2;
         const offsetX = (x - centerX) / canvasRect.width;
         const offsetY = -(y - centerY) / canvasRect.height;
-        targetParallaxRef.current.set(offsetX * parallaxStrength, offsetY * parallaxStrength);
+        targetParallaxRef.current.set(offsetX * propsRef.current.parallaxStrength, offsetY * propsRef.current.parallaxStrength);
       }
     };
 
@@ -433,43 +465,44 @@ export default function FloatingLines({
 
     const eventTarget = activeAreaRef?.current || renderer.domElement;
     
-    if (interactive) {
-      eventTarget.addEventListener('pointermove', handlePointerMove as EventListener);
-      eventTarget.addEventListener('pointerleave', handlePointerLeave as EventListener);
-    }
+    eventTarget.addEventListener('pointermove', handlePointerMove as EventListener);
+    eventTarget.addEventListener('pointerleave', handlePointerLeave as EventListener);
 
-    let raf = 0;
     const renderLoop = () => {
-      uniforms.iTime.value = clock.getElapsedTime();
-
-      if (interactive) {
-        currentMouseRef.current.lerp(targetMouseRef.current, mouseDamping);
-        uniforms.iMouse.value.copy(currentMouseRef.current);
-
-        currentInfluenceRef.current += (targetInfluenceRef.current - currentInfluenceRef.current) * mouseDamping;
-        uniforms.bendInfluence.value = currentInfluenceRef.current;
+      if (!clockRef.current || !uniformsRef.current || !rendererRef.current || !sceneRef.current) {
+        rafRef.current = requestAnimationFrame(renderLoop);
+        return;
       }
 
-      if (parallax) {
-        currentParallaxRef.current.lerp(targetParallaxRef.current, mouseDamping);
-        uniforms.parallaxOffset.value.copy(currentParallaxRef.current);
+      const u = uniformsRef.current;
+      u.iTime.value = clockRef.current.getElapsedTime();
+
+      if (propsRef.current.interactive) {
+        currentMouseRef.current.lerp(targetMouseRef.current, propsRef.current.mouseDamping);
+        (u.iMouse.value as Vector2).copy(currentMouseRef.current);
+
+        currentInfluenceRef.current += (targetInfluenceRef.current - currentInfluenceRef.current) * propsRef.current.mouseDamping;
+        u.bendInfluence.value = currentInfluenceRef.current;
       }
 
-      renderer.render(scene, camera);
-      raf = requestAnimationFrame(renderLoop);
+      if (propsRef.current.parallax) {
+        currentParallaxRef.current.lerp(targetParallaxRef.current, propsRef.current.mouseDamping);
+        (u.parallaxOffset.value as Vector2).copy(currentParallaxRef.current);
+      }
+
+      rendererRef.current.render(sceneRef.current, camera);
+      rafRef.current = requestAnimationFrame(renderLoop);
     };
     renderLoop();
 
     return () => {
-      cancelAnimationFrame(raf);
-      if (ro && containerRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      if (ro) {
         ro.disconnect();
       }
 
-      if (interactive) {
-        eventTarget.removeEventListener('pointermove', handlePointerMove as EventListener);
-        eventTarget.removeEventListener('pointerleave', handlePointerLeave as EventListener);
-      }
+      eventTarget.removeEventListener('pointermove', handlePointerMove as EventListener);
+      eventTarget.removeEventListener('pointerleave', handlePointerLeave as EventListener);
 
       geometry.dispose();
       material.dispose();
@@ -477,24 +510,26 @@ export default function FloatingLines({
       if (renderer.domElement.parentElement) {
         renderer.domElement.parentElement.removeChild(renderer.domElement);
       }
+      
+      isInitializedRef.current = false;
+      rendererRef.current = null;
+      sceneRef.current = null;
+      clockRef.current = null;
+      uniformsRef.current = null;
     };
-  }, [
-    linesGradient,
-    enabledWaves,
-    lineCount,
-    lineDistance,
-    topWavePosition,
-    middleWavePosition,
-    bottomWavePosition,
-    animationSpeed,
-    interactive,
-    bendRadius,
-    bendStrength,
-    mouseDamping,
-    parallax,
-    parallaxStrength,
-    activeAreaRef
-  ]);
+  }, []);
+
+  useEffect(() => {
+    if (!uniformsRef.current) return;
+    const u = uniformsRef.current;
+    
+    u.animationSpeed.value = animationSpeed;
+    u.interactive.value = interactive;
+    u.bendRadius.value = bendRadius;
+    u.bendStrength.value = bendStrength;
+    u.parallax.value = parallax;
+    u.parallaxStrength.value = parallaxStrength;
+  }, [animationSpeed, interactive, bendRadius, bendStrength, parallax, parallaxStrength]);
 
   return (
     <div
