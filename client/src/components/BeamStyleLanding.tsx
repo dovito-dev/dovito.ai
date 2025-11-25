@@ -22,6 +22,8 @@ export default function BeamStyleLanding() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
+  const [navbarCollapsed, setNavbarCollapsed] = useState(false);
+  const lastScrollY = useRef(0);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
@@ -57,6 +59,21 @@ export default function BeamStyleLanding() {
           }
         }
       }
+
+      const currentScrollY = window.scrollY;
+      const scrollThreshold = 100;
+      
+      if (currentScrollY > scrollThreshold) {
+        if (currentScrollY > lastScrollY.current) {
+          setNavbarCollapsed(true);
+        } else {
+          setNavbarCollapsed(false);
+        }
+      } else {
+        setNavbarCollapsed(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -205,44 +222,92 @@ export default function BeamStyleLanding() {
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4">
-        <nav className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 gap-8">
-            <div className="flex items-center">
-              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
-            </div>
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6">
+        {/* Sticky Logo - Left */}
+        <motion.div
+          className="fixed top-4 left-6 z-50"
+          initial={false}
+          animate={{
+            opacity: navbarCollapsed ? 1 : 0,
+            x: navbarCollapsed ? 0 : 50,
+            pointerEvents: navbarCollapsed ? "auto" : "none"
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <button onClick={() => scrollToSection("home")} className="block">
+            <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+          </button>
+        </motion.div>
 
-            <div className="hidden md:flex items-center space-x-8">
-              {[
-                { id: "home", label: "Home" },
-                { id: "products", label: "Universe" },
-                { id: "value", label: "Impact" },
-                { id: "contact", label: "Connect" }
-              ].map((item, index) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                    activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                  }`}
+        {/* Sticky CTA - Right */}
+        <motion.div
+          className="fixed top-4 right-6 z-50"
+          initial={false}
+          animate={{
+            opacity: navbarCollapsed ? 1 : 0,
+            x: navbarCollapsed ? 0 : -50,
+            pointerEvents: navbarCollapsed ? "auto" : "none"
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <Button 
+            onClick={() => scrollToSection("contact")}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+          >
+            Get Started
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
+        </motion.div>
+
+        {/* Pill Navbar */}
+        <motion.div
+          className="flex justify-center"
+          initial={false}
+          animate={{
+            opacity: navbarCollapsed ? 0 : 1,
+            y: navbarCollapsed ? -20 : 0,
+            pointerEvents: navbarCollapsed ? "none" : "auto"
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <nav className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16 gap-8">
+              <div className="flex items-center">
+                <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+              </div>
+
+              <div className="hidden md:flex items-center space-x-8">
+                {[
+                  { id: "home", label: "Home" },
+                  { id: "products", label: "Universe" },
+                  { id: "value", label: "Impact" },
+                  { id: "contact", label: "Connect" }
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                      activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                    {activeSection === item.id && (
+                      <div className="absolute inset-0 bg-primary/10 rounded-lg" />
+                    )}
+                  </button>
+                ))}
+
+                <Button 
+                  onClick={() => scrollToSection("contact")}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
                 >
-                  {item.label}
-                  {activeSection === item.id && (
-                    <div className="absolute inset-0 bg-primary/10 rounded-lg" />
-                  )}
-                </button>
-              ))}
-
-              <Button 
-                onClick={() => scrollToSection("contact")}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
-              >
-                Get Started
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+                  Get Started
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </motion.div>
       </div>
       {/* Hero Section */}
       <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative">
