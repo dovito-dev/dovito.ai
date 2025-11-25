@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -581,12 +582,21 @@ export default function BeamStyleLanding() {
               <div className="text-sm text-muted-foreground">
                 © 2024 Dovito.ai. All rights reserved.
               </div>
-              <a
-                href="/admin"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Admin
-              </a>
+              <div className="flex items-center gap-6">
+                <Link
+                  href="/brand-kit"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid="link-brand-kit"
+                >
+                  Brand Kit
+                </Link>
+                <a
+                  href="/admin"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Admin
+                </a>
+              </div>
             </div>
           </div>
         </footer>
