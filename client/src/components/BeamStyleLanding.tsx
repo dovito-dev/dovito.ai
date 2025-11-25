@@ -11,11 +11,9 @@ import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, Che
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
-import FluidGlassCursor from "./FluidGlassCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
 import AnimationToggle from "./AnimationToggle";
-import CursorSelector, { type CursorType } from "./CursorSelector";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 
@@ -23,11 +21,9 @@ export default function BeamStyleLanding() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
-  const [cursorType, setCursorType] = useState<CursorType>('splash');
   const [adminUser, setAdminUser] = useState<any>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
-  const valueSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -204,25 +200,10 @@ export default function BeamStyleLanding() {
     return grid;
   };
 
-  const isCursorActiveSection = activeSection === 'home' || activeSection === 'value';
-  const showSpecialCursor = animationsEnabled && cursorType !== 'normal' && isCursorActiveSection;
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {showSpecialCursor && cursorType === 'splash' && activeSection === 'home' && (
-        <SplashCursor activeAreaRef={heroSectionRef} />
-      )}
-      {showSpecialCursor && cursorType === 'splash' && activeSection === 'value' && (
-        <SplashCursor activeAreaRef={valueSectionRef} />
-      )}
-      {showSpecialCursor && cursorType === 'glass' && activeSection === 'home' && (
-        <FluidGlassCursor activeAreaRef={heroSectionRef} />
-      )}
-      {showSpecialCursor && cursorType === 'glass' && activeSection === 'value' && (
-        <FluidGlassCursor activeAreaRef={valueSectionRef} />
-      )}
+      {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      <CursorSelector currentCursor={cursorType} onCursorChange={setCursorType} />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -383,7 +364,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Value Proposition Section */}
-      <section id="value" ref={valueSectionRef} className="py-32 bg-card/20">
+      <section id="value" className="py-32 bg-card/20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-20"
