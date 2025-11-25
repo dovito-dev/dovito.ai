@@ -315,7 +315,7 @@ export default function BeamStyleLanding() {
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden">
         <FloatingLines
-          linesGradient={["#6366F1", "#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F472B6"]}
+          linesGradient={["#1E3A8A", "#3B82F6", "#4F46E5", "#1E1B4B"]}
           enabledWaves={['middle']}
           lineCount={[4, 4, 4]}
           lineDistance={[45, 45, 45]}
