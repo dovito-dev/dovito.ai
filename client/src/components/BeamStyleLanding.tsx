@@ -12,6 +12,7 @@ import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
 import FloatingLines from "./FloatingLines";
+import Beams from "./Beams";
 import AnimationToggle from "./AnimationToggle";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
@@ -425,9 +426,24 @@ export default function BeamStyleLanding() {
           </div>
         </div>
       </section>
-      {/* Contact Section */}
-      <section id="contact" className="py-32">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+      {/* Beams Background Container - Section 4 onwards */}
+      <div className="relative">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Beams
+            beamWidth={2}
+            beamHeight={15}
+            beamNumber={12}
+            lightColor="#3B82F6"
+            speed={2}
+            noiseIntensity={1.75}
+            scale={0.2}
+            rotation={0}
+          />
+        </div>
+        
+        {/* Contact Section */}
+        <section id="contact" className="py-32 relative z-10">
+          <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -502,8 +518,27 @@ export default function BeamStyleLanding() {
               </CardContent>
             </Card>
           </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+
+        {/* Footer with Admin Access */}
+        <footer className="bg-background/80 backdrop-blur-sm border-t border-border/50 py-8 mt-20 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex justify-between items-center">
+              <div className="text-sm text-muted-foreground">
+                © 2024 Dovito.ai. All rights reserved.
+              </div>
+              <a
+                href="/admin"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Admin
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
+
       {/* Product Detail Modal */}
       <AnimatePresence>
         {selectedProduct && (
@@ -582,23 +617,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Footer with Admin Access */}
-      <footer className="bg-background/80 backdrop-blur-sm border-t border-border/50 py-8 mt-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <div className="text-sm text-muted-foreground">
-              © 2024 Dovito.ai. All rights reserved.
-            </div>
-            <a
-              href="/admin"
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Admin
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
