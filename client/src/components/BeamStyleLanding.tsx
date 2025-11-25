@@ -222,41 +222,42 @@ export default function BeamStyleLanding() {
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6">
-        {/* Sticky Logo - Left */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4">
+        {/* Sticky Logo & CTA - Aligned to content margins */}
         <motion.div
-          className="fixed top-4 left-6 z-50"
+          className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center absolute top-4 left-0 right-0"
           initial={false}
           animate={{
             opacity: navbarCollapsed ? 1 : 0,
-            x: navbarCollapsed ? 0 : 50,
             pointerEvents: navbarCollapsed ? "auto" : "none"
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <button onClick={() => scrollToSection("home")} className="block">
-            <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
-          </button>
-        </motion.div>
-
-        {/* Sticky CTA - Right */}
-        <motion.div
-          className="fixed top-4 right-6 z-50"
-          initial={false}
-          animate={{
-            opacity: navbarCollapsed ? 1 : 0,
-            x: navbarCollapsed ? 0 : -50,
-            pointerEvents: navbarCollapsed ? "auto" : "none"
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <Button 
-            onClick={() => scrollToSection("contact")}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+          {/* Logo - Left margin */}
+          <motion.div
+            initial={false}
+            animate={{ x: navbarCollapsed ? 0 : 50 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            Get Started
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+            <button onClick={() => scrollToSection("home")} className="block">
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+            </button>
+          </motion.div>
+
+          {/* CTA - Right margin */}
+          <motion.div
+            initial={false}
+            animate={{ x: navbarCollapsed ? 0 : -50 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Button 
+              onClick={() => scrollToSection("contact")}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+            >
+              Get Started
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Pill Navbar */}
