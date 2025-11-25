@@ -11,9 +11,11 @@ import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, Che
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
+import FluidGlassCursor from "./FluidGlassCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
 import AnimationToggle from "./AnimationToggle";
+import CursorSelector, { type CursorType } from "./CursorSelector";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 
@@ -21,9 +23,11 @@ export default function BeamStyleLanding() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
+  const [cursorType, setCursorType] = useState<CursorType>('splash');
   const [adminUser, setAdminUser] = useState<any>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
+  const cursorActiveAreaRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -200,10 +204,19 @@ export default function BeamStyleLanding() {
     return grid;
   };
 
+  const isCursorActiveSection = activeSection === 'home' || activeSection === 'products';
+  const showSpecialCursor = cursorType !== 'normal' && isCursorActiveSection;
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
+      {showSpecialCursor && cursorType === 'splash' && (
+        <SplashCursor activeAreaRef={activeSection === 'home' ? heroSectionRef : productsSectionRef} />
+      )}
+      {showSpecialCursor && cursorType === 'glass' && (
+        <FluidGlassCursor activeAreaRef={activeSection === 'home' ? heroSectionRef : productsSectionRef} />
+      )}
       <AnimationToggle onToggle={setAnimationsEnabled} />
+      <CursorSelector currentCursor={cursorType} onCursorChange={setCursorType} />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
