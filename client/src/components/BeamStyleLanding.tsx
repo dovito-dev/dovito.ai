@@ -318,7 +318,7 @@ export default function BeamStyleLanding() {
           linesGradient={["#6366F1", "#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F472B6"]}
           enabledWaves={['middle']}
           lineCount={[4, 4, 4]}
-          lineDistance={[74, 74, 74]}
+          lineDistance={[45, 45, 45]}
           animationSpeed={0.8}
           interactive={true}
           bendRadius={2.0}
