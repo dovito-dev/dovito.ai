@@ -213,13 +213,13 @@ export default function BeamStyleLanding() {
         <SplashCursor activeAreaRef={heroSectionRef} />
       )}
       {showSpecialCursor && cursorType === 'splash' && activeSection === 'value' && (
-        <SplashCursor activeAreaRef={valueSectionRef} />
+        <SplashCursor />
       )}
       {showSpecialCursor && cursorType === 'glass' && activeSection === 'home' && (
         <FluidGlassCursor activeAreaRef={heroSectionRef} />
       )}
       {showSpecialCursor && cursorType === 'glass' && activeSection === 'value' && (
-        <FluidGlassCursor activeAreaRef={valueSectionRef} />
+        <FluidGlassCursor />
       )}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       <CursorSelector currentCursor={cursorType} onCursorChange={setCursorType} />
