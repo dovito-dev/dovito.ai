@@ -271,7 +271,7 @@ export default function BeamStyleLanding() {
           }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <nav className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-6 lg:px-8">
+          <nav className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 lg:px-8 shadow-lg shadow-black/20">
             <div className="flex justify-between items-center h-16 gap-8">
               <div className="flex items-center">
                 <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
