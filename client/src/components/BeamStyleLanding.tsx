@@ -524,7 +524,7 @@ export default function BeamStyleLanding() {
         </section>
 
         {/* Footer with Admin Access */}
-        <footer className="bg-background/80 backdrop-blur-sm border-t border-border/50 py-8 mt-20 relative z-10">
+        <footer className="backdrop-blur-sm border-t border-border/50 py-8 mt-20 relative z-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center">
               <div className="text-sm text-muted-foreground">
