@@ -1,173 +1,279 @@
-import { useEffect, useRef, RefObject } from 'react';
+/* eslint-disable react/no-unknown-property */
+import { useRef, useState, useEffect, RefObject, useMemo } from 'react';
+import * as THREE from 'three';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { easing } from 'maath';
 
 interface FluidGlassCursorProps {
   activeAreaRef?: RefObject<HTMLElement>;
   size?: number;
-  blur?: number;
   distortion?: number;
   color?: string;
+}
+
+const GlassShader = {
+  uniforms: {
+    time: { value: 0 },
+    resolution: { value: new THREE.Vector2() },
+    distortion: { value: 0.3 },
+    glassColor: { value: new THREE.Color('#94a6ff') },
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    
+    void main() {
+      vUv = uv;
+      vNormal = normalize(normalMatrix * normal);
+      vPosition = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform float time;
+    uniform vec2 resolution;
+    uniform float distortion;
+    uniform vec3 glassColor;
+    
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    
+    void main() {
+      vec3 viewDir = normalize(-vPosition);
+      float fresnel = pow(1.0 - dot(viewDir, vNormal), 3.0);
+      
+      float rim = pow(1.0 - abs(dot(viewDir, vNormal)), 2.0);
+      
+      vec3 refractColor = glassColor * (0.3 + 0.2 * sin(time * 2.0));
+      
+      float iridescence = sin(vUv.x * 10.0 + time) * 0.1 + 
+                          cos(vUv.y * 8.0 - time * 0.5) * 0.1;
+      
+      vec3 finalColor = mix(
+        refractColor,
+        vec3(1.0),
+        fresnel * 0.6 + rim * 0.3
+      );
+      
+      finalColor += vec3(0.2, 0.3, 0.5) * iridescence;
+      
+      float alpha = 0.4 + fresnel * 0.4 + rim * 0.2;
+      
+      gl_FragColor = vec4(finalColor, alpha);
+    }
+  `
+};
+
+function GlassLens({ 
+  mousePos,
+  distortion = 0.3,
+  color = '#94a6ff'
+}: { 
+  mousePos: React.MutableRefObject<{ x: number; y: number }>;
+  distortion?: number;
+  color?: string;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const { viewport, camera } = useThree();
+
+  const shaderMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        distortion: { value: distortion },
+        glassColor: { value: new THREE.Color(color) },
+      },
+      vertexShader: GlassShader.vertexShader,
+      fragmentShader: GlassShader.fragmentShader,
+      transparent: true,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+  }, [distortion, color]);
+
+  useFrame((state, delta) => {
+    if (!meshRef.current) return;
+
+    const v = viewport.getCurrentViewport(camera, [0, 0, 5]);
+    
+    const destX = (mousePos.current.x / window.innerWidth) * 2 - 1;
+    const destY = -((mousePos.current.y / window.innerHeight) * 2 - 1);
+    
+    const targetX = (destX * v.width) / 2;
+    const targetY = (destY * v.height) / 2;
+
+    easing.damp3(meshRef.current.position, [targetX, targetY, 5], 0.08, delta);
+
+    meshRef.current.rotation.x += delta * 0.3;
+    meshRef.current.rotation.y += delta * 0.5;
+    meshRef.current.rotation.z += delta * 0.2;
+
+    if (shaderMaterial.uniforms) {
+      shaderMaterial.uniforms.time.value = state.clock.elapsedTime;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} scale={0.5} material={shaderMaterial}>
+      <torusGeometry args={[1, 0.35, 64, 128]} />
+    </mesh>
+  );
+}
+
+function InnerRing({ 
+  mousePos,
+  color = '#94a6ff'
+}: { 
+  mousePos: React.MutableRefObject<{ x: number; y: number }>;
+  color?: string;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const { viewport, camera } = useThree();
+
+  useFrame((state, delta) => {
+    if (!meshRef.current) return;
+
+    const v = viewport.getCurrentViewport(camera, [0, 0, 5]);
+    
+    const destX = (mousePos.current.x / window.innerWidth) * 2 - 1;
+    const destY = -((mousePos.current.y / window.innerHeight) * 2 - 1);
+    
+    const targetX = (destX * v.width) / 2;
+    const targetY = (destY * v.height) / 2;
+
+    easing.damp3(meshRef.current.position, [targetX, targetY, 5.1], 0.12, delta);
+
+    meshRef.current.rotation.x -= delta * 0.4;
+    meshRef.current.rotation.y -= delta * 0.6;
+  });
+
+  return (
+    <mesh ref={meshRef} scale={0.35}>
+      <torusGeometry args={[0.6, 0.15, 32, 64]} />
+      <meshPhysicalMaterial
+        color={color}
+        metalness={0.1}
+        roughness={0.1}
+        transmission={0.9}
+        thickness={0.5}
+        transparent
+        opacity={0.6}
+      />
+    </mesh>
+  );
+}
+
+function GlowSphere({ 
+  mousePos,
+  color = '#94a6ff'
+}: { 
+  mousePos: React.MutableRefObject<{ x: number; y: number }>;
+  color?: string;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const { viewport, camera } = useThree();
+
+  useFrame((state, delta) => {
+    if (!meshRef.current) return;
+
+    const v = viewport.getCurrentViewport(camera, [0, 0, 5]);
+    
+    const destX = (mousePos.current.x / window.innerWidth) * 2 - 1;
+    const destY = -((mousePos.current.y / window.innerHeight) * 2 - 1);
+    
+    const targetX = (destX * v.width) / 2;
+    const targetY = (destY * v.height) / 2;
+
+    easing.damp3(meshRef.current.position, [targetX, targetY, 4.9], 0.06, delta);
+
+    const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.05 + 0.2;
+    meshRef.current.scale.setScalar(pulse);
+  });
+
+  return (
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshBasicMaterial
+        color={color}
+        transparent
+        opacity={0.15}
+      />
+    </mesh>
+  );
 }
 
 export default function FluidGlassCursor({
   activeAreaRef,
   size = 120,
-  blur = 8,
-  distortion = 0.15,
-  color = 'rgba(148, 166, 255, 0.1)'
+  distortion = 0.3,
+  color = '#94a6ff'
 }: FluidGlassCursorProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
-  const isActiveRef = useRef(true);
-  const animationRef = useRef<number>();
+  const mousePos = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const [isActive, setIsActive] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
     const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+
       if (activeAreaRef?.current) {
         const rect = activeAreaRef.current.getBoundingClientRect();
-        isActiveRef.current = (
+        const inArea = (
           e.clientX >= rect.left &&
           e.clientX <= rect.right &&
           e.clientY >= rect.top &&
           e.clientY <= rect.bottom
         );
+        setIsActive(inArea);
+      } else {
+        setIsActive(true);
       }
-      mouseRef.current.targetX = e.clientX;
-      mouseRef.current.targetY = e.clientY;
+
+      if (!isVisible) setIsVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsVisible(false);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-
-    const animate = () => {
-      if (!ctx || !canvas) return;
-
-      const lerp = 0.15;
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * lerp;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * lerp;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (isActiveRef.current) {
-        const x = mouseRef.current.x;
-        const y = mouseRef.current.y;
-        const radius = size / 2;
-        const time = Date.now() * 0.002;
-
-        ctx.save();
-
-        const gradient = ctx.createRadialGradient(
-          x - radius * 0.3, y - radius * 0.3, 0,
-          x, y, radius
-        );
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
-        gradient.addColorStop(0.3, color);
-        gradient.addColorStop(0.7, 'rgba(148, 166, 255, 0.05)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        const innerGradient = ctx.createRadialGradient(
-          x - radius * 0.2, y - radius * 0.2, 0,
-          x, y, radius * 0.6
-        );
-        innerGradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
-        innerGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)');
-        innerGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-        ctx.beginPath();
-        ctx.arc(x, y, radius * 0.8, 0, Math.PI * 2);
-        ctx.fillStyle = innerGradient;
-        ctx.fill();
-
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.arc(x, y, radius - 1, 0, Math.PI * 2);
-        ctx.stroke();
-
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(x, y, radius * 0.6, 0, Math.PI * 2);
-        ctx.stroke();
-
-        const highlightX = x - radius * 0.35;
-        const highlightY = y - radius * 0.35;
-        const highlightRadius = radius * 0.25;
-        
-        const highlightGradient = ctx.createRadialGradient(
-          highlightX, highlightY, 0,
-          highlightX, highlightY, highlightRadius
-        );
-        highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
-        highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-        ctx.beginPath();
-        ctx.ellipse(highlightX, highlightY, highlightRadius, highlightRadius * 0.6, -Math.PI / 4, 0, Math.PI * 2);
-        ctx.fillStyle = highlightGradient;
-        ctx.fill();
-
-        const numRays = 6;
-        for (let i = 0; i < numRays; i++) {
-          const angle = (i / numRays) * Math.PI * 2 + time;
-          const rayLength = radius * (0.3 + Math.sin(time * 2 + i) * 0.1);
-          
-          const rayGradient = ctx.createLinearGradient(
-            x, y,
-            x + Math.cos(angle) * rayLength,
-            y + Math.sin(angle) * rayLength
-          );
-          rayGradient.addColorStop(0, 'rgba(148, 166, 255, 0.2)');
-          rayGradient.addColorStop(1, 'rgba(148, 166, 255, 0)');
-
-          ctx.beginPath();
-          ctx.moveTo(x, y);
-          ctx.lineTo(
-            x + Math.cos(angle) * rayLength,
-            y + Math.sin(angle) * rayLength
-          );
-          ctx.strokeStyle = rayGradient;
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      }
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [activeAreaRef, size, color]);
+  }, [activeAreaRef, isVisible]);
+
+  if (!isActive || !isVisible) return null;
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div 
       className="fixed inset-0 pointer-events-none z-[9999]"
-      style={{ mixBlendMode: 'screen' }}
-    />
+      style={{ mixBlendMode: 'normal' }}
+    >
+      <Canvas
+        camera={{ position: [0, 0, 15], fov: 25 }}
+        gl={{ 
+          alpha: true, 
+          antialias: true,
+          powerPreference: 'high-performance'
+        }}
+        style={{ background: 'transparent' }}
+      >
+        <ambientLight intensity={0.8} />
+        <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
+        <pointLight position={[-10, -10, 5]} intensity={0.5} color="#94a6ff" />
+        
+        <GlowSphere mousePos={mousePos} color={color} />
+        <GlassLens mousePos={mousePos} distortion={distortion} color={color} />
+        <InnerRing mousePos={mousePos} color={color} />
+      </Canvas>
+    </div>
   );
 }
