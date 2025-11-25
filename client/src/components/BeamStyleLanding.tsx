@@ -430,14 +430,14 @@ export default function BeamStyleLanding() {
       <div className="relative">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
-            beamWidth={2}
-            beamHeight={15}
-            beamNumber={12}
-            lightColor="#3B82F6"
-            speed={2}
-            noiseIntensity={1.75}
-            scale={0.2}
-            rotation={25}
+            beamWidth={3.9}
+            beamHeight={18}
+            beamNumber={20}
+            lightColor="#ffffff"
+            speed={2.2}
+            noiseIntensity={0}
+            scale={0.24}
+            rotation={28}
           />
         </div>
         
