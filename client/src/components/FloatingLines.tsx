@@ -102,29 +102,27 @@ vec3 getLineColor(float t, vec3 baseColor) {
   float wave(vec2 uv, float offset, vec2 screenUv, vec2 mouseUv, bool shouldBend) {
   float time = iTime * animationSpeed;
 
-  vec2 warpedUv = uv;
-  
+  float x_offset   = offset;
+  float x_movement = time * 0.1;
+  float amp        = sin(offset + time * 0.2) * 0.3;
+  float y          = sin(uv.x + x_offset + x_movement) * amp;
+
   if (shouldBend && bendInfluence > 0.01) {
     vec2 delta = screenUv - mouseUv;
     float dist = length(delta);
     
-    if (dist < bendRadius && dist > 0.001) {
-      vec2 dir = delta / dist;
-      float influence = smoothstep(0.0, bendRadius, dist);
-      float strength = bendStrength * bendInfluence * (1.0 - influence);
+    if (dist < bendRadius) {
+      float normalizedDist = dist / bendRadius;
+      float falloff = pow(1.0 - normalizedDist, 2.0);
+      float bend = bendStrength * bendInfluence * falloff;
       
-      vec2 perpDir = vec2(-dir.y, dir.x);
-      warpedUv += dir * strength * 0.5;
-      warpedUv += perpDir * strength * 0.3 * sin(dist * 3.14159);
+      if (dist > 0.001) {
+        y += bend * (delta.y / dist);
+      }
     }
   }
 
-  float x_offset   = offset;
-  float x_movement = time * 0.1;
-  float amp        = sin(offset + time * 0.2) * 0.3;
-  float y          = sin(warpedUv.x + x_offset + x_movement) * amp;
-
-  float m = warpedUv.y - y;
+  float m = uv.y - y;
   return 0.0175 / max(abs(m) + 0.01, 1e-3) + 0.01;
 }
 
