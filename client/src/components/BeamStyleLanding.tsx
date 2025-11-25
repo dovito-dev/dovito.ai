@@ -22,7 +22,6 @@ export default function BeamStyleLanding() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
-  const [navScrolled, setNavScrolled] = useState(false);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
@@ -45,9 +44,6 @@ export default function BeamStyleLanding() {
     const handleScroll = () => {
       const sections = ["home", "products", "value", "contact"];
       const scrollPosition = window.scrollY + 200;
-
-      // Track navbar scroll state
-      setNavScrolled(window.scrollY > 100);
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -208,77 +204,45 @@ export default function BeamStyleLanding() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      {/* Navigation - Fixed Logo (left edge when scrolled) */}
-      <div 
-        className={`fixed top-4 z-50 transition-all duration-500 ease-out ${
-          navScrolled ? "left-6" : "left-1/2 -translate-x-1/2"
-        }`}
-        style={{ 
-          marginLeft: navScrolled ? 0 : undefined,
-          transform: navScrolled ? 'none' : undefined
-        }}
-      >
-        <motion.div
-          className={`flex items-center h-16 px-6 transition-all duration-500 ${
-            navScrolled ? "" : "bg-background/80 backdrop-blur-xl border border-border/50 rounded-full"
-          }`}
-          layout
-        >
-          <img 
-            src={dovitoLogo} 
-            alt="Dovito.ai" 
-            className="h-8 w-auto cursor-pointer" 
-            onClick={() => scrollToSection("home")}
-          />
-          
-          {/* Nav links - only visible when not scrolled */}
-          <div className={`hidden md:flex items-center space-x-8 ml-8 transition-all duration-300 ${
-            navScrolled ? "opacity-0 pointer-events-none w-0 ml-0 overflow-hidden" : "opacity-100"
-          }`}>
-            {[
-              { id: "home", label: "Home" },
-              { id: "products", label: "Universe" },
-              { id: "value", label: "Impact" },
-              { id: "contact", label: "Connect" }
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                  activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
+      {/* Navigation */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4">
+        <nav className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 gap-8">
+            <div className="flex items-center">
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+            </div>
+
+            <div className="hidden md:flex items-center space-x-8">
+              {[
+                { id: "home", label: "Home" },
+                { id: "products", label: "Universe" },
+                { id: "value", label: "Impact" },
+                { id: "contact", label: "Connect" }
+              ].map((item, index) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                    activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <div className="absolute inset-0 bg-primary/10 rounded-lg" />
+                  )}
+                </button>
+              ))}
+
+              <Button 
+                onClick={() => scrollToSection("contact")}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
               >
-                {item.label}
-                {activeSection === item.id && (
-                  <div className="absolute inset-0 bg-primary/10 rounded-lg" />
-                )}
-              </button>
-            ))}
-
-            <Button 
-              onClick={() => scrollToSection("contact")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap"
-            >
-              Get Started
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+                Get Started
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </div>
           </div>
-        </motion.div>
-      </div>
-
-      {/* Fixed CTA Button (right edge when scrolled) */}
-      <div 
-        className={`fixed top-4 right-6 z-50 transition-all duration-500 ease-out ${
-          navScrolled ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8 pointer-events-none"
-        }`}
-      >
-        <Button 
-          onClick={() => scrollToSection("contact")}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 h-16 rounded-full font-medium transition-all duration-300"
-        >
-          Get Started
-          <ArrowRight className="ml-2 w-4 h-4" />
-        </Button>
+        </nav>
       </div>
       {/* Hero Section */}
       <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative">
