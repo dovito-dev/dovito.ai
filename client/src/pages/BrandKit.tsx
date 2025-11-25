@@ -20,7 +20,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import Beams from "@/components/Beams";
-import SplashCursor from "@/components/SplashCursor";
 
 const colorPalette = {
   primary: [
@@ -120,7 +119,6 @@ export default function BrandKit() {
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [navbarCollapsed, setNavbarCollapsed] = useState(false);
   const lastScrollY = useRef(0);
-  const heroRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -157,8 +155,6 @@ export default function BrandKit() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SplashCursor activeAreaRef={heroRef} />
-      
       {/* Beams Background */}
       <div className="fixed inset-0 z-0">
         <Beams 
@@ -241,7 +237,7 @@ export default function BrandKit() {
       </div>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="pt-32 pb-16 relative z-10">
+      <section className="pt-32 pb-16 relative z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div
