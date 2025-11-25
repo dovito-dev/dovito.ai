@@ -13,6 +13,7 @@ import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
+import MetaBalls from "./MetaBalls";
 import AnimationToggle from "./AnimationToggle";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
@@ -208,7 +209,21 @@ export default function BeamStyleLanding() {
       <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 relative">
+                <MetaBalls
+                  color="#94a6ff"
+                  cursorBallColor="#c4b5fd"
+                  speed={0.5}
+                  animationSize={20}
+                  ballCount={8}
+                  clumpFactor={0.8}
+                  cursorBallSize={2}
+                  enableMouseInteraction={true}
+                  hoverSmoothness={0.1}
+                  enableTransparency={true}
+                />
+              </div>
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
             </div>
 
