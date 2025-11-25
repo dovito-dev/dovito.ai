@@ -231,13 +231,13 @@ export default function BeamStyleLanding() {
             opacity: navbarCollapsed ? 1 : 0,
             pointerEvents: navbarCollapsed ? "auto" : "none"
           }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
           {/* Logo - Left margin */}
           <motion.div
             initial={false}
-            animate={{ x: navbarCollapsed ? 0 : 50 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            animate={{ x: navbarCollapsed ? 0 : 40 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           >
             <button onClick={() => scrollToSection("home")} className="block">
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
@@ -247,8 +247,8 @@ export default function BeamStyleLanding() {
           {/* CTA - Right margin */}
           <motion.div
             initial={false}
-            animate={{ x: navbarCollapsed ? 0 : -50 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            animate={{ x: navbarCollapsed ? 0 : -40 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           >
             <Button 
               onClick={() => scrollToSection("contact")}
@@ -266,10 +266,10 @@ export default function BeamStyleLanding() {
           initial={false}
           animate={{
             opacity: navbarCollapsed ? 0 : 1,
-            y: navbarCollapsed ? -20 : 0,
+            y: navbarCollapsed ? -10 : 0,
             pointerEvents: navbarCollapsed ? "none" : "auto"
           }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
         >
           <nav className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 lg:px-8 shadow-lg shadow-black/20 w-full">
             <div className="flex justify-between items-center h-16 gap-8">
