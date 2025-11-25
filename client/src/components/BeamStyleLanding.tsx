@@ -222,8 +222,8 @@ export default function BeamStyleLanding() {
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
           {/* Logo - slides to left edge */}
           <motion.div
             className="flex items-center z-10"
@@ -285,7 +285,7 @@ export default function BeamStyleLanding() {
 
           {/* Pill Background - wraps all elements */}
           <motion.div
-            className="absolute inset-0 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
+            className="absolute -inset-x-0 -top-1 -bottom-1 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
             initial={false}
             animate={{
               opacity: navbarCollapsed ? 0 : 1,
