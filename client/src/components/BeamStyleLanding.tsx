@@ -205,9 +205,9 @@ export default function BeamStyleLanding() {
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/50 z-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4">
+        <nav className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 gap-8">
             <div className="flex items-center">
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
             </div>
@@ -242,8 +242,8 @@ export default function BeamStyleLanding() {
               </Button>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
       {/* Hero Section */}
       <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50"></div>
