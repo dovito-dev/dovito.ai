@@ -205,7 +205,7 @@ export default function BeamStyleLanding() {
   };
 
   const isCursorActiveSection = activeSection === 'home' || activeSection === 'value';
-  const showSpecialCursor = cursorType !== 'normal' && isCursorActiveSection;
+  const showSpecialCursor = animationsEnabled && cursorType !== 'normal' && isCursorActiveSection;
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
