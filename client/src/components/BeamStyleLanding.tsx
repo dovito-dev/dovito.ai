@@ -321,11 +321,11 @@ export default function BeamStyleLanding() {
           lineDistance={[74, 74, 74]}
           animationSpeed={0.8}
           interactive={true}
-          bendRadius={1.5}
-          bendStrength={0.8}
-          mouseDamping={0.1}
+          bendRadius={2.0}
+          bendStrength={0.25}
+          mouseDamping={0.08}
           parallax={true}
-          parallaxStrength={0.15}
+          parallaxStrength={0.08}
           mixBlendMode={"screen" as const}
           activeAreaRef={productsSectionRef}
         />
