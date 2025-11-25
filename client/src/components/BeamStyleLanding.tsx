@@ -236,16 +236,15 @@ export default function BeamStyleLanding() {
             </button>
           </motion.div>
 
-          {/* Center Pill with Nav Links */}
+          {/* Center Nav Links */}
           <motion.div
-            className="hidden md:flex items-center space-x-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 h-12 shadow-lg shadow-black/20"
+            className="hidden md:flex items-center space-x-6"
             initial={false}
             animate={{
               opacity: navbarCollapsed ? 0 : 1,
-              scale: navbarCollapsed ? 0.9 : 1,
               pointerEvents: navbarCollapsed ? "none" : "auto"
             }}
-            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
           >
             {[
               { id: "home", label: "Home" },
@@ -283,6 +282,17 @@ export default function BeamStyleLanding() {
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </motion.div>
+
+          {/* Pill Background - wraps all elements */}
+          <motion.div
+            className="absolute inset-0 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
+            initial={false}
+            animate={{
+              opacity: navbarCollapsed ? 0 : 1,
+              scaleX: navbarCollapsed ? 0.95 : 1,
+            }}
+            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+          />
         </div>
       </div>
       {/* Hero Section */}
