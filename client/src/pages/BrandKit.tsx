@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   ArrowLeft, 
+  ArrowRight,
   Copy, 
   Check, 
   Download,
@@ -115,7 +116,22 @@ function ColorSwatch({ color, onCopy }: { color: { name: string; hex: string; hs
 
 export default function BrandKit() {
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [navbarCollapsed, setNavbarCollapsed] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 50) {
+        setNavbarCollapsed(true);
+      } else {
+        setNavbarCollapsed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -129,14 +145,74 @@ export default function BrandKit() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-        <Link href="/">
-          <Button variant="ghost" className="mb-8" data-testid="link-back-home">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
-        </Link>
+      {/* Navigation */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
+          {/* Logo - slides to left edge */}
+          <motion.div
+            className="flex items-center z-10"
+            initial={false}
+            animate={{ x: navbarCollapsed ? -24 : 0 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link href="/" className="block">
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto" />
+            </Link>
+          </motion.div>
 
+          {/* Center Nav Links */}
+          <motion.div
+            className="hidden md:flex items-center space-x-6"
+            initial={false}
+            animate={{
+              opacity: navbarCollapsed ? 0 : 1,
+              pointerEvents: navbarCollapsed ? "none" : "auto"
+            }}
+            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link
+              href="/"
+              className="relative px-3 py-1.5 text-sm font-medium transition-all duration-300 text-muted-foreground hover:text-foreground"
+            >
+              Home
+            </Link>
+            <span className="relative px-3 py-1.5 text-sm font-medium text-primary">
+              Brand Kit
+              <div className="absolute inset-0 bg-primary/10 rounded-lg" />
+            </span>
+          </motion.div>
+
+          {/* CTA - slides to right edge */}
+          <motion.div
+            className="z-10"
+            initial={false}
+            animate={{ x: navbarCollapsed ? 24 : 0 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link href="/">
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+              >
+                Get Started
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Pill Background - wraps all elements */}
+          <motion.div
+            className="absolute -inset-x-0 -top-1 -bottom-1 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
+            initial={false}
+            animate={{
+              opacity: navbarCollapsed ? 0 : 1,
+              scaleX: navbarCollapsed ? 0.95 : 1,
+            }}
+            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+          />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-28 pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
