@@ -435,7 +435,7 @@ export default function BeamStyleLanding() {
             beamWidth={3}
             beamHeight={18}
             beamNumber={20}
-            lightColor="#ffffff"
+            lightColor="#94a6ff"
             speed={2.2}
             noiseIntensity={0}
             scale={0.24}
