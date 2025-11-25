@@ -430,7 +430,7 @@ export default function BeamStyleLanding() {
       <div className="relative">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
-            beamWidth={3.9}
+            beamWidth={3}
             beamHeight={18}
             beamNumber={20}
             lightColor="#ffffff"
