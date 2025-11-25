@@ -108,15 +108,11 @@ vec3 getLineColor(float t, vec3 baseColor) {
   float y          = sin(uv.x + x_offset + x_movement) * amp;
 
   if (shouldBend && bendInfluence > 0.01) {
-    vec2 toMouse = mouseUv - uv;
+    vec2 toMouse = uv - mouseUv;
     float dist = length(toMouse);
-    float influence = smoothstep(bendRadius, 0.0, dist);
-    
-    if (dist > 0.001) {
-      vec2 direction = normalize(toMouse);
-      float bendOffset = influence * bendStrength * bendInfluence;
-      uv += direction * bendOffset;
-    }
+    float influence = exp(-dist * bendRadius);
+    float wavePhase = sin(dist * 3.0 - time * 2.0) * influence;
+    y += wavePhase * bendStrength * bendInfluence;
   }
 
   float m = uv.y - y;
