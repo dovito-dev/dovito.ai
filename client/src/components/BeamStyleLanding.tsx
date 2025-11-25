@@ -206,19 +206,20 @@ export default function BeamStyleLanding() {
 
   const isCursorActiveSection = activeSection === 'home' || activeSection === 'value';
   const showSpecialCursor = cursorType !== 'normal' && isCursorActiveSection;
-  const getCursorAreaRef = () => {
-    if (activeSection === 'home') return heroSectionRef;
-    if (activeSection === 'value') return valueSectionRef;
-    return null;
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {showSpecialCursor && cursorType === 'splash' && (
-        <SplashCursor activeAreaRef={getCursorAreaRef()} />
+      {showSpecialCursor && cursorType === 'splash' && activeSection === 'home' && (
+        <SplashCursor activeAreaRef={heroSectionRef} />
       )}
-      {showSpecialCursor && cursorType === 'glass' && (
-        <FluidGlassCursor activeAreaRef={getCursorAreaRef()} />
+      {showSpecialCursor && cursorType === 'splash' && activeSection === 'value' && (
+        <SplashCursor />
+      )}
+      {showSpecialCursor && cursorType === 'glass' && activeSection === 'home' && (
+        <FluidGlassCursor activeAreaRef={heroSectionRef} />
+      )}
+      {showSpecialCursor && cursorType === 'glass' && activeSection === 'value' && (
+        <FluidGlassCursor />
       )}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       <CursorSelector currentCursor={cursorType} onCursorChange={setCursorType} />
