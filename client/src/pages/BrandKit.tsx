@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
-  ArrowLeft, 
   ArrowRight,
   Copy, 
-  Check, 
   Download,
   Palette,
   Type,
   Layout,
   Image,
   MessageSquare,
-  FileText
+  FileText,
+  Check,
+  Sparkles
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import dovitoLogo from "@assets/white_1749151126542.png";
+import Beams from "@/components/Beams";
+import SplashCursor from "@/components/SplashCursor";
 
 const colorPalette = {
   primary: [
@@ -91,7 +93,7 @@ function ColorSwatch({ color, onCopy }: { color: { name: string; hex: string; hs
   return (
     <div className="group relative">
       <div 
-        className="h-24 rounded-lg mb-3 border border-border/50 cursor-pointer transition-transform hover:scale-105"
+        className="h-24 rounded-xl mb-3 border border-white/10 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
         style={{ backgroundColor: color.hex }}
         onClick={() => onCopy(color.hex)}
         data-testid={`color-swatch-${color.name.toLowerCase().replace(/\s+/g, '-')}`}
@@ -117,16 +119,26 @@ function ColorSwatch({ color, onCopy }: { color: { name: string; hex: string; hs
 export default function BrandKit() {
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [navbarCollapsed, setNavbarCollapsed] = useState(false);
+  const lastScrollY = useRef(0);
+  const heroRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 50) {
-        setNavbarCollapsed(true);
+      const currentScrollY = window.scrollY;
+      const scrollThreshold = 100;
+      
+      if (currentScrollY > scrollThreshold) {
+        if (currentScrollY > lastScrollY.current) {
+          setNavbarCollapsed(true);
+        } else {
+          setNavbarCollapsed(false);
+        }
       } else {
         setNavbarCollapsed(false);
       }
+      
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -144,7 +156,23 @@ export default function BrandKit() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <SplashCursor activeAreaRef={heroRef} />
+      
+      {/* Beams Background */}
+      <div className="fixed inset-0 z-0">
+        <Beams 
+          beamWidth={3}
+          beamHeight={18}
+          beamNumber={20}
+          lightColor="#94a6ff"
+          speed={2.2}
+          noiseIntensity={0}
+          scale={0.24}
+          rotation={28}
+        />
+      </div>
+
       {/* Navigation */}
       <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
@@ -212,92 +240,141 @@ export default function BrandKit() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-28 pb-12">
+      {/* Hero Section */}
+      <section ref={heroRef} className="pt-32 pb-16 relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          <motion.div
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div 
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm text-primary mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4" />
+              Official Brand Guidelines
+            </motion.div>
+
+            <motion.h1 
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              Brand Kit
+            </motion.h1>
+
+            <motion.p 
+              className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              Everything you need to represent Dovito.ai consistently across all touchpoints.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <div className="flex items-center gap-6 mb-12">
-            <img src={dovitoLogo} alt="Dovito.ai" className="h-12 w-auto" />
-            <div>
-              <h1 className="text-4xl font-bold">Brand Kit</h1>
-              <p className="text-muted-foreground mt-1">Official brand guidelines and assets</p>
-            </div>
-          </div>
-
           <Tabs defaultValue="strategy" className="space-y-8">
-            <TabsList className="bg-card border border-border/50 p-1 h-auto flex-wrap">
-              <TabsTrigger value="strategy" className="gap-2" data-testid="tab-strategy">
+            <TabsList className="bg-card/80 backdrop-blur-sm border border-white/10 p-1.5 h-auto flex-wrap rounded-2xl">
+              <TabsTrigger value="strategy" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-strategy">
                 <FileText className="w-4 h-4" />
                 Strategy
               </TabsTrigger>
-              <TabsTrigger value="logo" className="gap-2" data-testid="tab-logo">
+              <TabsTrigger value="logo" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-logo">
                 <Image className="w-4 h-4" />
                 Logo
               </TabsTrigger>
-              <TabsTrigger value="colors" className="gap-2" data-testid="tab-colors">
+              <TabsTrigger value="colors" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-colors">
                 <Palette className="w-4 h-4" />
                 Colors
               </TabsTrigger>
-              <TabsTrigger value="typography" className="gap-2" data-testid="tab-typography">
+              <TabsTrigger value="typography" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-typography">
                 <Type className="w-4 h-4" />
                 Typography
               </TabsTrigger>
-              <TabsTrigger value="components" className="gap-2" data-testid="tab-components">
+              <TabsTrigger value="components" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-components">
                 <Layout className="w-4 h-4" />
                 Components
               </TabsTrigger>
-              <TabsTrigger value="voice" className="gap-2" data-testid="tab-voice">
+              <TabsTrigger value="voice" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-voice">
                 <MessageSquare className="w-4 h-4" />
                 Voice & Tone
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="strategy" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>Brand Strategy & Essence</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">Brand Strategy & Essence</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div className="grid md:grid-cols-2 gap-8">
-                    <div>
+                    <motion.div 
+                      className="bg-gradient-to-br from-primary/5 to-transparent p-6 rounded-2xl border border-white/5"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <h3 className="text-lg font-semibold mb-3 text-primary">Mission Statement</h3>
                       <p className="text-muted-foreground leading-relaxed">
                         To democratize business process automation, making powerful AI-driven solutions accessible to organizations of all sizes, enabling them to focus on what matters most—growth and innovation.
                       </p>
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div 
+                      className="bg-gradient-to-br from-primary/5 to-transparent p-6 rounded-2xl border border-white/5"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <h3 className="text-lg font-semibold mb-3 text-primary">Vision Statement</h3>
                       <p className="text-muted-foreground leading-relaxed">
                         A world where every business operates at peak efficiency, with intelligent automation handling repetitive tasks while humans focus on creativity, strategy, and meaningful work.
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4 text-primary">Core Values</h3>
                     <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                      {["Innovation", "Reliability", "Transparency", "Empowerment"].map((value) => (
-                        <div key={value} className="bg-muted/50 rounded-lg p-4 text-center">
-                          <span className="font-medium">{value}</span>
-                        </div>
+                      {["Innovation", "Reliability", "Transparency", "Empowerment"].map((value, index) => (
+                        <motion.div 
+                          key={value} 
+                          className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 text-center border border-white/5"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          whileHover={{ scale: 1.05, borderColor: "rgba(51, 102, 255, 0.3)" }}
+                        >
+                          <span className="font-semibold">{value}</span>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold mb-3 text-primary">Brand Personality</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-primary">Brand Personality</h3>
                     <div className="flex flex-wrap gap-3">
                       {["Professional", "Innovative", "Approachable", "Results-driven", "Trustworthy"].map((trait) => (
-                        <span key={trait} className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                        <span key={trait} className="px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-colors cursor-default">
                           {trait}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div>
+                  <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-6 rounded-2xl border border-white/5">
                     <h3 className="text-lg font-semibold mb-3 text-primary">Positioning Statement</h3>
                     <p className="text-muted-foreground leading-relaxed italic border-l-2 border-primary pl-4">
                       "For forward-thinking businesses seeking to optimize operations, Dovito.ai is the automation partner that combines cutting-edge AI with intuitive design, delivering measurable results without complexity."
@@ -308,20 +385,26 @@ export default function BrandKit() {
             </TabsContent>
 
             <TabsContent value="logo" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>Logo System</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">Logo System</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Primary Logo</h3>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-black rounded-xl p-12 flex items-center justify-center border border-border/50">
+                      <motion.div 
+                        className="bg-black rounded-2xl p-12 flex items-center justify-center border border-white/10"
+                        whileHover={{ scale: 1.02 }}
+                      >
                         <img src={dovitoLogo} alt="Dovito.ai Logo - Dark Background" className="h-16 w-auto" />
-                      </div>
-                      <div className="bg-white rounded-xl p-12 flex items-center justify-center border border-border/50">
+                      </motion.div>
+                      <motion.div 
+                        className="bg-white rounded-2xl p-12 flex items-center justify-center border border-white/10"
+                        whileHover={{ scale: 1.02 }}
+                      >
                         <img src={dovitoLogo} alt="Dovito.ai Logo - Light Background" className="h-16 w-auto invert" />
-                      </div>
+                      </motion.div>
                     </div>
                     <p className="text-sm text-muted-foreground mt-4">
                       The primary logo should be used on dark backgrounds. For light backgrounds, use the inverted version.
@@ -330,8 +413,8 @@ export default function BrandKit() {
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Logo Clear Space</h3>
-                    <div className="bg-muted/30 rounded-xl p-8 border border-dashed border-border">
-                      <div className="border-2 border-dashed border-primary/50 p-8 rounded-lg inline-block">
+                    <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-8 border border-dashed border-white/20">
+                      <div className="border-2 border-dashed border-primary/50 p-8 rounded-xl inline-block">
                         <img src={dovitoLogo} alt="Logo with clear space" className="h-12 w-auto" />
                       </div>
                       <p className="text-sm text-muted-foreground mt-4">
@@ -351,9 +434,13 @@ export default function BrandKit() {
                         "Don't use on busy backgrounds",
                         "Don't crop any part"
                       ].map((dont) => (
-                        <div key={dont} className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 text-sm text-center">
+                        <motion.div 
+                          key={dont} 
+                          className="bg-destructive/10 border border-destructive/30 rounded-xl p-4 text-sm text-center"
+                          whileHover={{ scale: 1.02 }}
+                        >
                           {dont}
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -362,11 +449,11 @@ export default function BrandKit() {
             </TabsContent>
 
             <TabsContent value="colors" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>Color Palette</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">Color Palette</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Primary Colors</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -415,26 +502,26 @@ export default function BrandKit() {
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Gradients</h3>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div>
+                      <motion.div whileHover={{ scale: 1.02 }}>
                         <div 
-                          className="h-24 rounded-lg mb-3 border border-border/50"
+                          className="h-24 rounded-2xl mb-3 border border-white/10"
                           style={{ background: "linear-gradient(135deg, #3366FF 0%, #94A6FF 100%)" }}
                         />
                         <h4 className="font-medium text-sm">Primary Gradient</h4>
                         <p className="text-xs text-muted-foreground font-mono mt-1">
                           linear-gradient(135deg, #3366FF 0%, #94A6FF 100%)
                         </p>
-                      </div>
-                      <div>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.02 }}>
                         <div 
-                          className="h-24 rounded-lg mb-3 border border-border/50"
+                          className="h-24 rounded-2xl mb-3 border border-white/10"
                           style={{ background: "linear-gradient(180deg, #000000 0%, #0D0D0D 100%)" }}
                         />
                         <h4 className="font-medium text-sm">Background Gradient</h4>
                         <p className="text-xs text-muted-foreground font-mono mt-1">
                           linear-gradient(180deg, #000000 0%, #0D0D0D 100%)
                         </p>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 </CardContent>
@@ -442,14 +529,17 @@ export default function BrandKit() {
             </TabsContent>
 
             <TabsContent value="typography" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>Typography</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">Typography</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Font Family</h3>
-                    <div className="bg-muted/30 rounded-xl p-6 border border-border/50">
+                    <motion.div 
+                      className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/5"
+                      whileHover={{ scale: 1.01 }}
+                    >
                       <p className="text-4xl font-semibold mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
                         Inter
                       </p>
@@ -457,21 +547,25 @@ export default function BrandKit() {
                         Primary typeface for all brand communications
                       </p>
                       <div className="mt-4 flex items-center gap-4">
-                        <Button variant="outline" size="sm" asChild>
+                        <Button variant="outline" size="sm" className="rounded-full border-white/20" asChild>
                           <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener noreferrer">
                             <Download className="w-4 h-4 mr-2" />
                             Download from Google Fonts
                           </a>
                         </Button>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Font Weights</h3>
                     <div className="space-y-4">
                       {typography.weights.map((weight) => (
-                        <div key={weight.name} className="flex items-center justify-between border-b border-border/30 pb-4">
+                        <motion.div 
+                          key={weight.name} 
+                          className="flex items-center justify-between border-b border-white/5 pb-4 hover:bg-white/5 px-4 py-2 -mx-4 rounded-xl transition-colors"
+                          whileHover={{ x: 4 }}
+                        >
                           <div className="flex items-center gap-6">
                             <span 
                               className="text-2xl w-32"
@@ -485,7 +579,7 @@ export default function BrandKit() {
                             </div>
                           </div>
                           <p className="text-sm text-muted-foreground">{weight.usage}</p>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -494,7 +588,11 @@ export default function BrandKit() {
                     <h3 className="text-lg font-semibold mb-4">Type Scale</h3>
                     <div className="space-y-6">
                       {typography.sizes.map((size) => (
-                        <div key={size.name} className="flex items-baseline gap-6 border-b border-border/30 pb-4">
+                        <motion.div 
+                          key={size.name} 
+                          className="flex items-baseline gap-6 border-b border-white/5 pb-4"
+                          whileHover={{ x: 4 }}
+                        >
                           <span className="text-muted-foreground text-sm w-20">{size.name}</span>
                           <span 
                             className="flex-1"
@@ -503,7 +601,7 @@ export default function BrandKit() {
                             The quick brown fox
                           </span>
                           <span className="text-xs text-muted-foreground font-mono">{size.size}</span>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -512,56 +610,60 @@ export default function BrandKit() {
             </TabsContent>
 
             <TabsContent value="components" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>UI Components</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">UI Components</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Buttons</h3>
                     <div className="flex flex-wrap gap-4">
-                      <Button>Primary Button</Button>
-                      <Button variant="secondary">Secondary</Button>
-                      <Button variant="outline">Outline</Button>
-                      <Button variant="ghost">Ghost</Button>
-                      <Button variant="destructive">Destructive</Button>
+                      <Button className="rounded-full">Primary Button</Button>
+                      <Button variant="secondary" className="rounded-full">Secondary</Button>
+                      <Button variant="outline" className="rounded-full border-white/20">Outline</Button>
+                      <Button variant="ghost" className="rounded-full">Ghost</Button>
+                      <Button variant="destructive" className="rounded-full">Destructive</Button>
                     </div>
                     <div className="mt-4 flex flex-wrap gap-4">
-                      <Button size="sm">Small</Button>
-                      <Button size="default">Default</Button>
-                      <Button size="lg">Large</Button>
+                      <Button size="sm" className="rounded-full">Small</Button>
+                      <Button size="default" className="rounded-full">Default</Button>
+                      <Button size="lg" className="rounded-full">Large</Button>
                     </div>
                   </div>
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Cards</h3>
                     <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="bg-card border-border/50">
-                        <CardHeader>
-                          <CardTitle className="text-lg">Card Title</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground">
-                            Standard card with subtle border and dark background.
-                          </p>
-                        </CardContent>
-                      </Card>
-                      <Card className="bg-primary/10 border-primary/30">
-                        <CardHeader>
-                          <CardTitle className="text-lg text-primary">Highlighted Card</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground">
-                            Card with primary color accent for emphasis.
-                          </p>
-                        </CardContent>
-                      </Card>
+                      <motion.div whileHover={{ scale: 1.02 }}>
+                        <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-2xl">
+                          <CardHeader>
+                            <CardTitle className="text-lg">Card Title</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground">
+                              Standard card with subtle border and dark background.
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.02 }}>
+                        <Card className="bg-primary/10 border-primary/30 rounded-2xl">
+                          <CardHeader>
+                            <CardTitle className="text-lg text-primary">Highlighted Card</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground">
+                              Card with primary color accent for emphasis.
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
                     </div>
                   </div>
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Spacing</h3>
-                    <div className="bg-muted/30 rounded-xl p-6 border border-border/50">
+                    <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/5">
                       <p className="text-sm text-muted-foreground mb-4">
                         Use consistent spacing based on 4px increments:
                       </p>
@@ -588,14 +690,14 @@ export default function BrandKit() {
                         { name: "Large", value: "1rem" },
                         { name: "Full", value: "9999px" },
                       ].map((radius) => (
-                        <div key={radius.name} className="text-center">
+                        <motion.div key={radius.name} className="text-center" whileHover={{ scale: 1.1 }}>
                           <div 
                             className="w-16 h-16 bg-primary/30 border border-primary/50"
                             style={{ borderRadius: radius.value }}
                           />
                           <p className="text-sm font-medium mt-2">{radius.name}</p>
                           <p className="text-xs text-muted-foreground">{radius.value}</p>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -604,16 +706,16 @@ export default function BrandKit() {
             </TabsContent>
 
             <TabsContent value="voice" className="space-y-8">
-              <Card className="bg-card border-border/50">
-                <CardHeader>
-                  <CardTitle>Voice & Tone</CardTitle>
+              <Card className="bg-card/80 backdrop-blur-sm border-white/10 rounded-3xl overflow-hidden">
+                <CardHeader className="border-b border-white/5">
+                  <CardTitle className="text-2xl">Voice & Tone</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-8 p-8">
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Brand Voice</h3>
                     <div className="flex flex-wrap gap-3 mb-4">
                       {brandVoice.personality.map((trait) => (
-                        <span key={trait} className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                        <span key={trait} className="px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
                           {trait}
                         </span>
                       ))}
@@ -624,7 +726,10 @@ export default function BrandKit() {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
-                    <div>
+                    <motion.div 
+                      className="bg-gradient-to-br from-green-500/10 to-transparent p-6 rounded-2xl border border-green-500/20"
+                      whileHover={{ scale: 1.02 }}
+                    >
                       <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                         <Check className="w-5 h-5 text-green-500" />
                         Do's
@@ -637,8 +742,11 @@ export default function BrandKit() {
                           </li>
                         ))}
                       </ul>
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div 
+                      className="bg-gradient-to-br from-red-500/10 to-transparent p-6 rounded-2xl border border-red-500/20"
+                      whileHover={{ scale: 1.02 }}
+                    >
                       <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                         <span className="w-5 h-5 text-red-500">✕</span>
                         Don'ts
@@ -651,22 +759,28 @@ export default function BrandKit() {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </motion.div>
                   </div>
 
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Sample Messaging</h3>
                     <div className="space-y-4">
-                      <div className="bg-muted/30 rounded-xl p-6 border border-border/50">
+                      <motion.div 
+                        className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/5"
+                        whileHover={{ scale: 1.01 }}
+                      >
                         <p className="text-sm text-muted-foreground mb-2">Tagline</p>
-                        <p className="text-xl font-semibold">"Automation That Delivers Results"</p>
-                      </div>
-                      <div className="bg-muted/30 rounded-xl p-6 border border-border/50">
+                        <p className="text-xl font-semibold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">"Automation That Delivers Results"</p>
+                      </motion.div>
+                      <motion.div 
+                        className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/5"
+                        whileHover={{ scale: 1.01 }}
+                      >
                         <p className="text-sm text-muted-foreground mb-2">Elevator Pitch</p>
                         <p className="text-muted-foreground leading-relaxed">
                           "Dovito.ai transforms how businesses operate by automating complex workflows with AI. From document processing to customer communications, we help organizations save time, reduce errors, and scale efficiently—without the complexity of traditional automation tools."
                         </p>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 </CardContent>
@@ -675,9 +789,18 @@ export default function BrandKit() {
           </Tabs>
         </motion.div>
 
-        <footer className="mt-16 pt-8 border-t border-border/50 text-center text-sm text-muted-foreground">
-          <p>© 2024 Dovito.ai. All brand assets are property of Dovito.ai.</p>
-          <p className="mt-2">For brand asset requests, contact <span className="text-primary">brand@dovito.ai</span></p>
+        {/* Footer */}
+        <footer className="backdrop-blur-sm border-t border-white/10 py-8 mt-20 relative z-10">
+          <div className="flex justify-between items-center">
+            <div className="text-sm text-muted-foreground">
+              © 2024 Dovito.ai. All brand assets are property of Dovito.ai.
+            </div>
+            <div className="flex items-center gap-6">
+              <span className="text-sm text-muted-foreground">
+                For brand asset requests, contact <span className="text-primary">brand@dovito.ai</span>
+              </span>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
