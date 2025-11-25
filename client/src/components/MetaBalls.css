@@ -1,9 +1,0 @@
-.metaballs-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.metaballs-container canvas {
-  display: block;
-}
