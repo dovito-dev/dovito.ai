@@ -322,7 +322,7 @@ export default function BeamStyleLanding() {
           animationSpeed={0.8}
           interactive={true}
           bendRadius={2.0}
-          bendStrength={0.12}
+          bendStrength={0.2}
           mouseDamping={0.08}
           parallax={true}
           parallaxStrength={0.08}
