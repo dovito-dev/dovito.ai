@@ -27,7 +27,7 @@ export default function BeamStyleLanding() {
   const [adminUser, setAdminUser] = useState<any>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
-  const cursorActiveAreaRef = useRef<HTMLElement>(null);
+  const valueSectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -204,16 +204,21 @@ export default function BeamStyleLanding() {
     return grid;
   };
 
-  const isCursorActiveSection = activeSection === 'home' || activeSection === 'products';
+  const isCursorActiveSection = activeSection === 'home' || activeSection === 'value';
   const showSpecialCursor = cursorType !== 'normal' && isCursorActiveSection;
+  const getCursorAreaRef = () => {
+    if (activeSection === 'home') return heroSectionRef;
+    if (activeSection === 'value') return valueSectionRef;
+    return null;
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {showSpecialCursor && cursorType === 'splash' && (
-        <SplashCursor activeAreaRef={activeSection === 'home' ? heroSectionRef : productsSectionRef} />
+        <SplashCursor activeAreaRef={getCursorAreaRef()} />
       )}
       {showSpecialCursor && cursorType === 'glass' && (
-        <FluidGlassCursor activeAreaRef={activeSection === 'home' ? heroSectionRef : productsSectionRef} />
+        <FluidGlassCursor activeAreaRef={getCursorAreaRef()} />
       )}
       <AnimationToggle onToggle={setAnimationsEnabled} />
       <CursorSelector currentCursor={cursorType} onCursorChange={setCursorType} />
@@ -377,7 +382,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Value Proposition Section */}
-      <section id="value" className="py-32 bg-card/20">
+      <section id="value" ref={valueSectionRef} className="py-32 bg-card/20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-20"
