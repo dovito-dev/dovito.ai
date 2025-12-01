@@ -1,0 +1,157 @@
+You want the original prompt rewritten with the placeholders filled in, without changing its structure or executing it. Here is the fully substituted prompt, with “PeriodicTableCards” and “Section 1, below the header” inserted and “periodic-table-cards” used in kebab-case for the file name:[1][2]
+
+You are helping me extract a single UI component from an existing Replit project into a clean, reusable, documented component that follows a component-library style similar to shadcn/ui and Radix-based systems used in modern React/Tailwind design systems.​ 
+
+Component to extract:
+Component name: PeriodicTableCards
+Target scope: Only extract the UI for PeriodicTableCards located in Section 1, below the header of the current page.
+
+High-level goals:
+Extract only the code, styles, and data model required for PeriodicTableCards and its internal elements.​
+Produce a single markdown file as output, containing:
+A human-readable specification and documentation.
+The complete, ready-to-use component code.
+All required styles, tokens, and dependencies.​
+The result must be plug-and-play in a new project with zero unrelated site context.​
+
+Scope and isolation rules:
+Include ONLY:
+HTML/JSX/TSX and logic directly used by PeriodicTableCards and its children.
+All internal elements: text, icons, buttons, images, links, badges, overlays, animations, hover/tap effects, and layout wrappers that belong to PeriodicTableCards.​
+Any data structures (interfaces/types, arrays, configuration objects) used to render PeriodicTableCards.​
+
+EXCLUDE COMPLETELY:
+Navbar, footer, other sections, layouts, or page shells that are not required for PeriodicTableCards.​
+Global site-level typography, layout, reset styles, or scripts that are only used outside PeriodicTableCards.​
+Any framework boilerplate or routing code not needed to render PeriodicTableCards itself.​
+
+Component structure and documentation:
+Create a markdown file named periodic-table-cards-extraction.md with the following sections (use markdown headings and code fences):
+
+TITLE
+“PeriodicTableCards Extraction”
+
+Component Overview
+Briefly describe what PeriodicTableCards does and where it appears in the original page.
+Mention key behaviors: interactions, animations, hover/tap effects, responsive behavior.​  
+
+Component Structure
+Provide a bullet list describing the full element hierarchy inside PeriodicTableCards.​  
+For each main part, describe its purpose. Examples:
+Root Container – high-level wrapper for the component.
+Row/Column/Grid wrappers – layout structure.
+Card/Item – clickable or interactive unit.
+Content wrappers – alignment and spacing.
+Text elements – titles, subtitles, labels.
+Badges, icons, overlays – status and visual emphasis.​  
+Keep this at the level of UI/component architecture rather than global layout.​  
+
+Dependencies Required
+List all libraries and frameworks that PeriodicTableCards depends on (for example React, TypeScript, Tailwind CSS, framer-motion, lucide-react, shadcn/ui, or others actually used in the component).​  
+For each dependency include:
+Name
+Purpose (1 short sentence)
+Provide the exact installation commands (e.g., npm or pnpm) needed for this component only.​  
+
+CSS Custom Properties and Design Tokens
+Extract ONLY the CSS custom properties, design tokens, and theme variables directly referenced by PeriodicTableCards or its children.​  
+For example:
+Color tokens (background, foreground, primary, border, muted, etc.).
+Shadows, radius, spacing, and any component-specific variables.​  
+Present them as:
+A short code block with the minimal required :root or component-scope variables.
+A short bullet/markdown table explaining what each token is used for (e.g., primary color for live items, muted color for secondary state).​  
+
+Styles and Classes Reference
+Extract all selectors, classes, and style rules used by PeriodicTableCards and its descendants:​  
+Tailwind utility classes, custom class names, or scoped CSS selectors.
+Animation-related classes, transitions, hover/focus/tap state rules, responsive rules (e.g., sm/md/lg breakpoints).
+Organize these into small subsections, for example:
+Layout wrappers
+Main component/card/item
+Content (titles, subtitles, description)
+Status badges, icons, overlays
+Empty/placeholder states (if any)​  
+
+For each group, provide a compact markdown table:
+Element
+Classes/selectors
+Brief purpose/use.​  
+
+Animation and Interaction Specifications
+Document all animations and interactions used by PeriodicTableCards:​  
+Initial/entry animations (e.g., opacity, scale, position).
+Hover, focus, and tap/click effects.
+Motion/animation libraries usage (e.g., framer-motion props).
+For each animation, specify:
+Target element(s).
+Properties animated (e.g., scale, opacity, translate, box-shadow).
+Timing (duration, delay, easing, spring stiffness, etc.).​  
+Represent this as concise code blocks plus a short table summarizing key parameters.​  
+
+Data Model and Props
+Define TypeScript interfaces/types for any data objects used by PeriodicTableCards (for example items/cards with id, name, status, url, position, etc.).​  
+Define a props interface for the exported PeriodicTableCards component:
+Include all props actually used (for example items array, optional columns, callbacks like onItemClick/onSelect).​  
+Add a small markdown table describing each prop:
+Name
+Type
+Default (if any)
+Description.​  
+
+Complete Component Code
+Provide a full, self-contained React/TypeScript (TSX) implementation of PeriodicTableCards:​  
+Must import only the dependencies listed in “Dependencies Required”.
+Must assume the design tokens and CSS utilities documented earlier.
+Must not depend on page-level layout or other sections.
+The code should:
+Use the documented data model and props.
+Implement all interactions, animations, and visual states extracted from the original section.
+Handle empty or missing data gracefully (e.g., return null or show placeholders if no data).​  
+Ensure the component is ready to be dropped into a new React/Tailwind project.​  
+
+Usage Example
+Provide a minimal TSX usage snippet showing how to:
+Import PeriodicTableCards.
+Define a sample data array or props.
+Render the component inside a simple container.​  
+The example should be self-contained and easy to paste into a new project.​  
+
+Design Notes and Behavior
+Briefly describe:
+Visual style (e.g., glass-morphism, color states for different statuses, hover glow, etc.) as actually used in PeriodicTableCards.​  
+Responsive behavior (how the component adapts across breakpoints; for example, grid columns changing between mobile and desktop).​  
+Any important accessibility considerations if visible in the code (aria labels, keyboard focus, etc.).​  
+
+Scope and IDs/Classes Summary
+List all class names, IDs, and data attributes that belong to PeriodicTableCards.​  
+Make it explicit that these are the only selectors the consumer should rely on.​  
+Confirm that no unrelated navbar/page/footer selectors are included.​  
+
+License & Upstream Source
+Add a section that clearly states:
+Whether PeriodicTableCards is original or adapted/derived from another source (for example shadcn/ui, Radix UI, Dovito, or other libraries/templates).
+The license used for this component (for example MIT, Apache-2.0, or a custom license) and any required attribution or notices that must accompany reuse.​  
+
+Changelog
+Add a brief changelog for PeriodicTableCards including:
+Initial extraction date and version (for example v1.0.0 – initial extraction from Replit project).
+Subsequent entries for meaningful changes such as API updates, styling changes, dependency updates, or behavior changes.​  
+
+Constraints and cleanup:
+Do NOT include any code, CSS, or JS that is only used by other sections or components of the site.​  
+Do NOT include global layout wrappers, base resets, navbars, footers, or marketing sections not required for PeriodicTableCards.​  
+Keep the markdown organized, concise, and focused on making PeriodicTableCards a reusable component in a design system style.​  
+
+Finally, generate and return the complete periodic-table-cards-extraction.md content as the answer.
+
+[1](https://www.theserverside.com/definition/Kebab-case)
+[2](https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case)
+[3](https://uisurgeon.com/tools/kebab-case-converter)
+[4](https://www.novel.tools/text/case/kebab-case)
+[5](https://www.youtube.com/watch?v=t7LvP4T8bN0)
+[6](https://www.reddit.com/r/replit/comments/1ko3fjy/how_to_prompt_replit_from_initial_screen_my/)
+[7](https://github.com/hasinhayder/PromptFiller)
+[8](https://www.tuple.nl/en/knowledge-base/kebab-case)
+[9](https://optiwebdesign.com/2025/08/28/replit-agent-prompting-how-to-build-in-replit/)
+[10](https://www.youtube.com/watch?v=-DNiFeAj5-4)
