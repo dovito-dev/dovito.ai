@@ -635,3 +635,104 @@ Before using this component, ensure you have:
 - [ ] `lucide-react` installed
 - [ ] shadcn/ui Button component (or equivalent)
 - [ ] Logo image asset available at the specified path
+
+---
+
+## License & Upstream Source
+
+### Origin
+
+This component is an **original implementation** created for the Dovito.ai business automation platform. It was designed and developed as part of the BeamStyleLanding page component.
+
+### Inspirations & Influences
+
+The design draws inspiration from:
+- Modern SaaS landing page navigation patterns
+- Apple-style smooth animation curves
+- Glass-morphism UI trends (2023-2024)
+- shadcn/ui component architecture patterns
+
+### Dependencies Licensing
+
+| Dependency | License |
+|------------|---------|
+| React | MIT |
+| framer-motion | MIT |
+| lucide-react | ISC |
+| Tailwind CSS | MIT |
+| shadcn/ui | MIT |
+
+### Component License
+
+```
+MIT License
+
+Copyright (c) 2024 Dovito.ai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Attribution Requirements
+
+When using this component:
+- No attribution required for personal or commercial projects
+- If redistributing the source code, include the MIT license notice
+- Mentioning Dovito.ai is appreciated but not required
+
+---
+
+## Changelog
+
+### v1.0.0 — December 1, 2024
+
+**Initial Extraction**
+
+- Extracted AnimatedNavbar from Dovito.ai BeamStyleLanding component
+- Documented all animations, styles, and interactions
+- Created reusable component with configurable props
+- Added TypeScript interfaces for NavItem and AnimatedNavbarProps
+- Included complete usage example with scroll tracking
+
+**Features:**
+- Scroll-triggered collapse/expand behavior
+- Glass-morphism pill background with backdrop blur
+- Framer Motion animations with custom easing curve `[0.33, 1, 0.68, 1]`
+- Active section highlighting
+- Responsive design (nav links hidden on mobile)
+- Configurable logo, nav items, and CTA button
+
+**Technical Details:**
+- Scroll threshold: 100px
+- Animation durations: 0.4s - 0.6s
+- Logo/CTA slide distance: 24px
+- Pill scale on collapse: 0.95
+
+---
+
+### Future Considerations
+
+Potential enhancements for future versions:
+- [ ] Add mobile menu/hamburger toggle
+- [ ] Support for dropdown sub-menus
+- [ ] Dark/light mode theme switching
+- [ ] Keyboard navigation improvements
+- [ ] `aria-current="page"` for accessibility
+- [ ] Optional scroll progress indicator
+- [ ] Configurable scroll threshold prop
+- [ ] Support for external Link component (Next.js, React Router)
