@@ -85,7 +85,7 @@ html {
 }
 
 .hero-gradient {
-  background: linear-gradient(180deg, #0a1929 0%, #1a365d 40%, #3d5a80 100%);
+  background: linear-gradient(180deg, #1a365d 0%, #2d4a6f 40%, #4a7090 80%, #6a90a8 100%);
 }
 
 /* Splash cursor animation from react-bits */
