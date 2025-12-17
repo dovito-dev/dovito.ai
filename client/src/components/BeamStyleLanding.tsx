@@ -463,7 +463,7 @@ export default function BeamStyleLanding() {
       {/* Beams Background Container - Contact Section */}
       <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
         {/* Fade gradient at top for smooth transition */}
-        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-gray-50 to-transparent z-[2] pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-64 z-[2] pointer-events-none" style={{ background: 'linear-gradient(180deg, #f9fafb 0%, #f9fafb 10%, rgba(249,250,251,0.8) 30%, rgba(249,250,251,0.4) 60%, transparent 100%)' }} />
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
             beamWidth={3}
