@@ -293,24 +293,9 @@ export default function BeamStyleLanding() {
         </div>
       </div>
       {/* Hero Section */}
-      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }}>
-        <FloatingLines
-          linesGradient={["#3fb9ff", "#4682b4", "#1a365d", "#ffffff"]}
-          enabledWaves={['top', 'middle', 'bottom']}
-          lineCount={[3, 4, 3]}
-          lineDistance={[50, 50, 50]}
-          animationSpeed={0.6}
-          interactive={true}
-          bendRadius={1.2}
-          bendStrength={-0.6}
-          mouseDamping={0.1}
-          parallax={true}
-          parallaxStrength={0.1}
-          mixBlendMode={"screen" as const}
-          activeAreaRef={heroSectionRef}
-        />
+      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
