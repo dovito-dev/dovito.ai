@@ -164,10 +164,10 @@ export default function BeamStyleLanding() {
             >
               {product ? (
                 <motion.div
-                  className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border backdrop-blur-sm ${
+                  className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border ${
                     product.status === "live" 
                       ? "border-secondary/40 bg-secondary/5 hover:bg-secondary/10 hover:border-secondary/60" 
-                      : "border-border/40 bg-card/30 hover:bg-card/50"
+                      : "border-gray-200 bg-gray-50 hover:bg-gray-100"
                   }`}
                   onClick={() => handleProductClick(product)}
                   whileHover={{ 
@@ -175,17 +175,17 @@ export default function BeamStyleLanding() {
                     y: -8,
                     boxShadow: product.status === "live" 
                       ? "0 20px 40px rgba(63, 185, 255, 0.3)" 
-                      : "0 20px 40px rgba(255, 255, 255, 0.1)"
+                      : "0 20px 40px rgba(0, 0, 0, 0.1)"
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className="p-6 flex flex-col items-center justify-center h-full text-center relative">
                     <div className={`text-3xl font-bold mb-3 ${
-                      product.status === "live" ? "text-secondary" : "text-muted-foreground"
+                      product.status === "live" ? "text-secondary" : "text-gray-400"
                     }`}>
                       {product.abbreviation}
                     </div>
-                    <div className="text-sm font-medium mb-3 opacity-90">{product.name}</div>
+                    <div className="text-sm font-medium mb-3 text-primary">{product.name}</div>
                     <Badge 
                       variant={product.status === "live" ? "default" : "secondary"} 
                       className="text-xs px-2 py-1"
@@ -203,7 +203,7 @@ export default function BeamStyleLanding() {
                   </div>
                 </motion.div>
               ) : (
-                <div className="h-full border border-border/10 rounded-2xl bg-card/5 backdrop-blur-sm"></div>
+                <div className="h-full border border-gray-100 rounded-2xl bg-gray-50/50"></div>
               )}
             </motion.div>
           );
@@ -348,7 +348,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Periodic Table Section */}
-      <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden">
+      <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
           linesGradient={["#1a365d", "#4682b4", "#3fb9ff", "#001f3f"]}
           enabledWaves={['middle']}
@@ -372,10 +372,10 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
               {getContentByKey("periodic_table_title", "The Dovito Universe")}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               {getContentByKey("periodic_table_description", "A growing ecosystem of automation tools designed to transform business operations")}
             </p>
           </motion.div>
@@ -391,14 +391,14 @@ export default function BeamStyleLanding() {
             transition={{ delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <p className="text-muted-foreground">
+            <p className="text-gray-500">
               {getContentByKey("periodic_table_footer", "Click live products to visit • Click coming soon for early access")}
             </p>
           </motion.div>
         </div>
       </section>
       {/* Value Proposition Section */}
-      <section id="value" className="py-32 bg-card/20">
+      <section id="value" className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-20"
@@ -407,8 +407,8 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">Transformational SaaS</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">Transformational SaaS</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Measurable results that transform your business operations
             </p>
           </motion.div>
@@ -447,12 +447,12 @@ export default function BeamStyleLanding() {
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <Card className="text-center border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
+                <Card className="text-center border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300">
                   <CardContent className="p-8">
                     <item.icon className="w-12 h-12 text-secondary mx-auto mb-6" />
                     <div className="text-3xl font-bold text-secondary mb-2">{item.value}</div>
-                    <div className="text-sm font-medium mb-3">{item.label}</div>
-                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                    <div className="text-sm font-medium text-primary mb-3">{item.label}</div>
+                    <p className="text-xs text-gray-500">{item.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -460,10 +460,10 @@ export default function BeamStyleLanding() {
           </div>
         </div>
       </section>
-      {/* Beams Background Container - Section 4 onwards */}
-      <div className="relative">
+      {/* Beams Background Container - Contact Section */}
+      <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
         {/* Fade gradient at top for smooth transition */}
-        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background to-transparent z-[2] pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-gray-50 to-transparent z-[2] pointer-events-none" />
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
             beamWidth={3}
@@ -487,10 +487,10 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               Ready to Transform?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
               Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
             </p>
           </motion.div>
@@ -501,7 +501,7 @@ export default function BeamStyleLanding() {
             transition={{ delay: 0.2, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
               <CardContent className="p-8">
                 <form onSubmit={handleFormSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -510,7 +510,7 @@ export default function BeamStyleLanding() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="bg-background/50 border-border/50 focus:border-primary"
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
                       required
                     />
                     <Input
@@ -519,7 +519,7 @@ export default function BeamStyleLanding() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="bg-background/50 border-border/50 focus:border-primary"
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
                       required
                     />
                   </div>
@@ -529,7 +529,7 @@ export default function BeamStyleLanding() {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
                     required
                   />
 
@@ -539,7 +539,7 @@ export default function BeamStyleLanding() {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={4}
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
                     required
                   />
 
@@ -558,23 +558,23 @@ export default function BeamStyleLanding() {
         </section>
 
         {/* Footer with Admin Access */}
-        <footer className="backdrop-blur-sm border-t border-border/50 py-8 mt-20 relative z-10">
+        <footer className="backdrop-blur-sm border-t border-white/10 py-8 mt-20 relative z-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center">
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-white/60">
                 © 2024 Dovito.ai. All rights reserved.
               </div>
               <div className="flex items-center gap-6">
                 <Link
                   href="/brand-kit"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-xs text-white/60 hover:text-white transition-colors"
                   data-testid="link-brand-kit"
                 >
                   Brand Kit
                 </Link>
                 <a
                   href="/admin"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-xs text-white/60 hover:text-white transition-colors"
                 >
                   Admin
                 </a>
@@ -601,7 +601,7 @@ export default function BeamStyleLanding() {
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <Card className="border-border/50 bg-card/95 backdrop-blur-sm">
+              <Card className="border-gray-200 bg-white shadow-xl">
                 <CardContent className="p-8">
                   <div className="flex justify-between items-start mb-6">
                     <div>
@@ -609,21 +609,21 @@ export default function BeamStyleLanding() {
                         <span className="text-3xl font-bold text-secondary">
                           {selectedProduct.abbreviation}
                         </span>
-                        <h3 className="text-xl font-semibold">{selectedProduct.name}</h3>
+                        <h3 className="text-xl font-semibold text-primary">{selectedProduct.name}</h3>
                       </div>
-                      <p className="text-sm text-muted-foreground">{selectedProduct.category}</p>
+                      <p className="text-sm text-gray-500">{selectedProduct.category}</p>
                     </div>
                     <Button 
                       variant="ghost" 
                       size="sm"
                       onClick={() => setSelectedProduct(null)}
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-gray-400 hover:text-primary"
                     >
                       ✕
                     </Button>
                   </div>
 
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-gray-600 mb-6 leading-relaxed">
                     {selectedProduct.description}
                   </p>
 
