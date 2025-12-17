@@ -398,7 +398,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Value Proposition Section */}
-      <section id="value" className="py-32 bg-[#ffffff]">
+      <section id="value" className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-20"
@@ -463,7 +463,7 @@ export default function BeamStyleLanding() {
       {/* Beams Background Container - Contact Section */}
       <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
         {/* Fade gradient at top for smooth transition */}
-        <div className="absolute top-0 left-0 right-0 h-96 z-[2] pointer-events-none" style={{ background: 'linear-gradient(180deg, #f9fafb 0%, #f9fafb 15%, rgba(249,250,251,0.95) 25%, rgba(249,250,251,0.85) 35%, rgba(249,250,251,0.7) 45%, rgba(249,250,251,0.5) 55%, rgba(249,250,251,0.3) 65%, rgba(249,250,251,0.15) 75%, rgba(249,250,251,0.05) 85%, transparent 100%)' }} />
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-gray-50 to-transparent z-[2] pointer-events-none" />
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Beams
             beamWidth={3}
@@ -583,6 +583,7 @@ export default function BeamStyleLanding() {
           </div>
         </footer>
       </div>
+
       {/* Product Detail Modal */}
       <AnimatePresence>
         {selectedProduct && (
