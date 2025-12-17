@@ -23,23 +23,30 @@ import Beams from "@/components/Beams";
 
 const colorPalette = {
   primary: [
-    { name: "Primary Blue", hex: "#3366FF", hsl: "240 100% 60%", rgb: "51, 102, 255", usage: "Primary actions, links, highlights" },
-    { name: "Primary Light", hex: "#94A6FF", hsl: "231 100% 79%", rgb: "148, 166, 255", usage: "Beams effect, accents" },
+    { name: "Primary Deep Blue", hex: "#1a365d", hsl: "210 55% 23%", rgb: "26, 54, 93", usage: "Primary actions, links, highlights" },
+    { name: "Primary Steel Blue", hex: "#4682b4", hsl: "207 44% 49%", rgb: "70, 130, 180", usage: "Beams effect, accents, focus rings" },
   ],
   background: [
-    { name: "Background", hex: "#000000", hsl: "0 0% 0%", rgb: "0, 0, 0", usage: "Main background" },
-    { name: "Card", hex: "#080808", hsl: "0 0% 3%", rgb: "8, 8, 8", usage: "Cards, elevated surfaces" },
-    { name: "Muted", hex: "#0D0D0D", hsl: "0 0% 5%", rgb: "13, 13, 13", usage: "Secondary backgrounds" },
+    { name: "Background Navy", hex: "#001f3f", hsl: "210 100% 12%", rgb: "0, 31, 63", usage: "Main background" },
+    { name: "Card Charcoal", hex: "#3d4a55", hsl: "210 16% 29%", rgb: "61, 74, 85", usage: "Cards, elevated surfaces" },
+    { name: "Muted", hex: "#2d3a45", hsl: "210 16% 22%", rgb: "45, 58, 69", usage: "Secondary backgrounds" },
   ],
   text: [
     { name: "Foreground", hex: "#FAFAFA", hsl: "0 0% 98%", rgb: "250, 250, 250", usage: "Primary text" },
-    { name: "Muted Text", hex: "#A6A6A6", hsl: "0 0% 65%", rgb: "166, 166, 166", usage: "Secondary text, descriptions" },
+    { name: "Muted Text", hex: "#94a3b8", hsl: "210 10% 65%", rgb: "148, 163, 184", usage: "Secondary text, descriptions" },
   ],
   border: [
-    { name: "Border", hex: "#1A1A1A", hsl: "0 0% 10%", rgb: "26, 26, 26", usage: "Dividers, outlines" },
+    { name: "Border", hex: "#4a5c6a", hsl: "210 16% 35%", rgb: "74, 92, 106", usage: "Dividers, outlines" },
     { name: "Border Light", hex: "#FFFFFF1A", hsl: "0 0% 100% / 10%", rgb: "255, 255, 255, 0.1", usage: "Subtle borders" },
   ],
-  accent: [
+  secondary: [
+    { name: "Secondary Cyan", hex: "#3fb9ff", hsl: "199 100% 62%", rgb: "63, 185, 255", usage: "Secondary actions, highlights" },
+    { name: "Secondary Dark Cyan", hex: "#0099cc", hsl: "195 100% 40%", rgb: "0, 153, 204", usage: "Accent elements" },
+  ],
+  tertiary: [
+    { name: "Tertiary Gold", hex: "#b7791f", hsl: "38 73% 42%", rgb: "183, 121, 31", usage: "Emphasis, special highlights" },
+  ],
+  semantic: [
     { name: "Destructive", hex: "#EF4444", hsl: "0 84% 60%", rgb: "239, 68, 68", usage: "Error states, warnings" },
     { name: "Success", hex: "#22C55E", hsl: "142 76% 46%", rgb: "34, 197, 94", usage: "Success states" },
   ]
@@ -161,7 +168,7 @@ export default function BrandKit() {
           beamWidth={3}
           beamHeight={18}
           beamNumber={20}
-          lightColor="#94a6ff"
+          lightColor="#4682b4"
           speed={2.2}
           noiseIntensity={0}
           scale={0.24}
@@ -487,9 +494,27 @@ export default function BrandKit() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold mb-4">Accent Colors</h3>
+                    <h3 className="text-lg font-semibold mb-4">Secondary Colors</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                      {colorPalette.accent.map((color) => (
+                      {colorPalette.secondary.map((color) => (
+                        <ColorSwatch key={color.name} color={color} onCopy={handleCopy} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4">Tertiary Colors</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                      {colorPalette.tertiary.map((color) => (
+                        <ColorSwatch key={color.name} color={color} onCopy={handleCopy} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4">Semantic Colors</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                      {colorPalette.semantic.map((color) => (
                         <ColorSwatch key={color.name} color={color} onCopy={handleCopy} />
                       ))}
                     </div>
@@ -501,21 +526,21 @@ export default function BrandKit() {
                       <motion.div whileHover={{ scale: 1.02 }}>
                         <div 
                           className="h-24 rounded-2xl mb-3 border border-white/10"
-                          style={{ background: "linear-gradient(135deg, #3366FF 0%, #94A6FF 100%)" }}
+                          style={{ background: "linear-gradient(135deg, #1a365d 0%, #4682b4 100%)" }}
                         />
                         <h4 className="font-medium text-sm">Primary Gradient</h4>
                         <p className="text-xs text-muted-foreground font-mono mt-1">
-                          linear-gradient(135deg, #3366FF 0%, #94A6FF 100%)
+                          linear-gradient(135deg, #1a365d 0%, #4682b4 100%)
                         </p>
                       </motion.div>
                       <motion.div whileHover={{ scale: 1.02 }}>
                         <div 
                           className="h-24 rounded-2xl mb-3 border border-white/10"
-                          style={{ background: "linear-gradient(180deg, #000000 0%, #0D0D0D 100%)" }}
+                          style={{ background: "linear-gradient(180deg, #001f3f 0%, #3d4a55 100%)" }}
                         />
                         <h4 className="font-medium text-sm">Background Gradient</h4>
                         <p className="text-xs text-muted-foreground font-mono mt-1">
-                          linear-gradient(180deg, #000000 0%, #0D0D0D 100%)
+                          linear-gradient(180deg, #001f3f 0%, #3d4a55 100%)
                         </p>
                       </motion.div>
                     </div>

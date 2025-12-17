@@ -1,8 +1,20 @@
-import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
+import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import './Beams.css';
+
+function isWebGLAvailable(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch (e) {
+    return false;
+  }
+}
 
 function extendMaterial(BaseMaterial: typeof THREE.MeshStandardMaterial, cfg: {
   header: string;
@@ -53,11 +65,19 @@ function extendMaterial(BaseMaterial: typeof THREE.MeshStandardMaterial, cfg: {
   return mat;
 }
 
-const CanvasWrapper = ({ children }: { children: React.ReactNode }) => (
-  <Canvas dpr={[1, 2]} frameloop="always" className="beams-container">
-    {children}
-  </Canvas>
-);
+const CanvasWrapper = ({ children }: { children: React.ReactNode }) => {
+  const [webGLSupported] = useState(() => isWebGLAvailable());
+  
+  if (!webGLSupported) {
+    return <div className="beams-container" style={{ background: 'transparent' }} />;
+  }
+  
+  return (
+    <Canvas dpr={[1, 2]} frameloop="always" className="beams-container">
+      {children}
+    </Canvas>
+  );
+};
 
 const hexToNormalizedRGB = (hex: string): [number, number, number] => {
   const clean = hex.replace('#', '');

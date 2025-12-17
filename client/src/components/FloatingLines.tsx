@@ -327,7 +327,13 @@ export default function FloatingLines({
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
-    const renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    let renderer: WebGLRenderer;
+    try {
+      renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    } catch (e) {
+      console.warn('WebGL not available for FloatingLines');
+      return;
+    }
     rendererRef.current = renderer;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.domElement.style.width = '100%';

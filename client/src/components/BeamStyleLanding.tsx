@@ -174,7 +174,7 @@ export default function BeamStyleLanding() {
                     scale: 1.05, 
                     y: -8,
                     boxShadow: product.status === "live" 
-                      ? "0 20px 40px rgba(96, 102, 255, 0.3)" 
+                      ? "0 20px 40px rgba(70, 130, 180, 0.3)" 
                       : "0 20px 40px rgba(255, 255, 255, 0.1)"
                   }}
                   whileTap={{ scale: 0.95 }}
@@ -368,7 +368,7 @@ export default function BeamStyleLanding() {
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden">
         <FloatingLines
-          linesGradient={["#1E3A8A", "#3B82F6", "#4F46E5", "#1E1B4B"]}
+          linesGradient={["#1a365d", "#4682b4", "#3fb9ff", "#001f3f"]}
           enabledWaves={['middle']}
           lineCount={[4, 4, 4]}
           lineDistance={[45, 45, 45]}
@@ -487,7 +487,7 @@ export default function BeamStyleLanding() {
             beamWidth={3}
             beamHeight={18}
             beamNumber={20}
-            lightColor="#94a6ff"
+            lightColor="#4682b4"
             speed={2.2}
             noiseIntensity={0}
             scale={0.24}
