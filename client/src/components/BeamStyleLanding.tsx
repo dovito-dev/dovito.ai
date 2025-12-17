@@ -293,8 +293,8 @@ export default function BeamStyleLanding() {
         </div>
       </div>
       {/* Hero Section */}
-      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative hero-gradient">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20"></div>
+      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
