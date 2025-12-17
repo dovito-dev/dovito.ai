@@ -1,0 +1,149 @@
+You are helping me document the visual and verbal brand system for this project.
+Scan all files in this Replit project (including src/, public/, assets/, styles/, components/, and config files) and extract only the brand kit into a single Markdown file named BRAND_KIT.md in the project root.​
+
+Goals
+
+Identify and document every brand element that appears in the codebase, design assets, or config files.
+
+Produce a clear, human-readable brand kit that can be used by designers and developers to keep future work on-brand.​
+
+Scope of extraction
+
+From CSS, Tailwind config, design tokens, theme files, SVGs, images, and copy, extract and document:
+
+Brand overview
+
+Brand name, tagline, mission or value statements if present.
+
+One-sentence description of the brand’s tone and personality inferred from copy and UI text.
+
+Logo and marks
+
+File paths and names of logo files and icons (SVG, PNG, etc.).
+
+Variants (full logo, wordmark, icon-only, light/dark versions) and any usage notes you can infer.
+
+Colors
+
+List all color tokens, variables, and hard-coded colors that appear to be part of the design system.
+
+For each color: name/key, HEX (and RGBA/HSL if available), and its role (primary, secondary, accent, background, text, semantic states like success/error/warning/info).
+
+Group them into logical palettes (e.g., primary, secondary, neutrals, semantic).
+
+Typography
+
+All font families (including fallbacks) used in the project.
+
+For each family: roles (headings, body, monospace, UI), typical sizes, weights, and line-heights when available.
+
+Heading hierarchy: typical styles for 
+h
+1
+h1–
+h
+6
+h6 and main body text styles.
+
+Spacing & layout tokens
+
+Any spacing, radius, and shadow tokens or utility scales (e.g., spacing, borderRadius, shadows in design token files or Tailwind config).
+
+Summarize the core scale (e.g., small, medium, large, etc.) and how it is used in components.
+
+Components & patterns
+
+Key reusable UI components that have strong brand identity (e.g., buttons, cards, nav bars, badges, modals).
+
+For each, describe: typical colors, typography, corner radius, shadows, and any notable interaction states (hover, focus, active, disabled).
+
+Call out any layout patterns that recur (hero sections, cards grid, forms, etc.).
+
+Imagery & illustration style
+
+Any systematic guidance you can infer about imagery: photo vs illustration, color grading, icon style, shape language, etc.
+
+Example asset paths that best represent the intended style.
+
+Tone of voice & content
+
+Extract key examples of UI copy, headings, CTAs, and helper text that illustrate tone.
+
+Summarize tone of voice in 3–5 bullets (e.g., friendly, concise, playful, formal).
+
+Markdown output requirements
+
+Create a file BRAND_KIT.md with this structure:
+
+text
+# [Project Name] Brand Kit
+
+## 1. Brand Overview
+- Brand name: ...
+- Tagline: ...
+- One-sentence summary: ...
+
+## 2. Logo & Marks
+- Primary logo: `path/to/file.svg`
+- Variants:
+  - ...
+- Usage notes:
+  - ...
+
+## 3. Color System
+### 3.1 Primary Colors
+- Name: `...` — `#...` — Role: ...
+- ...
+
+### 3.2 Secondary Colors
+- ...
+
+### 3.3 Neutrals & Semantic Colors
+- ...
+
+## 4. Typography
+- Primary font family: ...
+- Secondary font family: ...
+- Heading hierarchy:
+  - h1: ...
+  - h2: ...
+- Body text:
+  - ...
+
+## 5. Spacing, Radius & Elevation
+- Spacing scale: ...
+- Border radius tokens: ...
+- Shadow/elevation tokens: ...
+
+## 6. Components & Patterns
+### Buttons
+- Default: colors, radius, typography, states
+- Primary CTA: ...
+
+### Navigation
+- ...
+
+### Other key components
+- ...
+
+## 7. Imagery & Iconography
+- Style description: ...
+- Example assets:
+  - `path/to/example1`
+  - `path/to/example2`
+
+## 8. Tone of Voice & Copy Examples
+- Tone bullets:
+  - ...
+- Example phrases:
+  - "..."
+  - "..."
+Constraints
+
+Do not modify existing source files except to add the new BRAND_KIT.md.
+
+Do not include non-brand technical details such as API endpoints, business logic, or database schemas.
+
+If something is ambiguous, make a best-effort inference and clearly label it as an inference.
+
+Ensure the brand kit is complete and includes every brand-related token or rule you can find.
