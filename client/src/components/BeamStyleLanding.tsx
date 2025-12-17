@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { ExternalLink, ArrowRight, Sparkles, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
+import { ExternalLink, ArrowRight, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import SplashCursor from "./SplashCursor";
@@ -166,7 +166,7 @@ export default function BeamStyleLanding() {
                 <motion.div
                   className={`h-full cursor-pointer transition-all duration-500 rounded-2xl border backdrop-blur-sm ${
                     product.status === "live" 
-                      ? "border-primary/40 bg-primary/5 hover:bg-primary/10 hover:border-primary/60" 
+                      ? "border-secondary/40 bg-secondary/5 hover:bg-secondary/10 hover:border-secondary/60" 
                       : "border-border/40 bg-card/30 hover:bg-card/50"
                   }`}
                   onClick={() => handleProductClick(product)}
@@ -174,14 +174,14 @@ export default function BeamStyleLanding() {
                     scale: 1.05, 
                     y: -8,
                     boxShadow: product.status === "live" 
-                      ? "0 20px 40px rgba(70, 130, 180, 0.3)" 
+                      ? "0 20px 40px rgba(63, 185, 255, 0.3)" 
                       : "0 20px 40px rgba(255, 255, 255, 0.1)"
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className="p-6 flex flex-col items-center justify-center h-full text-center relative">
                     <div className={`text-3xl font-bold mb-3 ${
-                      product.status === "live" ? "text-primary" : "text-muted-foreground"
+                      product.status === "live" ? "text-secondary" : "text-muted-foreground"
                     }`}>
                       {product.abbreviation}
                     </div>
@@ -198,7 +198,7 @@ export default function BeamStyleLanding() {
 
                     {/* Glow effect for live products */}
                     {product.status === "live" && (
-                      <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                      <div className="absolute inset-0 rounded-2xl bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     )}
                   </div>
                 </motion.div>
@@ -239,7 +239,7 @@ export default function BeamStyleLanding() {
 
           {/* Center Nav Links */}
           <motion.div
-            className="hidden md:flex items-center space-x-6"
+            className="hidden md:flex items-center space-x-8"
             initial={false}
             animate={{
               opacity: navbarCollapsed ? 0 : 1,
@@ -248,22 +248,19 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
           >
             {[
-              { id: "home", label: "Home" },
-              { id: "products", label: "Universe" },
-              { id: "value", label: "Impact" },
-              { id: "contact", label: "Connect" }
+              { id: "home", label: "HOME" },
+              { id: "products", label: "UNIVERSE" },
+              { id: "value", label: "IMPACT" },
+              { id: "contact", label: "CONNECT" }
             ].map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-300 ${
-                  activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                className={`relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 ${
+                  activeSection === item.id ? "text-white" : "text-white/70 hover:text-white"
                 }`}
               >
                 {item.label}
-                {activeSection === item.id && (
-                  <div className="absolute inset-0 bg-primary/10 rounded-lg" />
-                )}
               </button>
             ))}
           </motion.div>
@@ -277,10 +274,9 @@ export default function BeamStyleLanding() {
           >
             <Button 
               onClick={() => scrollToSection("contact")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
             >
               Get Started
-              <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </motion.div>
 
@@ -297,8 +293,8 @@ export default function BeamStyleLanding() {
         </div>
       </div>
       {/* Hero Section */}
-      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50"></div>
+      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative hero-gradient">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
@@ -306,30 +302,18 @@ export default function BeamStyleLanding() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.div 
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm text-primary mb-8"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Sparkles className="w-4 h-4" />
-              Business Process Automation
-            </motion.div>
-
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-8 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-white"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
               Automation That<br />
-              <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                Delivers Results
-              </span>
+              Delivers Results
             </motion.h1>
 
             <motion.p 
-              className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -346,20 +330,18 @@ export default function BeamStyleLanding() {
             >
               <Button 
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
                 onClick={() => scrollToSection("contact")}
               >
-                <Zap className="w-5 h-5 mr-2" />
-                Get Free Consultation
+                Get Started
               </Button>
               <Button 
                 variant="outline"
                 size="lg"
-                className="border-border/50 hover:border-primary/50 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                className="border-secondary text-secondary hover:bg-secondary/10 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
                 onClick={() => scrollToSection("products")}
               >
-                Explore Universe
-                <ArrowRight className="w-5 h-5 ml-2" />
+                Learn More
               </Button>
             </motion.div>
           </motion.div>
@@ -467,8 +449,8 @@ export default function BeamStyleLanding() {
               >
                 <Card className="text-center border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
                   <CardContent className="p-8">
-                    <item.icon className="w-12 h-12 text-primary mx-auto mb-6" />
-                    <div className="text-3xl font-bold text-primary mb-2">{item.value}</div>
+                    <item.icon className="w-12 h-12 text-secondary mx-auto mb-6" />
+                    <div className="text-3xl font-bold text-secondary mb-2">{item.value}</div>
                     <div className="text-sm font-medium mb-3">{item.label}</div>
                     <p className="text-xs text-muted-foreground">{item.description}</p>
                   </CardContent>
@@ -563,7 +545,7 @@ export default function BeamStyleLanding() {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105"
+                    className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
                   >
                     Schedule Free Consultation
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -624,7 +606,7 @@ export default function BeamStyleLanding() {
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <div className="flex items-center gap-4 mb-3">
-                        <span className="text-3xl font-bold text-primary">
+                        <span className="text-3xl font-bold text-secondary">
                           {selectedProduct.abbreviation}
                         </span>
                         <h3 className="text-xl font-semibold">{selectedProduct.name}</h3>

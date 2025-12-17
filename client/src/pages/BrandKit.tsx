@@ -193,7 +193,7 @@ export default function BrandKit() {
 
           {/* Center Nav Links */}
           <motion.div
-            className="hidden md:flex items-center space-x-6"
+            className="hidden md:flex items-center space-x-8"
             initial={false}
             animate={{
               opacity: navbarCollapsed ? 0 : 1,
@@ -203,13 +203,12 @@ export default function BrandKit() {
           >
             <Link
               href="/"
-              className="relative px-3 py-1.5 text-sm font-medium transition-all duration-300 text-muted-foreground hover:text-foreground"
+              className="relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 text-white/70 hover:text-white"
             >
-              Home
+              HOME
             </Link>
-            <span className="relative px-3 py-1.5 text-sm font-medium text-primary">
-              Brand Kit
-              <div className="absolute inset-0 bg-primary/10 rounded-lg" />
+            <span className="relative px-3 py-1.5 text-xs font-medium tracking-wider text-white">
+              BRAND KIT
             </span>
           </motion.div>
 
@@ -222,10 +221,9 @@ export default function BrandKit() {
           >
             <Link href="/">
               <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full font-medium transition-all duration-300"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
               >
                 Get Started
-                <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </motion.div>
@@ -254,7 +252,7 @@ export default function BrandKit() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.div 
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm text-primary mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-sm text-secondary mb-8"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -293,27 +291,27 @@ export default function BrandKit() {
         >
           <Tabs defaultValue="strategy" className="space-y-8">
             <TabsList className="bg-card/80 backdrop-blur-sm border border-white/10 p-1.5 h-auto flex-wrap rounded-2xl">
-              <TabsTrigger value="strategy" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-strategy">
+              <TabsTrigger value="strategy" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-strategy">
                 <FileText className="w-4 h-4" />
                 Strategy
               </TabsTrigger>
-              <TabsTrigger value="logo" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-logo">
+              <TabsTrigger value="logo" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-logo">
                 <Image className="w-4 h-4" />
                 Logo
               </TabsTrigger>
-              <TabsTrigger value="colors" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-colors">
+              <TabsTrigger value="colors" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-colors">
                 <Palette className="w-4 h-4" />
                 Colors
               </TabsTrigger>
-              <TabsTrigger value="typography" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-typography">
+              <TabsTrigger value="typography" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-typography">
                 <Type className="w-4 h-4" />
                 Typography
               </TabsTrigger>
-              <TabsTrigger value="components" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-components">
+              <TabsTrigger value="components" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-components">
                 <Layout className="w-4 h-4" />
                 Components
               </TabsTrigger>
-              <TabsTrigger value="voice" className="gap-2 rounded-xl data-[state=active]:bg-primary/20 data-[state=active]:text-primary" data-testid="tab-voice">
+              <TabsTrigger value="voice" className="gap-2 rounded-xl data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary" data-testid="tab-voice">
                 <MessageSquare className="w-4 h-4" />
                 Voice & Tone
               </TabsTrigger>
@@ -331,7 +329,7 @@ export default function BrandKit() {
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <h3 className="text-lg font-semibold mb-3 text-primary">Mission Statement</h3>
+                      <h3 className="text-lg font-semibold mb-3 text-secondary">Mission Statement</h3>
                       <p className="text-muted-foreground leading-relaxed">
                         To democratize business process automation, making powerful AI-driven solutions accessible to organizations of all sizes, enabling them to focus on what matters most—growth and innovation.
                       </p>
@@ -341,7 +339,7 @@ export default function BrandKit() {
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <h3 className="text-lg font-semibold mb-3 text-primary">Vision Statement</h3>
+                      <h3 className="text-lg font-semibold mb-3 text-secondary">Vision Statement</h3>
                       <p className="text-muted-foreground leading-relaxed">
                         A world where every business operates at peak efficiency, with intelligent automation handling repetitive tasks while humans focus on creativity, strategy, and meaningful work.
                       </p>
@@ -349,7 +347,7 @@ export default function BrandKit() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold mb-4 text-primary">Core Values</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-secondary">Core Values</h3>
                     <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                       {["Innovation", "Reliability", "Transparency", "Empowerment"].map((value, index) => (
                         <motion.div 
@@ -367,10 +365,10 @@ export default function BrandKit() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold mb-4 text-primary">Brand Personality</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-secondary">Brand Personality</h3>
                     <div className="flex flex-wrap gap-3">
                       {["Professional", "Innovative", "Approachable", "Results-driven", "Trustworthy"].map((trait) => (
-                        <span key={trait} className="px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 transition-colors cursor-default">
+                        <span key={trait} className="px-5 py-2.5 bg-secondary/10 text-secondary rounded-full text-sm font-medium border border-secondary/20 hover:bg-secondary/20 transition-colors cursor-default">
                           {trait}
                         </span>
                       ))}
@@ -378,7 +376,7 @@ export default function BrandKit() {
                   </div>
 
                   <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-6 rounded-2xl border border-white/5">
-                    <h3 className="text-lg font-semibold mb-3 text-primary">Positioning Statement</h3>
+                    <h3 className="text-lg font-semibold mb-3 text-secondary">Positioning Statement</h3>
                     <p className="text-muted-foreground leading-relaxed italic border-l-2 border-primary pl-4">
                       "For forward-thinking businesses seeking to optimize operations, Dovito.ai is the automation partner that combines cutting-edge AI with intuitive design, delivering measurable results without complexity."
                     </p>
@@ -670,7 +668,7 @@ export default function BrandKit() {
                       <motion.div whileHover={{ scale: 1.02 }}>
                         <Card className="bg-primary/10 border-primary/30 rounded-2xl">
                           <CardHeader>
-                            <CardTitle className="text-lg text-primary">Highlighted Card</CardTitle>
+                            <CardTitle className="text-lg text-secondary">Highlighted Card</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <p className="text-muted-foreground">
@@ -736,7 +734,7 @@ export default function BrandKit() {
                     <h3 className="text-lg font-semibold mb-4">Brand Voice</h3>
                     <div className="flex flex-wrap gap-3 mb-4">
                       {brandVoice.personality.map((trait) => (
-                        <span key={trait} className="px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
+                        <span key={trait} className="px-5 py-2.5 bg-secondary/10 text-secondary rounded-full text-sm font-medium border border-primary/20">
                           {trait}
                         </span>
                       ))}
@@ -818,7 +816,7 @@ export default function BrandKit() {
             </div>
             <div className="flex items-center gap-6">
               <span className="text-sm text-muted-foreground">
-                For brand asset requests, contact <span className="text-primary">brand@dovito.ai</span>
+                For brand asset requests, contact <span className="text-secondary">brand@dovito.ai</span>
               </span>
             </div>
           </div>
