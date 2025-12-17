@@ -6,6 +6,8 @@ import { sendWelcomeInvite, generateTempPassword } from "./email";
 import session from "express-session";
 import ConnectPg from "connect-pg-simple";
 import { pool } from "./db";
+import * as fs from "fs";
+import * as path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Session setup
@@ -309,6 +311,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating content section:", error);
       res.status(500).json({ error: "Failed to update content section" });
+    }
+  });
+
+  app.get("/api/brand-kit/download", (req, res) => {
+    try {
+      const filePath = path.join(process.cwd(), "BRAND_KIT.md");
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ error: "Brand kit file not found" });
+      }
+      res.setHeader("Content-Type", "text/markdown");
+      res.setHeader("Content-Disposition", "attachment; filename=BRAND_KIT.md");
+      const fileStream = fs.createReadStream(filePath);
+      fileStream.pipe(res);
+    } catch (error) {
+      console.error("Error downloading brand kit:", error);
+      res.status(500).json({ error: "Failed to download brand kit" });
     }
   });
 
