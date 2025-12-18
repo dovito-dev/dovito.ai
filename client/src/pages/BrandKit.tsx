@@ -175,7 +175,6 @@ export default function BrandKit() {
           rotation={28}
         />
       </div>
-
       {/* Navigation */}
       <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
@@ -240,7 +239,6 @@ export default function BrandKit() {
           />
         </div>
       </div>
-
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
@@ -261,7 +259,7 @@ export default function BrandKit() {
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-[#d2d3d4]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -280,7 +278,6 @@ export default function BrandKit() {
           </motion.div>
         </div>
       </section>
-
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 relative z-10">
         <motion.div
