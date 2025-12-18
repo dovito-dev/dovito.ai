@@ -392,6 +392,133 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="py-24 bg-[#f5f7fa]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              How It Works
+            </h2>
+
+            <div className="space-y-16">
+              {/* Step 1 */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  1. You Build a Prototype
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Use any AI tool you want: Replit Agent, Bolt.new, v0, Cursor, Claude Code—whatever works.
+                </p>
+                <p className="text-gray-600">
+                  Build something that shows your idea. Doesn't need to be perfect. Just functional enough to demonstrate what you want.
+                </p>
+              </motion.div>
+
+              {/* Step 2 */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  2. Submit for $1,500 Audit
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  We analyze your prototype and validate feasibility.
+                </p>
+                
+                <p className="font-semibold text-gray-900 mb-3">What you get:</p>
+                <ul className="space-y-2 text-gray-600 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Feasibility Report (10-15 pages)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Technical assessment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Lean user stories (prioritized)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Architecture recommendations
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Realistic timeline and budget estimate
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Go/no-go recommendation
+                  </li>
+                </ul>
+                
+                <p className="text-gray-900 font-medium">
+                  <span className="text-secondary">Timeline:</span> 5-7 business days
+                </p>
+              </motion.div>
+
+              {/* Step 3 */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  3. Approve & Move Forward
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  If the feasibility report makes sense, we proceed with:
+                </p>
+                <ul className="space-y-2 text-gray-600 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Product Requirements Document (PRD)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Detailed technical design
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Sprint-based development
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Production deployment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Documentation and training
+                  </li>
+                </ul>
+                
+                <p className="text-lg text-gray-900 font-semibold border-t border-gray-200 pt-6">
+                  If it doesn't make sense, you've spent $1,500 to avoid wasting $50,000.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
