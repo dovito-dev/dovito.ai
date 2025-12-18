@@ -1179,6 +1179,113 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              FAQ
+            </h2>
+
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  What if the audit says my idea won't work?
+                </h3>
+                <p className="text-gray-600">
+                  Then you've spent $1,500 to avoid wasting $50,000+. We'll explain why and may suggest alternatives.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  Can you build my prototype for me?
+                </h3>
+                <p className="text-gray-600">
+                  No. The prototype is your responsibility. It validates that you understand what you want. Use Replit Agent, Bolt, Cursor, Claude Code, or any AI tool.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  Do you do hourly billing?
+                </h3>
+                <p className="text-gray-600">
+                  No. Fixed-price per phase after the audit. You know exactly what you're paying.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  What if I want changes mid-development?
+                </h3>
+                <p className="text-gray-600">
+                  Minor refinements are included. Scope changes are evaluated and priced separately. This is why the audit phase is critical.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="border-b border-gray-200 pb-8"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  Who owns the code?
+                </h3>
+                <p className="text-gray-600">
+                  You do. Full ownership transfer upon final payment.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  Do you sign NDAs?
+                </h3>
+                <p className="text-gray-600">
+                  Yes, before the audit begins.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
