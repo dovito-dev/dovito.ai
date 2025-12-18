@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Check, FileText, Image, Palette, Type, Layout, MessageSquare } from "lucide-react";
@@ -8,6 +9,30 @@ import dovitoLogo from "@assets/white_1749151126542.png";
 export default function BrandKit() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("strategy");
+  const [navbarCollapsed, setNavbarCollapsed] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollThreshold = 100;
+
+      if (currentScrollY > scrollThreshold) {
+        if (currentScrollY > lastScrollY.current) {
+          setNavbarCollapsed(true);
+        } else {
+          setNavbarCollapsed(false);
+        }
+      } else {
+        setNavbarCollapsed(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const copyToClipboard = (text: string, colorName: string) => {
     navigator.clipboard.writeText(text);
@@ -89,22 +114,67 @@ export default function BrandKit() {
 
   return (
     <div className="min-h-screen bg-[#f0f2f5]" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/">
-            <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto cursor-pointer" />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/" className="text-white/70 hover:text-white text-sm transition-colors">
-              Home
+      {/* Navigation - matching home page style */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
+          {/* Logo - slides to left edge */}
+          <motion.div
+            className="flex items-center z-10"
+            initial={false}
+            animate={{ x: navbarCollapsed ? -24 : 0 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link href="/">
+              <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto cursor-pointer" />
             </Link>
-            <Link href="/brand-kit" className="text-white text-sm font-medium">
-              Brand Kit
+          </motion.div>
+
+          {/* Center Nav Links */}
+          <motion.div
+            className="hidden md:flex items-center space-x-8"
+            initial={false}
+            animate={{
+              opacity: navbarCollapsed ? 0 : 1,
+              pointerEvents: navbarCollapsed ? "none" : "auto"
+            }}
+            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link href="/" className="relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 text-white/70 hover:text-white">
+              HOME
             </Link>
-          </div>
+            <Link href="/brand-kit" className="relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 text-white">
+              BRAND KIT
+            </Link>
+          </motion.div>
+
+          {/* CTA - slides to right edge */}
+          <motion.div
+            className="z-10"
+            initial={false}
+            animate={{ x: navbarCollapsed ? 24 : 0 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <Link href="/">
+              <Button 
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
+              >
+                Get Started
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Pill Background - wraps all elements */}
+          <motion.div
+            className="absolute -inset-x-0 -top-1 -bottom-1 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
+            initial={false}
+            animate={{
+              opacity: navbarCollapsed ? 0 : 1,
+              scaleX: navbarCollapsed ? 0.95 : 1,
+            }}
+            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+          />
         </div>
-      </nav>
+      </div>
       
       {/* Header */}
       <header style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }} className="text-white pt-28 pb-16 relative overflow-hidden">
@@ -121,7 +191,7 @@ export default function BrandKit() {
       </header>
 
       {/* Sticky Tabs */}
-      <div className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+      <div className="sticky top-20 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center space-x-1 overflow-x-auto py-2">
             {tabs.map((tab) => {
