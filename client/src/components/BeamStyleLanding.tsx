@@ -318,18 +318,26 @@ export default function BeamStyleLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              Automation That<br />
-              Delivers Results
+              Your Prototype.<br />
+              Professionally Built.
             </motion.h1>
 
             <motion.p 
-              className="text-lg text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="text-xl text-white/90 mb-4 max-w-2xl mx-auto leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              Reduce manual tasks by 25-40% and improve lead conversion by 15-30%. 
-              Most clients see measurable results within 90 days or less.
+              You've got an idea. You've built a prototype with AI tools. Now you need it built right.
+            </motion.p>
+
+            <motion.p 
+              className="text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              We audit your prototype, validate feasibility, then build production-grade software that actually works.
             </motion.p>
 
             <motion.div 
@@ -343,15 +351,7 @@ export default function BeamStyleLanding() {
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
                 onClick={() => scrollToSection("contact")}
               >
-                Get Started
-              </Button>
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-secondary text-secondary hover:bg-secondary/10 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                onClick={() => scrollToSection("products")}
-              >
-                Learn More
+                Submit Your Prototype →
               </Button>
             </motion.div>
           </motion.div>
