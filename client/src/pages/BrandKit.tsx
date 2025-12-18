@@ -190,8 +190,8 @@ export default function BrandKit() {
         </div>
       </header>
 
-      {/* Sticky Tabs */}
-      <div className="sticky top-20 z-40 bg-white border-b border-gray-200 shadow-sm">
+      {/* Tabs */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center space-x-1 overflow-x-auto py-2">
             {tabs.map((tab) => {
