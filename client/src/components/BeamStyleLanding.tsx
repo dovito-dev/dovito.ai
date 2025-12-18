@@ -304,7 +304,7 @@ export default function BeamStyleLanding() {
       </div>
       {/* Hero Section */}
       <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
