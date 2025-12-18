@@ -902,6 +902,109 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* Our Technology Approach Section */}
+      <section className="py-24 bg-[#f5f7fa]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+              Our Technology Approach
+            </h2>
+            <h3 className="text-2xl font-semibold text-gray-700 mb-16 text-center">
+              Human-First, AI-Assisted
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Humans handle */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h4 className="text-xl font-bold text-gray-900 mb-6">
+                  Humans handle:
+                </h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Architecture decisions
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Security implementation
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Code review
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Testing strategy
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    System design
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* AI assists with */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h4 className="text-xl font-bold text-gray-900 mb-6">
+                  AI assists with:
+                </h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Boilerplate generation
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Documentation creation
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Test case writing
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Code suggestions
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Repetitive tasks
+                  </li>
+                </ul>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-secondary/10 rounded-2xl p-8 text-center"
+            >
+              <p className="text-lg text-gray-900">
+                <span className="font-bold">Result:</span> Production-quality code at 30-40% lower cost than traditional development, with better quality than pure AI-generated code.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
