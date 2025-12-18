@@ -1415,69 +1415,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-      {/* Value Proposition Section */}
-      <section id="value" className="py-32 bg-[#ffffff]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">Transformational SaaS</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Measurable results that transform your business operations
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { 
-                icon: Target, 
-                value: "25-40%", 
-                label: "Task Reduction",
-                description: "Eliminate manual work"
-              },
-              { 
-                icon: TrendingUp, 
-                value: "15-30%", 
-                label: "Conversion Boost",
-                description: "Improve lead-to-close"
-              },
-              { 
-                icon: Zap, 
-                value: "$15K-$50K", 
-                label: "Monthly Savings",
-                description: "Direct cost reduction"
-              },
-              { 
-                icon: Clock, 
-                value: "90-Day", 
-                label: "Impactful Results",
-                description: "Impactful results for real people"
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-              >
-                <Card className="text-center border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300">
-                  <CardContent className="p-8">
-                    <item.icon className="w-12 h-12 text-secondary mx-auto mb-6" />
-                    <div className="text-3xl font-bold text-secondary mb-2">{item.value}</div>
-                    <div className="text-sm font-medium text-primary mb-3">{item.label}</div>
-                    <p className="text-xs text-gray-500">{item.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* Beams Background Container - Contact Section */}
       <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
         <div className="absolute inset-0 z-0 overflow-hidden">
