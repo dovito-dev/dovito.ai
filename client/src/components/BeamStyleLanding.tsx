@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ExternalLink, ArrowRight, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
+import heroBackground from "@assets/dynamic-wang-rV9YIchqXEk-unsplash_1766100911024.jpg";
 import SplashCursor from "./SplashCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
@@ -302,8 +303,8 @@ export default function BeamStyleLanding() {
         </div>
       </div>
       {/* Hero Section */}
-      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
+      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
