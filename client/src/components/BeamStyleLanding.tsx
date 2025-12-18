@@ -750,6 +750,158 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* The $1,500 Audit Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              The $1,500 Audit
+            </h2>
+
+            <p className="text-xl font-semibold text-gray-900 mb-12 text-center">
+              What's included:
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Feasibility Report */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Feasibility Report
+                </h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Is this buildable? Should we build it?
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Technical challenges identified
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Required architecture and technology stack
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Security and scalability assessment
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Lean User Stories */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Lean User Stories
+                </h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Core features (must-have)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Secondary features (should-have)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Nice-to-have features (later)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Prioritization framework
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Scope & Estimate */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Scope & Estimate
+                </h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Realistic timeline
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Budget range (fixed-price per phase)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Phase breakdown (MVP → V1 → V2)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Risk factors
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Recommendation */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Recommendation
+                </h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Go forward (here's how)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Adjust scope (here's why)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Don't build it (here's why not)
+                  </li>
+                </ul>
+              </motion.div>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl text-gray-900 font-semibold text-center max-w-3xl mx-auto"
+            >
+              Even if we recommend NOT building it, you've saved yourself from a costly mistake.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
