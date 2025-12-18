@@ -260,7 +260,6 @@ export default function BeamStyleLanding() {
             {[
               { id: "home", label: "HOME" },
               { id: "products", label: "UNIVERSE" },
-              { id: "value", label: "IMPACT" },
               { id: "contact", label: "CONNECT" }
             ].map((item) => (
               <button
@@ -1391,7 +1390,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-              {getContentByKey("periodic_table_title", "The Dovito Universe")}
+              {getContentByKey("periodic_table_title", "Some Our Projects")}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               {getContentByKey("periodic_table_description", "A growing ecosystem of automation tools designed to transform business operations")}
