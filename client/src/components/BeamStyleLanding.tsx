@@ -1087,6 +1087,98 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* Why We Require a Prototype First Section */}
+      <section className="py-24 bg-[#f5f7fa]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              Why We Require a Prototype First
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* It Forces Clarity */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  It Forces Clarity
+                </h3>
+                <p className="text-gray-600">
+                  Building a prototype makes you think through your idea. It reveals gaps in your thinking.
+                </p>
+              </motion.div>
+
+              {/* It Validates Demand */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  It Validates Demand
+                </h3>
+                <p className="text-gray-600">
+                  If you won't spend time building a prototype, you probably won't succeed with a full product.
+                </p>
+              </motion.div>
+
+              {/* It Saves Everyone Time */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  It Saves Everyone Time
+                </h3>
+                <p className="text-gray-600">
+                  We can assess feasibility faster with a working prototype than with a 40-page document.
+                </p>
+              </motion.div>
+
+              {/* It Reduces Risk */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  It Reduces Risk
+                </h3>
+                <p className="text-gray-600">
+                  Better to discover problems in a prototype than after we've built production software.
+                </p>
+              </motion.div>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl text-gray-900 font-semibold text-center max-w-3xl mx-auto"
+            >
+              Bottom line: If you can't articulate your idea well enough to prototype it, you're not ready for production development.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
