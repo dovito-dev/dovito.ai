@@ -360,34 +360,33 @@ export default function BeamStyleLanding() {
 
       {/* The Problem Section */}
       <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10">
               The Problem
             </h2>
             
-            <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-              <p className="text-xl text-gray-800 font-medium">
-                AI tools make building prototypes easy. Building production software is not.
-              </p>
-              
-              <p>
-                You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
-              </p>
-              
-              <p>
-                But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
-              </p>
-              
-              <p className="text-xl text-gray-900 font-semibold pt-4">
-                You need it rebuilt. Professionally. Without starting from scratch.
-              </p>
-            </div>
+            <p className="text-xl text-gray-800 mb-6">
+              AI tools make building prototypes easy. Building production software is not.
+            </p>
+            
+            <p className="text-lg text-gray-600 mb-6">
+              You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
+            </p>
+            
+            <p className="text-lg text-gray-600 mb-8">
+              But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
+            </p>
+            
+            <p className="text-xl text-gray-900 font-semibold">
+              You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
+            </p>
           </motion.div>
         </div>
       </section>
