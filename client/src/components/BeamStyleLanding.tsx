@@ -398,7 +398,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Value Proposition Section */}
-      <section id="value" className="py-32 bg-gray-50">
+      <section id="value" className="py-32 bg-[#ffffff]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-20"
@@ -581,7 +581,6 @@ export default function BeamStyleLanding() {
           </div>
         </footer>
       </div>
-
       {/* Product Detail Modal */}
       <AnimatePresence>
         {selectedProduct && (
