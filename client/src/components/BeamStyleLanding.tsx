@@ -1005,6 +1005,88 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* Who This Is For Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              Who This Is For
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Entrepreneurs */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Entrepreneurs with AI-Built Prototypes
+                </h3>
+                <p className="text-gray-600">
+                  You built something in Cursor or Replit. It works. Now you need it production-ready.
+                </p>
+              </motion.div>
+
+              {/* Startups */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Startups Validating Ideas
+                </h3>
+                <p className="text-gray-600">
+                  You need an MVP fast, but it needs to actually work. No technical debt.
+                </p>
+              </motion.div>
+
+              {/* Businesses */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Businesses Automating Operations
+                </h3>
+                <p className="text-gray-600">
+                  You've identified a process to automate. You need software built, not a consultant who talks.
+                </p>
+              </motion.div>
+
+              {/* Teams Burned */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-[#f5f7fa] rounded-2xl p-8"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Teams Burned by Dev Shops
+                </h3>
+                <p className="text-gray-600">
+                  You've been through scope creep hell. You want fixed pricing and honest timelines.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
