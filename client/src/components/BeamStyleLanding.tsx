@@ -1323,6 +1323,49 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* About dovito.ai Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">
+              About dovito.ai
+            </h2>
+
+            <div className="space-y-6 text-lg text-gray-600">
+              <p>
+                <span className="font-bold text-gray-900">dovito.ai</span> is the full-stack development arm of Dovito Business Solutions.
+              </p>
+              
+              <p>
+                <span className="font-bold text-gray-900">Our approach:</span> Human-first development assisted by AI for cost-effective, production-quality software.
+              </p>
+              
+              <p>
+                <span className="font-bold text-gray-900">Our promise:</span> Honest feasibility assessments. Fixed-price development. Code that actually works.
+              </p>
+              
+              <p className="pt-4">
+                <span className="font-bold text-gray-900">Part of:</span>{" "}
+                <a 
+                  href="https://dovito.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-secondary hover:text-secondary/80 underline transition-colors"
+                >
+                  dovito.com
+                </a>
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
