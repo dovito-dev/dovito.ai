@@ -594,6 +594,162 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="py-24 bg-[#f5f7fa]">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+              Pricing
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* $1,500 Audit */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 shadow-sm border-2 border-secondary"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  $1,500 Audit
+                </h3>
+                <ul className="space-y-3 text-gray-600 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Feasibility report
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Lean user stories
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Technical assessment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Budget estimate
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Go/no-go recommendation
+                  </li>
+                </ul>
+                <p className="text-gray-900 font-medium">
+                  <span className="text-secondary">Timeline:</span> 5-7 business days
+                </p>
+              </motion.div>
+
+              {/* $15,000 - $35,000 MVP */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  $15,000 - $35,000 MVP
+                </h3>
+                <ul className="space-y-3 text-gray-600 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    PRD and technical design
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Core functionality built
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Production deployment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Basic documentation
+                  </li>
+                </ul>
+                <p className="text-gray-900 font-medium">
+                  <span className="text-secondary">Timeline:</span> 4-8 weeks
+                </p>
+              </motion.div>
+
+              {/* $25,000 - $75,000 V1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  $25,000 - $75,000 V1
+                </h3>
+                <ul className="space-y-3 text-gray-600 mb-6">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Full feature set
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Advanced functionality
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Comprehensive testing
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Complete documentation
+                  </li>
+                </ul>
+                <p className="text-gray-900 font-medium">
+                  <span className="text-secondary">Timeline:</span> 8-16 weeks
+                </p>
+              </motion.div>
+
+              {/* Support */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white rounded-2xl p-8 shadow-sm"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  $2,500 - $7,500/month Support
+                </h3>
+                <p className="text-gray-500 text-sm mb-6">(Optional)</p>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Bug fixes and maintenance
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Feature additions
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Performance monitoring
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    Security updates
+                  </li>
+                </ul>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
