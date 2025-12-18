@@ -119,7 +119,7 @@ export default function BrandKit() {
         <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
           {/* Logo - slides to left edge */}
           <motion.div
-            className="flex items-center z-10"
+            className="flex items-center z-10 relative"
             initial={false}
             animate={{ x: navbarCollapsed ? -24 : 0 }}
             transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
@@ -127,6 +127,16 @@ export default function BrandKit() {
             <Link href="/">
               <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto cursor-pointer" />
             </Link>
+            {/* Logo pill background - appears when scrolling */}
+            <motion.div
+              className="absolute -inset-x-4 -inset-y-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-lg shadow-black/20 -z-10"
+              initial={false}
+              animate={{
+                opacity: navbarCollapsed ? 1 : 0,
+                scale: navbarCollapsed ? 1 : 0.9,
+              }}
+              transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+            />
           </motion.div>
 
           {/* Center Nav Links */}
