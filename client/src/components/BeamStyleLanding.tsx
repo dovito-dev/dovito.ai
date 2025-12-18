@@ -1286,6 +1286,43 @@ export default function BeamStyleLanding() {
         </div>
       </section>
 
+      {/* Ready to Get Started Section */}
+      <section className="py-24 bg-[#f5f7fa]">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
+              Ready to Get Started?
+            </h2>
+
+            <p className="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
+              You've got a prototype. We'll tell you if it's worth building—and build it right.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button 
+                size="lg"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
+                onClick={() => scrollToSection("contact")}
+              >
+                Submit Your Prototype →
+              </Button>
+              <a 
+                href="mailto:hello@dovito.ai" 
+                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+              >
+                hello@dovito.ai
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
