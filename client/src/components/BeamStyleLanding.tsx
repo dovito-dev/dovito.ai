@@ -357,37 +357,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
-      {/* Problem Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">The Problem</h2>
-            
-            <p className="text-xl text-gray-700 mb-6 leading-relaxed">
-              AI tools make building prototypes easy. Building production software is not.
-            </p>
-            
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
-            </p>
-            
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
-            </p>
-            
-            <p className="text-xl font-semibold text-gray-900">
-              You need it rebuilt. Professionally. Without starting from scratch.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
