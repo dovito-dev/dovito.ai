@@ -48,16 +48,27 @@ A world where every business operates at peak efficiency, with intelligent autom
 
 | Name | HSL | HEX | RGB | Role |
 |------|-----|-----|-----|------|
-| **Primary Deep Blue** | `210 55% 23%` | `#1a365d` | `26, 54, 93` | Primary actions, links, highlights, CTAs |
+| **Primary Deep Blue** | `210 55% 23%` | `#1a365d` | `26, 54, 93` | Primary actions, links, text on light backgrounds |
 | **Primary Steel Blue** | `207 44% 49%` | `#4682b4` | `70, 130, 180` | Beams effect, accents, focus rings |
+| **Secondary Cyan** | `199 100% 62%` | `#3fb9ff` | `63, 185, 255` | **Primary CTAs**, buttons, highlights |
 
-### 3.2 Background Colors (Dark/Charcoal)
+### 3.2 Background Colors
+
+#### Light Mode (Default - Middle Sections)
 
 | Name | HSL | HEX | RGB | Role |
 |------|-----|-----|-----|------|
-| **Background Navy** | `210 100% 12%` | `#001f3f` | `0, 31, 63` | Main page background |
-| **Card Charcoal** | `210 16% 29%` | `#3d4a55` | `61, 74, 85` | Cards, elevated surfaces |
-| **Muted** | `210 16% 22%` | `#2d3a45` | `45, 58, 69` | Secondary backgrounds |
+| **Background White** | `0 0% 100%` | `#ffffff` | `255, 255, 255` | Products, Value, Features sections |
+| **Card White** | `0 0% 100%` | `#ffffff` | `255, 255, 255` | Cards on light backgrounds |
+| **Muted Light** | `210 10% 96%` | `#f5f7fa` | `245, 247, 250` | Subtle background variations |
+
+#### Dark Mode (Hero, Contact, Footer Sections)
+
+| Name | HSL | HEX | RGB | Role |
+|------|-----|-----|-----|------|
+| **Background Navy** | `210 100% 12%` | `#001f3f` | `0, 31, 63` | Dark section backgrounds |
+| **Card Charcoal** | `210 16% 18%` | `#2a3a4a` | `42, 58, 74` | Cards on dark backgrounds |
+| **Muted Dark** | `210 16% 22%` | `#2d3a45` | `45, 58, 69` | Secondary dark backgrounds |
 
 ### 3.3 Secondary Colors (Cyan)
 
@@ -97,8 +108,22 @@ A world where every business operates at peak efficiency, with intelligent autom
 
 | Name | CSS Value | Usage |
 |------|-----------|-------|
-| **Primary Gradient** | `linear-gradient(135deg, #1a365d 0%, #4682b4 100%)` | Hero backgrounds, CTA highlights |
-| **Background Gradient** | `linear-gradient(180deg, #001f3f 0%, #3d4a55 100%)` | Page sections, depth |
+| **Hero Gradient** | `linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)` | Hero section background |
+| **Primary Gradient** | `linear-gradient(135deg, #1a365d 0%, #4682b4 100%)` | CTA highlights, accents |
+| **Background Gradient** | `linear-gradient(180deg, #001f3f 0%, #3d4a55 100%)` | Dark section depth |
+
+### 3.9 Page Section Layout
+
+The website uses a **hybrid light/dark design pattern**:
+
+| Section | Background | Text Color | Notes |
+|---------|------------|------------|-------|
+| **Hero** | Dark gradient (inline styles) | White | Uses hero-gradient with direct style prop |
+| **Products** | White | Dark blue (#1a365d) | Light section |
+| **Value** | White | Dark blue (#1a365d) | Light section |
+| **Features** | White | Dark blue (#1a365d) | Light section |
+| **Contact** | Dark navy (#001f3f) | White | section-dark class |
+| **Footer** | Dark navy (#001f3f) | White | section-dark class |
 
 ### Color Mapping Reference
 
@@ -172,22 +197,24 @@ A world where every business operates at peak efficiency, with intelligent autom
 
 ## 6. CSS Custom Properties
 
+### Light Mode (Default `:root`)
+
 ```css
 :root {
-  --background: 210 100% 12%;
-  --foreground: 0 0% 98%;
-  --muted: 210 16% 22%;
-  --muted-foreground: 210 10% 65%;
-  --popover: 210 100% 10%;
-  --popover-foreground: 0 0% 98%;
-  --card: 210 16% 18%;
-  --card-foreground: 0 0% 98%;
-  --border: 210 16% 25%;
-  --input: 210 16% 25%;
+  --background: 0 0% 100%;           /* White */
+  --foreground: 210 55% 23%;         /* Deep Blue */
+  --muted: 210 10% 96%;              /* Light gray */
+  --muted-foreground: 210 16% 45%;   /* Medium gray */
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 55% 23%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 55% 23%;
+  --border: 210 16% 85%;             /* Light border */
+  --input: 210 16% 90%;
   --primary: 210 55% 23%;
   --primary-foreground: 0 0% 100%;
   --primary-light: 207 44% 49%;
-  --secondary: 199 100% 62%;
+  --secondary: 199 100% 62%;         /* Cyan - CTAs */
   --secondary-foreground: 210 100% 12%;
   --accent: 195 100% 40%;
   --accent-foreground: 0 0% 100%;
@@ -197,6 +224,36 @@ A world where every business operates at peak efficiency, with intelligent autom
   --destructive-foreground: 0 0% 98%;
   --ring: 207 44% 49%;
   --radius: 0.75rem;
+}
+```
+
+### Dark Mode (`.dark` class)
+
+```css
+.dark {
+  --background: 210 100% 12%;        /* Navy */
+  --foreground: 0 0% 98%;            /* White */
+  --muted: 210 16% 22%;
+  --muted-foreground: 210 10% 65%;
+  --card: 210 16% 18%;
+  --card-foreground: 0 0% 98%;
+  --border: 210 16% 25%;
+}
+```
+
+### Section Dark Override (`.section-dark` class)
+
+Used for dark sections within a light-mode page (Contact, Footer):
+
+```css
+.section-dark {
+  --background: 210 100% 12%;
+  --foreground: 0 0% 98%;
+  --muted: 210 16% 22%;
+  --muted-foreground: 210 10% 65%;
+  --card: 210 16% 18%;
+  --card-foreground: 0 0% 98%;
+  --border: 210 16% 25%;
 }
 ```
 
@@ -230,11 +287,49 @@ A world where every business operates at peak efficiency, with intelligent autom
 
 | File | Purpose |
 |------|---------|
-| `client/src/index.css` | Global styles, CSS variables |
+| `client/src/index.css` | Global styles, CSS variables, gradients |
 | `tailwind.config.ts` | Tailwind theme extensions |
 | `client/src/pages/BrandKit.tsx` | Brand guidelines page |
-| `client/src/components/BeamStyleLanding.tsx` | Main landing page |
+| `client/src/components/BeamStyleLanding.tsx` | Main landing page with hero gradient |
+| `BRAND_KIT.md` | This brand documentation file |
 
 ---
 
+## 9. Implementation Notes
+
+### Hero Section Gradient
+
+The hero gradient is applied via inline styles to prevent CSS variable conflicts:
+
+```tsx
+<section 
+  id="home" 
+  style={{ 
+    background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' 
+  }}
+>
+```
+
+### CTA Button Styling
+
+Primary CTAs use the secondary cyan color for maximum visibility:
+
+```tsx
+<Button className="bg-[#3fb9ff] hover:bg-[#3fb9ff]/90 text-white">
+  Get Started
+</Button>
+```
+
+### Text on White Backgrounds
+
+For sections with white backgrounds, use dark brand colors:
+
+```tsx
+<h2 className="text-[#1a365d]">Section Title</h2>
+<p className="text-[#001f3f]/80">Description text</p>
+```
+
+---
+
+*Last updated: December 2024*
 *© 2024 Dovito.ai. All brand assets are property of Dovito.ai.*
