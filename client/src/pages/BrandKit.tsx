@@ -243,7 +243,6 @@ export default function BrandKit() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-background opacity-50 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div
             className="text-center max-w-4xl mx-auto"
