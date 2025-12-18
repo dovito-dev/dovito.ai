@@ -360,7 +360,7 @@ export default function BeamStyleLanding() {
 
       {/* The Problem Section */}
       <section className="py-24 bg-white">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
