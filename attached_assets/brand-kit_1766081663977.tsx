@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Check, FileText, Image, Palette, Type, Layout, MessageSquare } from "lucide-react";
-import dovitoLogo from "@assets/white_1749151126542.png";
+import { useState } from "react";
+import Navigation from "@/components/navigation";
 
 export default function BrandKit() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
@@ -65,7 +64,7 @@ export default function BrandKit() {
     { name: "Bold", value: "700", usage: "Headings, titles" },
   ];
 
-  const ColorSwatch = ({ color }: { color: { name: string; hex: string; hsl: string; rgb: string; role: string } }) => (
+  const ColorSwatch = ({ color }: { color: any }) => (
     <Card className="bg-white rounded-2xl border-0 shadow-sm overflow-hidden">
       <div className="h-20" style={{ backgroundColor: color.hex }}></div>
       <CardContent className="p-4">
@@ -89,24 +88,11 @@ export default function BrandKit() {
 
   return (
     <div className="min-h-screen bg-[#f0f2f5]" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/">
-            <img src={dovitoLogo} alt="Dovito.ai" className="h-8 w-auto cursor-pointer" />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/" className="text-white/70 hover:text-white text-sm transition-colors">
-              Home
-            </Link>
-            <Link href="/brand-kit" className="text-white text-sm font-medium">
-              Brand Kit
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation customNavItems={[
+        { id: "home", label: "Home", href: "/", isLink: true },
+        { id: "brand-kit", label: "Brand Kit", href: "/brand-kit", isLink: true },
+      ]} />
       
-      {/* Header */}
       <header style={{ background: 'linear-gradient(180deg, #0f2744 0%, #1a3a5c 30%, #2a5070 60%, #3d6585 100%)' }} className="text-white pt-28 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl transform rotate-45"></div>
@@ -115,13 +101,12 @@ export default function BrandKit() {
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Brand Kit</h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Everything you need to represent Dovito.ai consistently across all touchpoints.
+            Everything you need to represent Ads by Dovito consistently across all touchpoints.
           </p>
         </div>
       </header>
 
-      {/* Sticky Tabs */}
-      <div className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+      <div className="sticky top-20 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center space-x-1 overflow-x-auto py-2">
             {tabs.map((tab) => {
@@ -135,7 +120,6 @@ export default function BrandKit() {
                       ? "bg-[#3fb9ff]/10 text-[#3fb9ff]"
                       : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
                   }`}
-                  data-testid={`tab-${tab.id}`}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{tab.label}</span>
@@ -146,7 +130,6 @@ export default function BrandKit() {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-12">
         {activeTab === "strategy" && (
           <div className="space-y-8">
@@ -157,7 +140,7 @@ export default function BrandKit() {
                 <CardContent className="p-6">
                   <h3 className="text-[#3fb9ff] font-semibold mb-3">Mission Statement</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    To democratize business process automation, making powerful AI-driven solutions accessible to organizations of all sizes, enabling them to focus on what matters most—growth and innovation.
+                    To provide local Main Street Windsor businesses with premium digital advertising, helping them reach thousands of potential customers through strategic display placement.
                   </p>
                 </CardContent>
               </Card>
@@ -166,7 +149,7 @@ export default function BrandKit() {
                 <CardContent className="p-6">
                   <h3 className="text-[#3fb9ff] font-semibold mb-3">Vision Statement</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    A world where every business operates at peak efficiency, with intelligent automation handling repetitive tasks while humans focus on creativity, strategy, and meaningful work.
+                    To become the leading local advertising platform for Main Street businesses, creating a vibrant and connected community through visible, professional advertising.
                   </p>
                 </CardContent>
               </Card>
@@ -175,7 +158,7 @@ export default function BrandKit() {
             <div>
               <h3 className="text-[#3fb9ff] font-semibold mb-4">Core Values</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {["Innovation", "Reliability", "Transparency", "Empowerment"].map((value) => (
+                {["Local Community First", "Transparency", "Reliability", "Accessibility"].map((value) => (
                   <Card key={value} className="bg-white rounded-2xl border-0 shadow-sm">
                     <CardContent className="p-6 text-center">
                       <p className="font-semibold text-gray-900">{value}</p>
@@ -205,7 +188,7 @@ export default function BrandKit() {
               <CardContent className="p-6">
                 <h3 className="text-[#3fb9ff] font-semibold mb-3">Positioning Statement</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  For forward-thinking businesses seeking to optimize operations, Dovito.ai is the automation partner that combines cutting-edge AI with intuitive design, delivering measurable results without complexity.
+                  For local Windsor businesses who want to increase visibility, Ads by Dovito is the premium digital advertising platform that delivers thousands of impressions through strategically placed Main Street displays, unlike traditional print or online ads that get lost in the noise.
                 </p>
               </CardContent>
             </Card>
@@ -219,7 +202,12 @@ export default function BrandKit() {
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="bg-white rounded-2xl border-0 shadow-sm overflow-hidden">
                 <div className="p-8 flex items-center justify-center min-h-[200px]">
-                  <img src={dovitoLogo} alt="Dovito.ai Logo" className="h-12 w-auto invert" />
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #1a365d 0%, #4682b4 100%)' }}>
+                      <span className="text-white text-xl font-bold">D</span>
+                    </div>
+                    <span className="text-2xl font-bold text-[#1a365d]">Ads by Dovito</span>
+                  </div>
                 </div>
                 <div className="px-8 pb-6 border-t border-gray-100 pt-4">
                   <p className="text-sm text-gray-500">Primary Logo - Light Background</p>
@@ -228,7 +216,12 @@ export default function BrandKit() {
               
               <Card className="bg-white rounded-2xl border-0 shadow-sm overflow-hidden">
                 <div className="p-8 flex items-center justify-center min-h-[200px]" style={{ backgroundColor: '#001f3f' }}>
-                  <img src={dovitoLogo} alt="Dovito.ai Logo" className="h-12 w-auto" />
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+                      <span className="text-[#1a365d] text-xl font-bold">D</span>
+                    </div>
+                    <span className="text-2xl font-bold text-white">Ads by Dovito</span>
+                  </div>
                 </div>
                 <div className="px-8 pb-6 border-t border-gray-100 pt-4">
                   <p className="text-sm text-gray-500">Primary Logo - Dark Background</p>
@@ -465,64 +458,45 @@ export default function BrandKit() {
               
               <Card className="bg-white rounded-2xl border-0 shadow-sm">
                 <CardContent className="p-6">
-                  <h3 className="text-[#3fb9ff] font-semibold mb-4">Brand Personality</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Professional", "Innovative", "Approachable", "Results-driven", "Trustworthy"].map((trait) => (
-                      <span key={trait} className="px-3 py-1.5 bg-[#3fb9ff]/10 text-[#3fb9ff] rounded-full text-sm font-medium">
-                        {trait}
-                      </span>
-                    ))}
+                  <h3 className="text-[#3fb9ff] font-semibold mb-4">Example Messaging</h3>
+                  <div className="space-y-4 text-sm">
+                    <div>
+                      <p className="font-semibold text-gray-900">Tagline:</p>
+                      <p className="text-gray-600">"Get Your Business Seen on Main Street Windsor"</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Example CTAs:</p>
+                      <p className="text-gray-600">"Start Application" / "Get Started" / "See Live Display"</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Value Props:</p>
+                      <p className="text-gray-600">"7,600+ monthly views" / "16 hours daily" / "24-hour review"</p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="bg-white rounded-2xl border-0 shadow-sm border-l-4 border-l-green-500">
-                <CardContent className="p-6">
-                  <h3 className="text-green-600 font-semibold mb-4">Do's</h3>
-                  <ul className="text-gray-600 space-y-2 text-sm">
-                    <li>Use clear, actionable language</li>
-                    <li>Focus on outcomes and results</li>
-                    <li>Be concise and direct</li>
-                    <li>Emphasize transformation and growth</li>
-                    <li>Use inclusive language</li>
-                  </ul>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white rounded-2xl border-0 shadow-sm border-l-4 border-l-red-500">
-                <CardContent className="p-6">
-                  <h3 className="text-red-600 font-semibold mb-4">Don'ts</h3>
-                  <ul className="text-gray-600 space-y-2 text-sm">
-                    <li>Use excessive jargon without explanation</li>
-                    <li>Over-promise or use hyperbole</li>
-                    <li>Sound robotic or impersonal</li>
-                    <li>Use negative or fear-based messaging</li>
-                    <li>Ignore the human element of automation</li>
-                  </ul>
                 </CardContent>
               </Card>
             </div>
 
             <Card className="bg-white rounded-2xl border-0 shadow-sm">
               <CardContent className="p-6">
-                <h3 className="text-[#3fb9ff] font-semibold mb-4">Example Headlines & CTAs</h3>
-                <div className="grid md:grid-cols-2 gap-6">
+                <h3 className="text-[#3fb9ff] font-semibold mb-4">Writing Style</h3>
+                <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Headlines</h4>
+                    <h4 className="font-semibold text-gray-900 mb-3">Do</h4>
                     <ul className="text-gray-600 space-y-2 text-sm">
-                      <li>"Automation That Delivers Results"</li>
-                      <li>"Start Automating Today"</li>
-                      <li>"The Dovito Universe"</li>
+                      <li>Use active voice</li>
+                      <li>Keep sentences short and punchy</li>
+                      <li>Focus on benefits, not features</li>
+                      <li>Use numbers and specifics when possible</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">CTAs</h4>
+                    <h4 className="font-semibold text-gray-900 mb-3">Don't</h4>
                     <ul className="text-gray-600 space-y-2 text-sm">
-                      <li>"Get Started" (primary)</li>
-                      <li>"Learn More" (secondary)</li>
-                      <li>"Schedule Free Consultation"</li>
+                      <li>Use jargon or buzzwords</li>
+                      <li>Make exaggerated claims</li>
+                      <li>Be overly formal or stiff</li>
+                      <li>Use passive voice unnecessarily</li>
                     </ul>
                   </div>
                 </div>
@@ -532,10 +506,9 @@ export default function BrandKit() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-[#001f3f] text-white py-8 mt-12">
+      <footer className="text-white py-8" style={{ backgroundColor: '#001f3f' }}>
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-white/60 text-sm">© 2024 Dovito.ai. All brand assets are property of Dovito.ai.</p>
+          <p className="text-gray-400">2025 Ads by Dovito. All brand assets are property of Ads by Dovito.</p>
         </div>
       </footer>
     </div>
