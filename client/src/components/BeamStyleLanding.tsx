@@ -1299,7 +1299,7 @@ export default function BeamStyleLanding() {
               Ready to Get Started?
             </h2>
 
-            <p className="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-700 mb-12">
               You've got a prototype. We'll tell you if it's worth building—and build it right.
             </p>
 
