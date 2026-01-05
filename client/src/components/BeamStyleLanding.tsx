@@ -918,7 +918,7 @@ export default function BeamStyleLanding() {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 text-white px-8 py-4 text-lg font-semibold hover:bg-[#4682b4] transition-colors rounded-lg bg-[#3dc2ffe6]"
+                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold hover:bg-[#4682b4] transition-colors rounded-lg bg-[#3dc2ffe6] text-[#1a365d]"
                 data-testid="link-pricing-cta"
               >
                 Start Now
