@@ -728,7 +728,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-none p-8 shadow-sm border-2 border-secondary"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
                 <h3 className="text-2xl font-bold text-primary mb-6">
                   $1,500 Audit
