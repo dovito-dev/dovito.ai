@@ -257,7 +257,7 @@ export default function BeamStyleLanding() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-            <AnimationToggle onToggle={setAnimationsEnabled} />
+      <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Sticky Table of Contents Sidebar - Collapsible */}
       <AnimatePresence>
         {showToc && (
@@ -997,7 +997,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="rounded-none p-8"
+                className="rounded-none p-8 bg-[#1a365d50]"
                 style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
                 <h3 className="text-xl font-bold text-white mb-4">
