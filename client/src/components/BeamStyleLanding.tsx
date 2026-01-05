@@ -428,9 +428,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* The Problem Section */}
-      <section id="problem" className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.08),transparent_50%)] bg-[#fdfeff]"></div>
+      <section id="problem" className="py-24 bg-white relative overflow-hidden">
         
         <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
           <motion.div
