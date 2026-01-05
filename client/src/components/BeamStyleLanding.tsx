@@ -259,7 +259,7 @@ export default function BeamStyleLanding() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      {/* Sticky Table of Contents Sidebar */}
+      {/* Sticky Table of Contents Sidebar - Collapsible */}
       <AnimatePresence>
         {showToc && (
           <motion.div
@@ -267,28 +267,35 @@ export default function BeamStyleLanding() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
+            className="fixed left-0 top-1/2 -translate-y-1/2 z-40 hidden xl:block group"
           >
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gray-200/50 max-w-[200px]">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                Table of Contents
-                <span className="flex-1 h-px bg-gray-300"></span>
-              </p>
-              <nav className="space-y-2">
-                {tocSections.map((section, index) => (
-                  <button
-                    key={section.id}
-                    onClick={() => scrollToSection(section.id)}
-                    className={`block text-left text-sm transition-colors w-full ${
-                      activeTocSection === section.id
-                        ? "text-gray-900 font-medium"
-                        : "text-gray-500 hover:text-gray-700"
-                    }`}
-                  >
-                    {index + 1}. {section.title}
-                  </button>
-                ))}
-              </nav>
+            <div className="bg-white/90 backdrop-blur-sm rounded-none border border-gray-200/50 shadow-lg overflow-hidden transition-all duration-300 ease-out w-3 group-hover:w-[220px]">
+              {/* Collapsed indicator bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-3 bg-[#1a365d] group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-1 h-8 bg-white/30 rounded-full"></div>
+              </div>
+              {/* Expanded content */}
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 p-4 min-w-[200px]">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2 whitespace-nowrap">
+                  Table of Contents
+                  <span className="flex-1 h-px bg-gray-300"></span>
+                </p>
+                <nav className="space-y-2">
+                  {tocSections.map((section, index) => (
+                    <button
+                      key={section.id}
+                      onClick={() => scrollToSection(section.id)}
+                      className={`block text-left text-sm transition-colors w-full whitespace-nowrap ${
+                        activeTocSection === section.id
+                          ? "text-gray-900 font-medium"
+                          : "text-gray-500 hover:text-gray-700"
+                      }`}
+                    >
+                      {index + 1}. {section.title}
+                    </button>
+                  ))}
+                </nav>
+              </div>
             </div>
           </motion.div>
         )}
