@@ -521,7 +521,7 @@ export default function BeamStyleLanding() {
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-primary-light">01</span>
                   </div>
-                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
+                  <div className="flex-1 bg-primary-light/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       Use any AI tool you want: Replit Agent, Bolt.new, v0, Cursor, Claude Code—whatever works.
                     </p>
@@ -546,7 +546,7 @@ export default function BeamStyleLanding() {
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-primary-light">02</span>
                   </div>
-                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
+                  <div className="flex-1 bg-primary-light/10 rounded-none p-8">
                     <p className="text-gray-600 mb-6">
                       We analyze your prototype and validate feasibility.
                     </p>
@@ -600,7 +600,7 @@ export default function BeamStyleLanding() {
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-primary-light">03</span>
                   </div>
-                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
+                  <div className="flex-1 bg-primary-light/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       If the feasibility report makes sense, we proceed with:
                     </p>
