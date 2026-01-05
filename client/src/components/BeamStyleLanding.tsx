@@ -21,8 +21,6 @@ import AdminDashboard from "./AdminDashboard";
 
 export default function BeamStyleLanding() {
   const [activeSection, setActiveSection] = useState("home");
-  const [activeTocSection, setActiveTocSection] = useState("");
-  const [showToc, setShowToc] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [adminUser, setAdminUser] = useState<any>(null);
@@ -30,20 +28,6 @@ export default function BeamStyleLanding() {
   const lastScrollY = useRef(0);
   const heroSectionRef = useRef<HTMLElement>(null);
   const productsSectionRef = useRef<HTMLElement>(null);
-  
-  const tocSections = [
-    { id: "problem", label: "The Problem" },
-    { id: "how-it-works", label: "How It Works" },
-    { id: "different", label: "What Makes Us Different" },
-    { id: "pricing", label: "Pricing" },
-    { id: "audit", label: "The $1,500 Audit" },
-    { id: "technology", label: "Our Technology Approach" },
-    { id: "who", label: "Who This Is For" },
-    { id: "why-prototype", label: "Why We Require a Prototype" },
-    { id: "faq", label: "FAQ" },
-    { id: "get-started", label: "Ready to Get Started?" },
-    { id: "about", label: "About dovito.ai" },
-  ];
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -92,25 +76,6 @@ export default function BeamStyleLanding() {
       }
       
       lastScrollY.current = currentScrollY;
-      
-      // TOC visibility and active section tracking
-      const heroEnd = heroSectionRef.current?.getBoundingClientRect().bottom ?? 0;
-      const contactSection = document.getElementById("contact");
-      const contactTop = contactSection?.getBoundingClientRect().top ?? window.innerHeight;
-      
-      setShowToc(heroEnd < 0 && contactTop > 200);
-      
-      // Find active TOC section
-      for (const section of tocSections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom > 150) {
-            setActiveTocSection(section.id);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -337,39 +302,6 @@ export default function BeamStyleLanding() {
           />
         </div>
       </div>
-      
-      {/* Sticky Table of Contents Sidebar */}
-      <AnimatePresence>
-        {showToc && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
-          >
-            <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 p-4 max-w-[200px]">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">On this page</p>
-              <nav className="space-y-1">
-                {tocSections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => scrollToSection(section.id)}
-                    className={`block w-full text-left text-sm py-1.5 px-2 rounded transition-all duration-200 ${
-                      activeTocSection === section.id
-                        ? "text-secondary font-medium bg-secondary/10"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    }`}
-                  >
-                    {section.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Hero Section */}
       <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="absolute inset-0 bg-black/60"></div>
@@ -427,7 +359,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* The Problem Section */}
-      <section id="problem" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -460,7 +392,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 bg-[#f5f7fa]">
+      <section className="py-24 bg-[#f5f7fa]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -587,7 +519,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* What Makes Us Different Section */}
-      <section id="different" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -662,7 +594,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-[#f5f7fa]">
+      <section className="py-24 bg-[#f5f7fa]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -818,7 +750,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* The $1,500 Audit Section */}
-      <section id="audit" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -970,7 +902,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Our Technology Approach Section */}
-      <section id="technology" className="py-24 bg-[#f5f7fa]">
+      <section className="py-24 bg-[#f5f7fa]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1073,7 +1005,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Who This Is For Section */}
-      <section id="who" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1155,7 +1087,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Why We Require a Prototype First Section */}
-      <section id="why-prototype" className="py-24 bg-[#f5f7fa]">
+      <section className="py-24 bg-[#f5f7fa]">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1247,7 +1179,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1354,7 +1286,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Ready to Get Started Section */}
-      <section id="get-started" className="py-24 bg-[#f5f7fa]">
+      <section className="py-24 bg-[#f5f7fa]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1391,7 +1323,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* About dovito.ai Section */}
-      <section id="about" className="py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
