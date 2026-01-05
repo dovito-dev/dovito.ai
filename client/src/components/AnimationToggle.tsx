@@ -27,12 +27,17 @@ export default function AnimationToggle({ onToggle }: AnimationToggleProps) {
       if (heroSection) {
         const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
         setIsVisible(window.scrollY < heroBottom - 100);
+      } else {
+        setIsVisible(true);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const timer = setTimeout(handleScroll, 100);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleToggle = () => {
