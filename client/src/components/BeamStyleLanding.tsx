@@ -519,7 +519,7 @@ export default function BeamStyleLanding() {
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-secondary/70">01</span>
+                    <span className="text-5xl font-bold text-primary-light">01</span>
                   </div>
                   <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
@@ -544,7 +544,7 @@ export default function BeamStyleLanding() {
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-secondary/70">02</span>
+                    <span className="text-5xl font-bold text-primary-light">02</span>
                   </div>
                   <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-6">
@@ -598,7 +598,7 @@ export default function BeamStyleLanding() {
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-secondary/70">03</span>
+                    <span className="text-5xl font-bold text-primary-light">03</span>
                   </div>
                   <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
