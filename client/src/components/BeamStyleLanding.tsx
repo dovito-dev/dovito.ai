@@ -568,7 +568,7 @@ export default function BeamStyleLanding() {
                     </ul>
                     
                     <p className="text-gray-900 font-medium">
-                      <span className="text-secondary">Timeline:</span> 5-7 business days
+                      <span className="text-[#4682b4]">Timeline:</span> 5-7 business days
                     </p>
                   </div>
                 </div>
