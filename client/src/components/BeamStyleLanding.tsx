@@ -442,7 +442,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 text-center">
               The Problem
             </h2>
             
@@ -456,9 +456,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
+                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-primary/10 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">The Promise</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">The Promise</h3>
                 <p className="text-gray-600 leading-relaxed">
                   You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
                 </p>
@@ -469,9 +469,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
+                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-primary/10 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">The Reality</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">The Reality</h3>
                 <p className="text-gray-600 leading-relaxed">
                   But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
                 </p>
@@ -483,7 +483,7 @@ export default function BeamStyleLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-none p-8 text-center shadow-xl shadow-blue-200/50"
+              className="bg-gradient-to-r from-primary to-primary-light rounded-none p-8 text-center shadow-xl shadow-primary/20"
             >
               <p className="text-xl md:text-2xl text-white font-semibold">
                 You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
@@ -494,7 +494,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 bg-[#f5f7fa]">
+      <section id="how-it-works" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -502,7 +502,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               How It Works
             </h2>
 
@@ -514,14 +514,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
+                <h3 className="text-2xl font-bold text-primary mb-4 ml-24">
                   You Build a Prototype
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-blue-400/70">01</span>
+                    <span className="text-5xl font-bold text-secondary/70">01</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
+                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       Use any AI tool you want: Replit Agent, Bolt.new, v0, Cursor, Claude Code—whatever works.
                     </p>
@@ -539,14 +539,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
+                <h3 className="text-2xl font-bold text-primary mb-4 ml-24">
                   Submit for $1,500 Audit
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-blue-400/70">02</span>
+                    <span className="text-5xl font-bold text-secondary/70">02</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
+                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-6">
                       We analyze your prototype and validate feasibility.
                     </p>
@@ -593,14 +593,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
+                <h3 className="text-2xl font-bold text-primary mb-4 ml-24">
                   Approve & Move Forward
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
-                    <span className="text-5xl font-bold text-blue-400/70">03</span>
+                    <span className="text-5xl font-bold text-secondary/70">03</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
+                  <div className="flex-1 bg-secondary/10 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       If the feasibility report makes sense, we proceed with:
                     </p>
@@ -627,7 +627,7 @@ export default function BeamStyleLanding() {
                       </li>
                     </ul>
                     
-                    <p className="text-lg text-gray-900 font-semibold border-t border-blue-200/50 pt-6">
+                    <p className="text-lg text-gray-900 font-semibold border-t border-secondary/30 pt-6">
                       If it doesn't make sense, you've spent $1,500 to avoid wasting $50,000.
                     </p>
                   </div>
@@ -647,7 +647,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               What Makes Us Different
             </h2>
 
@@ -658,9 +658,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Not a Dev Shop
                 </h3>
                 <p className="text-gray-500 mb-4">
@@ -677,9 +677,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Not AI-Generated Code
                 </h3>
                 <p className="text-gray-500 mb-4">
@@ -696,9 +696,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Not "Yes Men"
                 </h3>
                 <p className="text-gray-500 mb-4">
@@ -714,7 +714,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-[#f5f7fa]">
+      <section id="pricing" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -722,7 +722,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               Pricing
             </h2>
 
@@ -733,9 +733,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-sm border-2 border-secondary"
+                className="bg-white rounded-none p-8 shadow-sm border-2 border-secondary"
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                <h3 className="text-2xl font-bold text-primary mb-6">
                   $1,500 Audit
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
@@ -771,9 +771,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                <h3 className="text-2xl font-bold text-primary mb-6">
                   $15,000 - $35,000 MVP
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
@@ -805,9 +805,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                <h3 className="text-2xl font-bold text-primary mb-6">
                   $25,000 - $75,000 V1
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
@@ -839,9 +839,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold text-primary mb-2">
                   $2,500 - $7,500/month Support
                 </h3>
                 <p className="text-gray-500 text-sm mb-6">(Optional)</p>
@@ -878,7 +878,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               The $1,500 Audit
             </h2>
 
@@ -893,9 +893,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Feasibility Report
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -924,9 +924,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Lean User Stories
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -955,9 +955,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Scope & Estimate
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -986,9 +986,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Recommendation
                 </h3>
                 <ul className="space-y-3 text-gray-600">
@@ -1022,7 +1022,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Our Technology Approach Section */}
-      <section id="technology" className="py-24 bg-[#f5f7fa]">
+      <section id="technology" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1030,10 +1030,10 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 text-center">
               Our Technology Approach
             </h2>
-            <h3 className="text-2xl font-semibold text-gray-700 mb-16 text-center">
+            <h3 className="text-2xl font-semibold text-primary-light mb-16 text-center">
               Human-First, AI-Assisted
             </h3>
 
@@ -1044,9 +1044,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h4 className="text-xl font-bold text-gray-900 mb-6">
+                <h4 className="text-xl font-bold text-primary mb-6">
                   Humans handle:
                 </h4>
                 <ul className="space-y-3 text-gray-600">
@@ -1079,9 +1079,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h4 className="text-xl font-bold text-gray-900 mb-6">
+                <h4 className="text-xl font-bold text-primary mb-6">
                   AI assists with:
                 </h4>
                 <ul className="space-y-3 text-gray-600">
@@ -1114,7 +1114,7 @@ export default function BeamStyleLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-secondary/10 rounded-2xl p-8 text-center"
+              className="bg-secondary/10 rounded-none p-8 text-center"
             >
               <p className="text-lg text-gray-900">
                 <span className="font-bold">Result:</span> Production-quality code at 30-40% lower cost than traditional development, with better quality than pure AI-generated code.
@@ -1133,7 +1133,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               Who This Is For
             </h2>
 
@@ -1144,9 +1144,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   Entrepreneurs with AI-Built Prototypes
                 </h3>
                 <p className="text-gray-600">
@@ -1160,9 +1160,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   Startups Validating Ideas
                 </h3>
                 <p className="text-gray-600">
@@ -1176,9 +1176,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   Businesses Automating Operations
                 </h3>
                 <p className="text-gray-600">
@@ -1192,9 +1192,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-[#f5f7fa] rounded-2xl p-8"
+                className="bg-muted rounded-none p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   Teams Burned by Dev Shops
                 </h3>
                 <p className="text-gray-600">
@@ -1207,7 +1207,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Why We Require a Prototype First Section */}
-      <section id="why-prototype" className="py-24 bg-[#f5f7fa]">
+      <section id="why-prototype" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1215,7 +1215,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               Why We Require a Prototype First
             </h2>
 
@@ -1226,9 +1226,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   It Forces Clarity
                 </h3>
                 <p className="text-gray-600">
@@ -1242,9 +1242,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   It Validates Demand
                 </h3>
                 <p className="text-gray-600">
@@ -1258,9 +1258,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   It Saves Everyone Time
                 </h3>
                 <p className="text-gray-600">
@@ -1274,9 +1274,9 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-2xl p-8 shadow-sm"
+                className="bg-white rounded-none p-8 shadow-sm"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-primary mb-3">
                   It Reduces Risk
                 </h3>
                 <p className="text-gray-600">
@@ -1307,7 +1307,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               FAQ
             </h2>
 
@@ -1319,7 +1319,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6 }}
                 className="border-b border-gray-200 pb-8"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   What if the audit says my idea won't work?
                 </h3>
                 <p className="text-gray-600">
@@ -1334,7 +1334,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="border-b border-gray-200 pb-8"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   Can you build my prototype for me?
                 </h3>
                 <p className="text-gray-600">
@@ -1349,7 +1349,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="border-b border-gray-200 pb-8"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   Do you do hourly billing?
                 </h3>
                 <p className="text-gray-600">
@@ -1364,7 +1364,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="border-b border-gray-200 pb-8"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   What if I want changes mid-development?
                 </h3>
                 <p className="text-gray-600">
@@ -1379,7 +1379,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="border-b border-gray-200 pb-8"
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   Who owns the code?
                 </h3>
                 <p className="text-gray-600">
@@ -1393,7 +1393,7 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-bold text-primary mb-3">
                   Do you sign NDAs?
                 </h3>
                 <p className="text-gray-600">
@@ -1406,7 +1406,7 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* Ready to Get Started Section */}
-      <section id="ready-to-start" className="py-24 bg-[#f5f7fa]">
+      <section id="ready-to-start" className="py-24 bg-muted">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1415,7 +1415,7 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">
               Ready to Get Started?
             </h2>
 
@@ -1452,7 +1452,7 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-12">
               About dovito.ai
             </h2>
 
