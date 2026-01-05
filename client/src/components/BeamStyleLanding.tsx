@@ -423,12 +423,10 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Ribbon Divider */}
-      <div className="w-full py-3 bg-primary-light text-center">
+      <div className="w-full py-3 text-center text-[#1a3a60] bg-[#1a365d]">
         <p className="text-white text-sm font-medium tracking-wide">Bring us your AI prototype and we'll audit, validate, and build the production-grade software behind it.</p>
       </div>
-
       {/* The Problem Section */}
       <section id="problem" className="py-24 bg-white relative overflow-hidden">
         
