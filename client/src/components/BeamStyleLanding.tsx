@@ -470,9 +470,7 @@ export default function BeamStyleLanding() {
                 className="bg-white/80 backdrop-blur-sm rounded-none p-8 border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">The Reality</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
-                </p>
+                <p className="text-gray-600 leading-relaxed">The code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.</p>
               </motion.div>
             </div>
 
