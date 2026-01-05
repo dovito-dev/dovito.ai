@@ -337,7 +337,7 @@ export default function BeamStyleLanding() {
           >
             {[
               { id: "home", label: "HOME" },
-              { id: "products", label: "UNIVERSE" },
+              { id: "products", label: "PROJECTS" },
               { id: "contact", label: "CONNECT" }
             ].map((item) => (
               <button
