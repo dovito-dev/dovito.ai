@@ -1274,7 +1274,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Why We Require a Prototype First Section */}
-      <section id="why-prototype" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
+      <section id="why-prototype" className="py-24 relative" style={{ zIndex: 1, background: 'linear-gradient(to left, hsl(var(--muted)), rgba(70, 130, 180, 0.08))' }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
