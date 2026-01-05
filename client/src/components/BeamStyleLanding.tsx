@@ -908,6 +908,23 @@ export default function BeamStyleLanding() {
                 </motion.div>
               </div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-16 text-center"
+            >
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 bg-[#1a365d] text-white px-8 py-4 text-lg font-semibold hover:bg-[#4682b4] transition-colors rounded-none"
+                data-testid="link-pricing-cta"
+              >
+                Start With the $1,500 Audit
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </section>
