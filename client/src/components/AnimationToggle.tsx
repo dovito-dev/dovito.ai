@@ -9,6 +9,7 @@ interface AnimationToggleProps {
 export default function AnimationToggle({ onToggle }: AnimationToggleProps) {
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     // Check for user's preference from localStorage
@@ -20,6 +21,20 @@ export default function AnimationToggle({ onToggle }: AnimationToggleProps) {
     }
   }, [onToggle]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        setIsVisible(window.scrollY < heroBottom - 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleToggle = () => {
     const newState = !animationsEnabled;
     setAnimationsEnabled(newState);
@@ -27,11 +42,14 @@ export default function AnimationToggle({ onToggle }: AnimationToggleProps) {
     localStorage.setItem('animations-enabled', newState.toString());
   };
 
+  if (!isVisible) return null;
+
   return (
     <motion.div
       className="fixed right-6 top-1/2 -translate-y-1/2 z-[9998]"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 20 }}
       transition={{ delay: 2 }}
     >
       <div
