@@ -941,19 +941,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Is this buildable? Should we build it?
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Technical challenges identified
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Required architecture and technology stack
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Security and scalability assessment
                   </li>
                 </ul>
@@ -973,19 +973,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Core features (must-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Secondary features (should-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Nice-to-have features (later)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Prioritization framework
                   </li>
                 </ul>
@@ -1005,19 +1005,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Realistic timeline
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Budget range (fixed-price per phase)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Phase breakdown (MVP → V1 → V2)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Risk factors
                   </li>
                 </ul>
@@ -1037,15 +1037,15 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Go forward (here's how)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Adjust scope (here's why)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#3fb9ff] mt-1">•</span>
+                    <span className="text-white mt-1">•</span>
                     Don't build it (here's why not)
                   </li>
                 </ul>
