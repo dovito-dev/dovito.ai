@@ -458,12 +458,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                    <span className="text-green-600 text-lg">✓</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">The Promise</h3>
-                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">The Promise</h3>
                 <p className="text-gray-600 leading-relaxed">
                   You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
                 </p>
@@ -476,12 +471,7 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-                    <span className="text-red-600 text-lg">!</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">The Reality</h3>
-                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">The Reality</h3>
                 <p className="text-gray-600 leading-relaxed">
                   But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
                 </p>
