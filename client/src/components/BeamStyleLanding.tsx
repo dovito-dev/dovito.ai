@@ -443,8 +443,8 @@ export default function BeamStyleLanding() {
 
             <div className="grid lg:grid-cols-2 gap-8 mb-12">
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="bg-white/80 backdrop-blur-sm rounded-none p-8 border border-gray-100"
@@ -456,8 +456,8 @@ export default function BeamStyleLanding() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="bg-white/80 backdrop-blur-sm rounded-none p-8 border border-gray-100"
