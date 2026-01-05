@@ -426,7 +426,7 @@ export default function BeamStyleLanding() {
       {/* The Problem Section */}
       <section id="problem" className="py-24 bg-white relative overflow-hidden" style={{ zIndex: 1 }}>
         
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
