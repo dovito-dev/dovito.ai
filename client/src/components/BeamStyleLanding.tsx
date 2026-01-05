@@ -1492,9 +1492,6 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6 }}
                 className="bg-white rounded-none p-8 border-t-4 border-t-primary"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-none flex items-center justify-center mb-4">
-                  <Zap className="w-6 h-6 text-primary" />
-                </div>
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Who We Are
                 </h3>
@@ -1510,9 +1507,6 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="bg-white rounded-none p-8 border-t-4 border-t-secondary"
               >
-                <div className="w-12 h-12 bg-secondary/10 rounded-none flex items-center justify-center mb-4">
-                  <Target className="w-6 h-6 text-secondary" />
-                </div>
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Our Approach
                 </h3>
@@ -1528,9 +1522,6 @@ export default function BeamStyleLanding() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="bg-white rounded-none p-8 border-t-4 border-t-primary"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-none flex items-center justify-center mb-4">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                </div>
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Our Promise
                 </h3>
