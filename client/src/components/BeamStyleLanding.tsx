@@ -1472,44 +1472,93 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* About dovito.ai Section */}
-      <section id="about" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+      <section id="about" className="py-24 relative" style={{ zIndex: 1, background: 'linear-gradient(to right, #f5f5f5, #e8f0f8)' }}>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
               About dovito.ai
             </h2>
 
-            <div className="space-y-6 text-lg text-gray-600">
-              <p>
-                <span className="font-bold text-gray-900">dovito.ai</span> is the full-stack development arm of Dovito Business Solutions.
-              </p>
-              
-              <p>
-                <span className="font-bold text-gray-900">Our approach:</span> Human-first development assisted by AI for cost-effective, production-quality software.
-              </p>
-              
-              <p>
-                <span className="font-bold text-gray-900">Our promise:</span> Honest feasibility assessments. Fixed-price development. Code that actually works.
-              </p>
-              
-              <p className="pt-4">
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-none p-8 border-t-4 border-t-primary"
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-none flex items-center justify-center mb-4">
+                  <Zap className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary mb-3">
+                  Who We Are
+                </h3>
+                <p className="text-gray-600">
+                  <span className="font-semibold text-gray-900">dovito.ai</span> is the full-stack development arm of Dovito Business Solutions.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white rounded-none p-8 border-t-4 border-t-secondary"
+              >
+                <div className="w-12 h-12 bg-secondary/10 rounded-none flex items-center justify-center mb-4">
+                  <Target className="w-6 h-6 text-secondary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary mb-3">
+                  Our Approach
+                </h3>
+                <p className="text-gray-600">
+                  Human-first development assisted by AI for cost-effective, production-quality software.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white rounded-none p-8 border-t-4 border-t-primary"
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-none flex items-center justify-center mb-4">
+                  <CheckCircle className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold text-primary mb-3">
+                  Our Promise
+                </h3>
+                <p className="text-gray-600">
+                  Honest feasibility assessments. Fixed-price development. Code that actually works.
+                </p>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-center"
+            >
+              <p className="text-lg text-gray-700">
                 <span className="font-bold text-gray-900">Part of:</span>{" "}
                 <a 
                   href="https://dovito.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-secondary hover:text-secondary/80 underline transition-colors"
+                  className="text-secondary hover:text-secondary/80 underline transition-colors font-semibold"
                 >
                   dovito.com
                 </a>
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
