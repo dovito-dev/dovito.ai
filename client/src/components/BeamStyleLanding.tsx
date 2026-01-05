@@ -1490,7 +1490,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-none p-8 border-t-4 border-t-primary"
+                className="bg-white rounded-none p-8"
               >
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Who We Are
@@ -1505,7 +1505,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white rounded-none p-8 border-t-4 border-t-secondary"
+                className="bg-white rounded-none p-8"
               >
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Our Approach
@@ -1520,7 +1520,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-none p-8 border-t-4 border-t-primary"
+                className="bg-white rounded-none p-8"
               >
                 <h3 className="text-xl font-bold text-primary mb-3">
                   Our Promise
