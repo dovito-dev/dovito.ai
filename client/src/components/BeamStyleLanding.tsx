@@ -480,10 +480,10 @@ export default function BeamStyleLanding() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
               {[
-                { label: "Security Reviews", value: "0", icon: "🔓" },
-                { label: "Test Coverage", value: "0%", icon: "🧪" },
-                { label: "Documentation", value: "None", icon: "📄" },
-                { label: "Scalability", value: "Unknown", icon: "📈" }
+                { label: "Security Reviews", value: "0" },
+                { label: "Test Coverage", value: "0%" },
+                { label: "Documentation", value: "None" },
+                { label: "Scalability", value: "Unknown" }
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -493,7 +493,6 @@ export default function BeamStyleLanding() {
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow"
                 >
-                  <span className="text-2xl mb-2 block">{stat.icon}</span>
                   <p className="text-2xl font-bold text-red-500 mb-1">{stat.value}</p>
                   <p className="text-sm text-gray-500">{stat.label}</p>
                 </motion.div>
