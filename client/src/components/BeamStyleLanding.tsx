@@ -14,6 +14,7 @@ import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import heroBackground from "@assets/dynamic-wang-rV9YIchqXEk-unsplash_1766100911024.jpg";
 import differentBackground from "@assets/getty-images-6y6DGYcuQNo-unsplash_1767651410141.jpg";
+import whoThisIsForImage from "@assets/curated-lifestyle-gOez03tUGCc-unsplash_1767653159657.jpg";
 import SplashCursor from "./SplashCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
@@ -1188,7 +1189,7 @@ export default function BeamStyleLanding() {
       </section>
       {/* Who This Is For Section */}
       <section id="who-this-is-for" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1199,69 +1200,91 @@ export default function BeamStyleLanding() {
               Who This Is For
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Entrepreneurs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-muted rounded-none p-8"
-              >
-                <h3 className="text-xl font-bold text-primary mb-3">
-                  Entrepreneurs with AI-Built Prototypes
-                </h3>
-                <p className="text-gray-600">
-                  You built something in Cursor or Replit. It works. Now you need it production-ready.
-                </p>
-              </motion.div>
+            <div className="flex flex-col lg:flex-row gap-12 items-center">
+              {/* Content Grid - Left Side */}
+              <div className="lg:w-3/5">
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Entrepreneurs */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="bg-muted rounded-none p-8"
+                  >
+                    <h3 className="text-xl font-bold text-primary mb-3">
+                      Entrepreneurs with AI-Built Prototypes
+                    </h3>
+                    <p className="text-gray-600">
+                      You built something in Cursor or Replit. It works. Now you need it production-ready.
+                    </p>
+                  </motion.div>
 
-              {/* Startups */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-muted rounded-none p-8"
-              >
-                <h3 className="text-xl font-bold text-primary mb-3">
-                  Startups Validating Ideas
-                </h3>
-                <p className="text-gray-600">
-                  You need an MVP fast, but it needs to actually work. No technical debt.
-                </p>
-              </motion.div>
+                  {/* Startups */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="bg-muted rounded-none p-8"
+                  >
+                    <h3 className="text-xl font-bold text-primary mb-3">
+                      Startups Validating Ideas
+                    </h3>
+                    <p className="text-gray-600">
+                      You need an MVP fast, but it needs to actually work. No technical debt.
+                    </p>
+                  </motion.div>
 
-              {/* Businesses */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-muted rounded-none p-8"
-              >
-                <h3 className="text-xl font-bold text-primary mb-3">
-                  Businesses Automating Operations
-                </h3>
-                <p className="text-gray-600">
-                  You've identified a process to automate. You need software built, not a consultant who talks.
-                </p>
-              </motion.div>
+                  {/* Businesses */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="bg-muted rounded-none p-8"
+                  >
+                    <h3 className="text-xl font-bold text-primary mb-3">
+                      Businesses Automating Operations
+                    </h3>
+                    <p className="text-gray-600">
+                      You've identified a process to automate. You need software built, not a consultant who talks.
+                    </p>
+                  </motion.div>
 
-              {/* Teams Burned */}
+                  {/* Teams Burned */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="bg-muted rounded-none p-8"
+                  >
+                    <h3 className="text-xl font-bold text-primary mb-3">
+                      Teams Burned by Dev Shops
+                    </h3>
+                    <p className="text-gray-600">
+                      You've been through scope creep hell. You want fixed pricing and honest timelines.
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Image - Right Side */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-muted rounded-none p-8"
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="lg:w-2/5"
               >
-                <h3 className="text-xl font-bold text-primary mb-3">
-                  Teams Burned by Dev Shops
-                </h3>
-                <p className="text-gray-600">
-                  You've been through scope creep hell. You want fixed pricing and honest timelines.
-                </p>
+                <div className="relative overflow-hidden rounded-none aspect-[4/5]">
+                  <img
+                    src={whoThisIsForImage}
+                    alt="Business partnership handshake"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
               </motion.div>
             </div>
           </motion.div>
