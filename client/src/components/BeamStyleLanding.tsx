@@ -259,7 +259,6 @@ export default function BeamStyleLanding() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      
       {/* Sticky Table of Contents Sidebar */}
       <AnimatePresence>
         {showToc && (
@@ -294,7 +293,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         )}
       </AnimatePresence>
-      
       {/* Navigation */}
       <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
@@ -429,7 +427,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* The Problem Section */}
       <section id="problem" className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
@@ -483,7 +480,7 @@ export default function BeamStyleLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="bg-gradient-to-r from-primary to-primary-light rounded-none p-8 text-center shadow-xl shadow-primary/20"
+              className="from-primary to-primary-light rounded-none p-8 text-center shadow-xl shadow-primary/20 bg-[#1b3b5b]"
             >
               <p className="text-xl md:text-2xl text-white font-semibold">
                 You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
@@ -492,7 +489,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* How It Works Section */}
       <section id="how-it-works" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -637,7 +633,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* What Makes Us Different Section */}
       <section id="what-makes-us-different" className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -712,7 +707,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Pricing Section */}
       <section id="pricing" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -868,7 +862,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* The $1,500 Audit Section */}
       <section id="audit" className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -1020,7 +1013,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Our Technology Approach Section */}
       <section id="technology" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -1123,7 +1115,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Who This Is For Section */}
       <section id="who-this-is-for" className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -1205,7 +1196,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Why We Require a Prototype First Section */}
       <section id="why-prototype" className="py-24 bg-muted">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
@@ -1297,7 +1287,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* FAQ Section */}
       <section id="faq" className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -1404,7 +1393,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Ready to Get Started Section */}
       <section id="ready-to-start" className="py-24 bg-muted">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -1441,7 +1429,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* About dovito.ai Section */}
       <section id="about" className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
@@ -1484,7 +1471,6 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-
       {/* Periodic Table Section */}
       <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
         <FloatingLines
