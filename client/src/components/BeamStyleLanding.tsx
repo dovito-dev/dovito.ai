@@ -257,8 +257,7 @@ export default function BeamStyleLanding() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {animationsEnabled && <SplashCursor activeAreaRef={heroSectionRef} />}
-      <AnimationToggle onToggle={setAnimationsEnabled} />
+            <AnimationToggle onToggle={setAnimationsEnabled} />
       {/* Sticky Table of Contents Sidebar - Collapsible */}
       <AnimatePresence>
         {showToc && (
@@ -380,7 +379,8 @@ export default function BeamStyleLanding() {
         </div>
       </div>
       {/* Hero Section - Fixed background with parallax effect */}
-      <section id="home" ref={heroSectionRef} className="fixed top-0 left-0 right-0 h-screen flex items-center" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}>
+      <section id="home" ref={heroSectionRef} className="fixed top-0 left-0 right-0 h-screen flex items-center overflow-hidden" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}>
+        {animationsEnabled && <SplashCursor />}
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative w-full">
           <motion.div 
