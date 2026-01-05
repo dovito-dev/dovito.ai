@@ -487,7 +487,7 @@ export default function BeamStyleLanding() {
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-blue-400/70">01</span>
                   </div>
-                  <div className="flex-1 rounded-none p-8 bg-[#91befa]">
+                  <div className="flex-1 rounded-none p-8 bg-[#ebf2fb]">
                     <p className="text-gray-600 mb-4">
                       Use any AI tool you want: Replit Agent, Bolt.new, v0, Cursor, Claude Code—whatever works.
                     </p>
