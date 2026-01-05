@@ -269,7 +269,7 @@ export default function BeamStyleLanding() {
             transition={{ duration: 0.3 }}
             className="fixed left-0 top-1/2 -translate-y-1/2 z-40 hidden xl:block group"
           >
-            <div className="bg-white/90 backdrop-blur-sm rounded-none border border-gray-200/50 shadow-lg overflow-hidden transition-all duration-300 ease-out w-3 group-hover:w-[220px]">
+            <div className="bg-white/90 backdrop-blur-sm rounded-none border border-gray-200/50 shadow-lg overflow-hidden transition-all duration-300 ease-out w-3 group-hover:w-auto">
               {/* Collapsed indicator bar */}
               <div className="absolute left-0 top-0 bottom-0 w-3 bg-[#1a365d] group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">
                 <div className="w-1 h-8 bg-white/30 rounded-full"></div>
