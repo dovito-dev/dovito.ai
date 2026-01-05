@@ -453,7 +453,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-primary/10 border border-gray-100"
+                className="bg-white/80 backdrop-blur-sm rounded-none p-8 border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">The Promise</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -466,7 +466,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white/80 backdrop-blur-sm rounded-none p-8 shadow-lg shadow-primary/10 border border-gray-100"
+                className="bg-white/80 backdrop-blur-sm rounded-none p-8 border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">The Reality</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -480,7 +480,7 @@ export default function BeamStyleLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="from-primary to-primary-light rounded-none p-8 text-center shadow-xl shadow-primary/20 bg-[#1b3b5b]"
+              className="from-primary to-primary-light rounded-none p-8 text-center bg-[#1b3b5b]"
             >
               <p className="text-xl md:text-2xl text-white font-semibold">
                 You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
