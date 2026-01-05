@@ -12,6 +12,7 @@ import { ExternalLink, ArrowRight, Zap, Target, TrendingUp, Clock, CheckCircle }
 import type { Product, ContentSection } from "@shared/schema";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import heroBackground from "@assets/dynamic-wang-rV9YIchqXEk-unsplash_1766100911024.jpg";
+import differentBackground from "@assets/getty-images-6y6DGYcuQNo-unsplash_1767651410141.jpg";
 import SplashCursor from "./SplashCursor";
 import FloatingLines from "./FloatingLines";
 import Beams from "./Beams";
@@ -633,8 +634,9 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* What Makes Us Different Section */}
-      <section id="what-makes-us-different" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+      <section id="what-makes-us-different" className="py-24 relative" style={{ zIndex: 1, backgroundImage: `url(${differentBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-white/90"></div>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
