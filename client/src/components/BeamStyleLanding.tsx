@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { ExternalLink, ArrowRight, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
 import type { Product, ContentSection } from "@shared/schema";
@@ -1370,96 +1371,61 @@ export default function BeamStyleLanding() {
               FAQ
             </h2>
 
-            <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="border-b border-gray-200 pb-8"
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1" className="border-gray-200">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-1">
                   What if the audit says my idea won't work?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   Then you've spent $1,500 to avoid wasting $50,000+. We'll explain why and may suggest alternatives.
-                </p>
-              </motion.div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="border-b border-gray-200 pb-8"
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+              <AccordionItem value="item-2" className="border-gray-200">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-2">
                   Can you build my prototype for me?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   No. The prototype is your responsibility. It validates that you understand what you want. Use Replit Agent, Bolt, Cursor, Claude Code, or any AI tool.
-                </p>
-              </motion.div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="border-b border-gray-200 pb-8"
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+              <AccordionItem value="item-3" className="border-gray-200">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-3">
                   Do you do hourly billing?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   No. Fixed-price per phase after the audit. You know exactly what you're paying.
-                </p>
-              </motion.div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="border-b border-gray-200 pb-8"
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+              <AccordionItem value="item-4" className="border-gray-200">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-4">
                   What if I want changes mid-development?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   Minor refinements are included. Scope changes are evaluated and priced separately. This is why the audit phase is critical.
-                </p>
-              </motion.div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="border-b border-gray-200 pb-8"
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+              <AccordionItem value="item-5" className="border-gray-200">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-5">
                   Who owns the code?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   You do. Full ownership transfer upon final payment.
-                </p>
-              </motion.div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <h3 className="text-lg font-bold text-primary mb-3">
+              <AccordionItem value="item-6" className="border-gray-200 border-b-0">
+                <AccordionTrigger className="text-lg font-bold text-primary hover:no-underline" data-testid="faq-question-6">
                   Do you sign NDAs?
-                </h3>
-                <p className="text-gray-600">
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 text-base">
                   Yes, before the audit begins.
-                </p>
-              </motion.div>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </motion.div>
         </div>
       </section>
