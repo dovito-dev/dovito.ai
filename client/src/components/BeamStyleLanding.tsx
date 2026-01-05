@@ -1391,7 +1391,7 @@ export default function BeamStyleLanding() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-              {getContentByKey("periodic_table_title", "Some Our Projects")}
+              {getContentByKey("periodic_table_title", "Some of Our Projects")}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               {getContentByKey("periodic_table_description", "A growing ecosystem of automation tools designed to transform business operations")}
