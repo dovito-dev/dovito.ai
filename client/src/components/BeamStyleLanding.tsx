@@ -372,10 +372,10 @@ export default function BeamStyleLanding() {
           />
         </div>
       </div>
-      {/* Hero Section */}
-      <section id="home" ref={heroSectionRef} className="pt-20 min-h-screen flex items-center relative" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      {/* Hero Section - Fixed background with parallax effect */}
+      <section id="home" ref={heroSectionRef} className="fixed top-0 left-0 right-0 h-screen flex items-center" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}>
         <div className="absolute inset-0 bg-black/60"></div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative w-full">
           <motion.div 
             className="text-center max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
@@ -417,12 +417,14 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
+      {/* Hero spacer - pushes content down to account for fixed hero */}
+      <div className="h-screen" style={{ zIndex: 1 }}></div>
       {/* Ribbon Divider */}
-      <div className="w-full py-3 text-center text-[#1a3a60] bg-[#1a365d]">
+      <div className="w-full py-3 text-center text-[#1a3a60] bg-[#1a365d] relative" style={{ zIndex: 1 }}>
         <p className="text-white text-sm font-medium tracking-wide">Bring us your AI prototype and we'll audit, validate, and build the production-grade software behind it.</p>
       </div>
       {/* The Problem Section */}
-      <section id="problem" className="py-24 bg-white relative overflow-hidden">
+      <section id="problem" className="py-24 bg-white relative overflow-hidden" style={{ zIndex: 1 }}>
         
         <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
           <motion.div
@@ -482,7 +484,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 bg-muted">
+      <section id="how-it-works" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -626,7 +628,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* What Makes Us Different Section */}
-      <section id="what-makes-us-different" className="py-24 bg-white">
+      <section id="what-makes-us-different" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -700,7 +702,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-muted">
+      <section id="pricing" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -855,7 +857,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* The $1,500 Audit Section */}
-      <section id="audit" className="py-24 bg-white">
+      <section id="audit" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1006,7 +1008,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Our Technology Approach Section */}
-      <section id="technology" className="py-24 bg-muted">
+      <section id="technology" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1108,7 +1110,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Who This Is For Section */}
-      <section id="who-this-is-for" className="py-24 bg-white">
+      <section id="who-this-is-for" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1189,7 +1191,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Why We Require a Prototype First Section */}
-      <section id="why-prototype" className="py-24 bg-muted">
+      <section id="why-prototype" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1280,7 +1282,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-white">
+      <section id="faq" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1386,7 +1388,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Ready to Get Started Section */}
-      <section id="ready-to-start" className="py-24 bg-muted">
+      <section id="ready-to-start" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1422,7 +1424,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* About dovito.ai Section */}
-      <section id="about" className="py-24 bg-white">
+      <section id="about" className="py-24 bg-white relative" style={{ zIndex: 1 }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -1464,7 +1466,7 @@ export default function BeamStyleLanding() {
         </div>
       </section>
       {/* Periodic Table Section */}
-      <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white">
+      <section id="products" ref={productsSectionRef} className="py-32 relative overflow-hidden bg-white" style={{ zIndex: 1 }}>
         <FloatingLines
           linesGradient={["#1a365d", "#4682b4", "#3fb9ff", "#001f3f"]}
           enabledWaves={['middle']}
@@ -1529,7 +1531,7 @@ export default function BeamStyleLanding() {
         </div>
         
         {/* Contact Section */}
-        <section id="contact" className="py-32 relative z-10">
+        <section id="contact" className="py-32 relative" style={{ zIndex: 1 }}>
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
