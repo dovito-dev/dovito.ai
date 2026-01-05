@@ -1200,10 +1200,10 @@ export default function BeamStyleLanding() {
               Who This Is For
             </h2>
 
-            <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex flex-col lg:flex-row gap-12 items-stretch">
               {/* Content Grid - Left Side */}
               <div className="lg:w-3/5">
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-8 h-full">
                   {/* Entrepreneurs */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -1276,13 +1276,13 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="lg:w-2/5"
+                className="lg:w-2/5 h-full"
               >
-                <div className="relative overflow-hidden rounded-none aspect-[4/5]">
+                <div className="relative overflow-hidden rounded-none h-full min-h-[300px]">
                   <img
                     src={whoThisIsForImage}
                     alt="Business partnership handshake"
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-[center_30%]"
                   />
                 </div>
               </motion.div>
