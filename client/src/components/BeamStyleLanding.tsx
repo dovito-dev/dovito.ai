@@ -406,9 +406,7 @@ export default function BeamStyleLanding() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              We audit your prototype, validate feasibility, then build production-grade software that actually works.
-            </motion.p>
+            >Bring us your AI prototype and we’ll audit, validate, and build the production-grade software behind it.</motion.p>
 
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
