@@ -1485,56 +1485,30 @@ export default function BeamStyleLanding() {
               About dovito.ai
             </h2>
 
-            <div className="relative">
-              {[
-                {
-                  label: "dovito.ai",
-                  text: "is the full-stack development arm of Dovito Business Solutions."
-                },
-                {
-                  label: "Our approach:",
-                  text: "Human-first development assisted by AI for cost-effective, production-quality software."
-                },
-                {
-                  label: "Our promise:",
-                  text: "Honest feasibility assessments. Fixed-price development. Code that actually works."
-                },
-                {
-                  label: "Part of:",
-                  text: "",
-                  link: { href: "https://dovito.com", text: "dovito.com" }
-                }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    y: 0, 
-                    scale: 1,
-                  }}
-                  viewport={{ once: false, amount: 0.5 }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.1,
-                    ease: "easeOut"
-                  }}
-                  className="bg-white rounded-none border border-gray-200 p-6 mb-4 text-lg text-gray-600"
+            <div className="space-y-6 text-lg text-gray-600">
+              <p>
+                <span className="font-bold text-gray-900">dovito.ai</span> is the full-stack development arm of Dovito Business Solutions.
+              </p>
+              
+              <p>
+                <span className="font-bold text-gray-900">Our approach:</span> Human-first development assisted by AI for cost-effective, production-quality software.
+              </p>
+              
+              <p>
+                <span className="font-bold text-gray-900">Our promise:</span> Honest feasibility assessments. Fixed-price development. Code that actually works.
+              </p>
+              
+              <p className="pt-4">
+                <span className="font-bold text-gray-900">Part of:</span>{" "}
+                <a 
+                  href="https://dovito.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-secondary hover:text-secondary/80 underline transition-colors"
                 >
-                  <span className="font-bold text-gray-900">{item.label}</span>{" "}
-                  {item.text}
-                  {item.link && (
-                    <a 
-                      href={item.link.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-secondary hover:text-secondary/80 underline transition-colors"
-                    >
-                      {item.link.text}
-                    </a>
-                  )}
-                </motion.div>
-              ))}
+                  dovito.com
+                </a>
+              </p>
             </div>
           </motion.div>
         </div>
