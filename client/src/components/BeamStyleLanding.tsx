@@ -484,14 +484,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
                   You Build a Prototype
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-blue-400/70">01</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-md p-8">
+                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       Use any AI tool you want: Replit Agent, Bolt.new, v0, Cursor, Claude Code—whatever works.
                     </p>
@@ -509,14 +509,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
                   Submit for $1,500 Audit
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-blue-400/70">02</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-md p-8">
+                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
                     <p className="text-gray-600 mb-6">
                       We analyze your prototype and validate feasibility.
                     </p>
@@ -563,14 +563,14 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 ml-24">
                   Approve & Move Forward
                 </h3>
                 <div className="flex">
                   <div className="flex-shrink-0 w-24 flex items-start justify-center pt-6">
                     <span className="text-5xl font-bold text-blue-400/70">03</span>
                   </div>
-                  <div className="flex-1 bg-blue-100/40 rounded-md p-8">
+                  <div className="flex-1 bg-blue-100/40 rounded-none p-8">
                     <p className="text-gray-600 mb-4">
                       If the feasibility report makes sense, we proceed with:
                     </p>
