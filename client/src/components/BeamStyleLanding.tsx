@@ -997,26 +997,27 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-muted rounded-none p-8"
+                className="rounded-none p-8"
+                style={{ backgroundColor: 'rgba(26, 54, 93, 0.4)' }}
               >
-                <h3 className="text-xl font-bold text-primary mb-4">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Scope & Estimate
                 </h3>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Realistic timeline
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Budget range (fixed-price per phase)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Phase breakdown (MVP → V1 → V2)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Risk factors
                   </li>
                 </ul>
