@@ -710,7 +710,7 @@ export default function BeamStyleLanding() {
       </section>
       {/* Pricing Section */}
       <section id="pricing" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <div className="w-full px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -721,9 +721,9 @@ export default function BeamStyleLanding() {
               Pricing
             </h2>
 
-            <div className="flex flex-col lg:flex-row items-stretch gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-stretch gap-4">
               {/* $1,500 Audit */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex flex-col">
                 <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 1</p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -776,7 +776,7 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* $15,000 - $35,000 MVP */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex flex-col">
                 <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 2</p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -825,7 +825,7 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* $25,000 - $75,000 V1 */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex flex-col">
                 <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 3</p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -874,7 +874,7 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* Support */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex flex-col">
                 <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 4</p>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
