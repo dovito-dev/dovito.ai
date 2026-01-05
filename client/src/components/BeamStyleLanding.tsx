@@ -423,6 +423,10 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
+
+      {/* Ribbon Divider */}
+      <div className="w-full h-2 bg-primary-light"></div>
+
       {/* The Problem Section */}
       <section id="problem" className="py-24 bg-white relative overflow-hidden">
         
