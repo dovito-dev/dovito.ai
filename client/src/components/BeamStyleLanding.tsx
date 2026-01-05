@@ -934,7 +934,7 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 className="rounded-none p-8"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.8)' }}
+                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
                 <h3 className="text-xl font-bold text-white mb-4">
                   Feasibility Report
@@ -998,7 +998,7 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="rounded-none p-8"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.4)' }}
+                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
                 <h3 className="text-xl font-bold text-white mb-4">
                   Scope & Estimate
@@ -1030,22 +1030,22 @@ export default function BeamStyleLanding() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="rounded-none p-8"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.2)' }}
+                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
-                <h3 className="text-xl font-bold text-primary mb-4">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Recommendation
                 </h3>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Go forward (here's how)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Adjust scope (here's why)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Don't build it (here's why not)
                   </li>
                 </ul>
