@@ -933,26 +933,27 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-muted rounded-none p-8"
+                className="rounded-none p-8"
+                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
-                <h3 className="text-xl font-bold text-primary mb-4">
+                <h3 className="text-xl font-bold text-white mb-4">
                   Feasibility Report
                 </h3>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-white/90">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Is this buildable? Should we build it?
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Technical challenges identified
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Required architecture and technology stack
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
+                    <span className="text-[#3fb9ff] mt-1">•</span>
                     Security and scalability assessment
                   </li>
                 </ul>
