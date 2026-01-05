@@ -625,7 +625,7 @@ export default function BeamStyleLanding() {
                       </li>
                     </ul>
                     
-                    <p className="text-lg text-gray-900 font-semibold border-t border-secondary/30 pt-6">
+                    <p className="text-lg text-gray-900 font-semibold border-t border-[#1a365d] pt-6">
                       If it doesn't make sense, you've spent $1,500 to avoid wasting $50,000.
                     </p>
                   </div>
