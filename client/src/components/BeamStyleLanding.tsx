@@ -710,7 +710,7 @@ export default function BeamStyleLanding() {
       </section>
       {/* Pricing Section */}
       <section id="pricing" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
-        <div className="w-full px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -730,7 +730,7 @@ export default function BeamStyleLanding() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[400px]"
                 >
                   <h3 className="text-xl font-bold text-primary mb-6">
                     $1,500 Audit
@@ -783,7 +783,7 @@ export default function BeamStyleLanding() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[400px]"
                 >
                   <h3 className="text-xl font-bold text-primary mb-6">
                     $15K - $35K MVP
@@ -832,7 +832,7 @@ export default function BeamStyleLanding() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[400px]"
                 >
                   <h3 className="text-xl font-bold text-primary mb-6">
                     $25K - $75K V1
@@ -881,7 +881,7 @@ export default function BeamStyleLanding() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[400px]"
                 >
                   <h3 className="text-xl font-bold text-primary mb-2">
                     $2.5K - $7.5K/mo
