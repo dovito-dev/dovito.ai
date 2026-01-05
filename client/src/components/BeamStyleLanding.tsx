@@ -431,34 +431,96 @@ export default function BeamStyleLanding() {
       </section>
 
       {/* The Problem Section */}
-      <section id="problem" className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+      <section id="problem" className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.08),transparent_50%)]"></div>
+        
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-center">
               The Problem
             </h2>
             
-            <p className="text-xl text-gray-800 mb-6">
+            <p className="text-xl text-gray-700 mb-16 text-center max-w-3xl mx-auto">
               AI tools make building prototypes easy. Building production software is not.
             </p>
-            
-            <p className="text-lg text-gray-600 mb-6">
-              You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
-            </p>
-            
-            <p className="text-lg text-gray-600 mb-8">
-              But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
-            </p>
-            
-            <p className="text-xl text-gray-900 font-semibold">
-              You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
-            </p>
+
+            <div className="grid lg:grid-cols-2 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                    <span className="text-green-600 text-lg">✓</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900">The Promise</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  You can spin up a working prototype in Replit, Bolt, or v0. It looks good. It sort of works.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg shadow-blue-100/50 border border-gray-100"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                    <span className="text-red-600 text-lg">!</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900">The Reality</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  But the code is a mess. Security is questionable. It won't scale. No tests, no documentation. Technical debt from day one.
+                </p>
+              </motion.div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+              {[
+                { label: "Security Reviews", value: "0", icon: "🔓" },
+                { label: "Test Coverage", value: "0%", icon: "🧪" },
+                { label: "Documentation", value: "None", icon: "📄" },
+                { label: "Scalability", value: "Unknown", icon: "📈" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <span className="text-2xl mb-2 block">{stat.icon}</span>
+                  <p className="text-2xl font-bold text-red-500 mb-1">{stat.value}</p>
+                  <p className="text-sm text-gray-500">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-center shadow-xl shadow-blue-200/50"
+            >
+              <p className="text-xl md:text-2xl text-white font-semibold">
+                You need it rebuilt professionally, without wasting $50,000+ on something that will fail in production.
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
