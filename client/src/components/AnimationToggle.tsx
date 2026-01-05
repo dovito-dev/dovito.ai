@@ -23,7 +23,7 @@ export default function AnimationToggle({ onToggle }: AnimationToggleProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.getElementById('hero');
+      const heroSection = document.getElementById('home');
       if (heroSection) {
         const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
         setIsVisible(window.scrollY < heroBottom - 100);
