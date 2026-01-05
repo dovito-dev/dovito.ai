@@ -723,42 +723,45 @@ export default function BeamStyleLanding() {
 
             <div className="flex flex-col lg:flex-row items-stretch gap-4">
               {/* $1,500 Audit */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
-              >
-                <h3 className="text-xl font-bold text-primary mb-6">
-                  $1,500 Audit
-                </h3>
-                <ul className="space-y-3 text-gray-600 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Feasibility report
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Lean user stories
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Technical assessment
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Budget estimate
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Go/no-go recommendation
-                  </li>
-                </ul>
-                <p className="text-gray-900 font-medium">
-                  <span className="text-[#4682b4]">Timeline:</span> 5-7 days
-                </p>
-              </motion.div>
+              <div className="flex-1 flex flex-col">
+                <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 1</p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-6">
+                    $1,500 Audit
+                  </h3>
+                  <ul className="space-y-3 text-gray-600 mb-6">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Feasibility report
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Lean user stories
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Technical assessment
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Budget estimate
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Go/no-go recommendation
+                    </li>
+                  </ul>
+                  <p className="text-gray-900 font-medium">
+                    <span className="text-[#4682b4]">Timeline:</span> 5-7 days
+                  </p>
+                </motion.div>
+              </div>
 
               {/* Arrow 1 */}
               <div className="hidden lg:flex items-center justify-center text-[#4682b4]">
@@ -773,38 +776,41 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* $15,000 - $35,000 MVP */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
-              >
-                <h3 className="text-xl font-bold text-primary mb-6">
-                  $15K - $35K MVP
-                </h3>
-                <ul className="space-y-3 text-gray-600 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    PRD and technical design
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Core functionality built
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Production deployment
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Basic documentation
-                  </li>
-                </ul>
-                <p className="text-gray-900 font-medium">
-                  <span className="text-[#4682b4]">Timeline:</span> 4-8 weeks
-                </p>
-              </motion.div>
+              <div className="flex-1 flex flex-col">
+                <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 2</p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-6">
+                    $15K - $35K MVP
+                  </h3>
+                  <ul className="space-y-3 text-gray-600 mb-6">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      PRD and technical design
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Core functionality built
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Production deployment
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Basic documentation
+                    </li>
+                  </ul>
+                  <p className="text-gray-900 font-medium">
+                    <span className="text-[#4682b4]">Timeline:</span> 4-8 weeks
+                  </p>
+                </motion.div>
+              </div>
 
               {/* Arrow 2 */}
               <div className="hidden lg:flex items-center justify-center text-[#4682b4]">
@@ -819,38 +825,41 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* $25,000 - $75,000 V1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
-              >
-                <h3 className="text-xl font-bold text-primary mb-6">
-                  $25K - $75K V1
-                </h3>
-                <ul className="space-y-3 text-gray-600 mb-6">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Full feature set
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Advanced functionality
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Comprehensive testing
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Complete documentation
-                  </li>
-                </ul>
-                <p className="text-gray-900 font-medium">
-                  <span className="text-[#4682b4]">Timeline:</span> 8-16 weeks
-                </p>
-              </motion.div>
+              <div className="flex-1 flex flex-col">
+                <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 3</p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-6">
+                    $25K - $75K V1
+                  </h3>
+                  <ul className="space-y-3 text-gray-600 mb-6">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Full feature set
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Advanced functionality
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Comprehensive testing
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Complete documentation
+                    </li>
+                  </ul>
+                  <p className="text-gray-900 font-medium">
+                    <span className="text-[#4682b4]">Timeline:</span> 8-16 weeks
+                  </p>
+                </motion.div>
+              </div>
 
               {/* Arrow 3 */}
               <div className="hidden lg:flex items-center justify-center text-[#4682b4]">
@@ -865,36 +874,39 @@ export default function BeamStyleLanding() {
               </div>
 
               {/* Support */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
-              >
-                <h3 className="text-xl font-bold text-primary mb-2">
-                  $2.5K - $7.5K/mo
-                </h3>
-                <p className="text-gray-500 text-sm mb-6">(Optional Support)</p>
-                <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Bug fixes & maintenance
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Feature additions
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Performance monitoring
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#4682b4] mt-1">•</span>
-                    Security updates
-                  </li>
-                </ul>
-              </motion.div>
+              <div className="flex-1 flex flex-col">
+                <p className="text-sm font-semibold text-[#4682b4] mb-2 uppercase tracking-wider">Step 4</p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="bg-white rounded-none p-8 shadow-sm flex-1 min-h-[320px]"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2">
+                    $2.5K - $7.5K/mo
+                  </h3>
+                  <p className="text-gray-500 text-sm mb-6">(Optional Support)</p>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Bug fixes & maintenance
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Feature additions
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Performance monitoring
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#4682b4] mt-1">•</span>
+                      Security updates
+                    </li>
+                  </ul>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
