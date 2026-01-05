@@ -397,9 +397,7 @@ export default function BeamStyleLanding() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              You've got an idea. You've built a prototype with AI tools. Now you need it built right.
-            </motion.p>
+            >You've got an idea. Now let's make it real.</motion.p>
 
             <motion.p 
               className="text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed"
