@@ -954,7 +954,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-none p-8"
+                className="rounded-none p-8 bg-[#1a365d40] text-[#1a1a1a]"
                 style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
               >
                 <h3 className="text-xl font-bold text-white mb-4">
