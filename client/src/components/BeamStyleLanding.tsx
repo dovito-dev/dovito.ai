@@ -1159,7 +1159,7 @@ export default function BeamStyleLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-none p-8 text-center bg-[#4682b41a]"
+              className="rounded-none p-8 text-center text-[#1a3] bg-[#1a365d]"
             >
               <p className="text-[#ffffff] text-[24px] font-semibold">
                 <span className="font-bold">Result:</span> Production-quality code at 30-40% lower cost than traditional development, with better quality than pure AI-generated code.
