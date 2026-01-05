@@ -399,12 +399,6 @@ export default function BeamStyleLanding() {
               transition={{ delay: 0.5, duration: 0.8 }}
             >You've got an idea. Now let's make it real.</motion.p>
 
-            <motion.p 
-              className="text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >Bring us your AI prototype and we’ll audit, validate, and build the production-grade software behind it.</motion.p>
 
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -548,27 +542,27 @@ export default function BeamStyleLanding() {
                     <p className="font-semibold text-gray-900 mb-3">What you get:</p>
                     <ul className="space-y-2 text-gray-600 mb-6">
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Feasibility Report (10-15 pages)
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Technical assessment
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Lean user stories (prioritized)
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Architecture recommendations
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Realistic timeline and budget estimate
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Go/no-go recommendation
                       </li>
                     </ul>
@@ -600,23 +594,23 @@ export default function BeamStyleLanding() {
                     </p>
                     <ul className="space-y-2 text-gray-600 mb-6">
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Product Requirements Document (PRD)
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Detailed technical design
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Sprint-based development
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Production deployment
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-secondary mt-1">•</span>
+                        <span className="text-[#4682b4] mt-1">•</span>
                         Documentation and training
                       </li>
                     </ul>
@@ -732,23 +726,23 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Feasibility report
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Lean user stories
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Technical assessment
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Budget estimate
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Go/no-go recommendation
                   </li>
                 </ul>
@@ -770,19 +764,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     PRD and technical design
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Core functionality built
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Production deployment
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Basic documentation
                   </li>
                 </ul>
@@ -804,19 +798,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600 mb-6">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Full feature set
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Advanced functionality
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Comprehensive testing
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Complete documentation
                   </li>
                 </ul>
@@ -839,19 +833,19 @@ export default function BeamStyleLanding() {
                 <p className="text-gray-500 text-sm mb-6">(Optional)</p>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Bug fixes and maintenance
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Feature additions
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Performance monitoring
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Security updates
                   </li>
                 </ul>
@@ -891,19 +885,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Is this buildable? Should we build it?
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Technical challenges identified
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Required architecture and technology stack
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Security and scalability assessment
                   </li>
                 </ul>
@@ -922,19 +916,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Core features (must-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Secondary features (should-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Nice-to-have features (later)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Prioritization framework
                   </li>
                 </ul>
@@ -953,19 +947,19 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Realistic timeline
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Budget range (fixed-price per phase)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Phase breakdown (MVP → V1 → V2)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Risk factors
                   </li>
                 </ul>
@@ -984,15 +978,15 @@ export default function BeamStyleLanding() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Go forward (here's how)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Adjust scope (here's why)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Don't build it (here's why not)
                   </li>
                 </ul>
@@ -1041,23 +1035,23 @@ export default function BeamStyleLanding() {
                 </h4>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Architecture decisions
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Security implementation
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Code review
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Testing strategy
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     System design
                   </li>
                 </ul>
@@ -1076,23 +1070,23 @@ export default function BeamStyleLanding() {
                 </h4>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Boilerplate generation
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Documentation creation
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Test case writing
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Code suggestions
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-secondary mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Repetitive tasks
                   </li>
                 </ul>
