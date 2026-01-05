@@ -954,27 +954,26 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-none p-8 bg-[#1a365d40] text-[#1a1a1a]"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
+                className="bg-white rounded-none p-8 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Feasibility Report
                 </h3>
-                <ul className="space-y-3 text-white/90">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Is this buildable? Should we build it?
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Technical challenges identified
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Required architecture and technology stack
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Security and scalability assessment
                   </li>
                 </ul>
@@ -986,27 +985,26 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="rounded-none p-8"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
+                className="bg-white rounded-none p-8 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Lean User Stories
                 </h3>
-                <ul className="space-y-3 text-white/90">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Core features (must-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Secondary features (should-have)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Nice-to-have features (later)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Prioritization framework
                   </li>
                 </ul>
@@ -1018,27 +1016,26 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="rounded-none p-8 bg-[#1a365d50]"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
+                className="bg-white rounded-none p-8 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Scope & Estimate
                 </h3>
-                <ul className="space-y-3 text-white/90">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Realistic timeline
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Budget range (fixed-price per phase)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Phase breakdown (MVP → V1 → V2)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Risk factors
                   </li>
                 </ul>
@@ -1050,23 +1047,22 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="rounded-none p-8"
-                style={{ backgroundColor: 'rgba(26, 54, 93, 0.6)' }}
+                className="bg-white rounded-none p-8 border border-gray-100"
               >
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-primary mb-4">
                   Recommendation
                 </h3>
-                <ul className="space-y-3 text-white/90">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Go forward (here's how)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Adjust scope (here's why)
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-white mt-1">•</span>
+                    <span className="text-[#4682b4] mt-1">•</span>
                     Don't build it (here's why not)
                   </li>
                 </ul>
