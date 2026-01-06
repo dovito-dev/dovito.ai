@@ -504,24 +504,24 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Footer - Same as Home Page */}
-        <footer className="backdrop-blur-sm border-t border-white/10 py-8 mt-20 relative z-10">
+        {/* Footer */}
+        <footer className="bg-[#1a365d] py-8 relative z-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center">
-              <div className="text-sm text-white/60">
+              <div className="text-sm text-white/80">
                 © 2024 Dovito.ai. All rights reserved.
               </div>
               <div className="flex items-center gap-6">
                 <Link
                   href="/brand-kit"
-                  className="text-xs text-white/60 hover:text-white transition-colors"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
                   data-testid="link-brand-kit"
                 >
                   Brand Kit
                 </Link>
                 <a
                   href="/admin"
-                  className="text-xs text-white/60 hover:text-white transition-colors"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
                 >
                   Admin
                 </a>
