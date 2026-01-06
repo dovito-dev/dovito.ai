@@ -196,43 +196,10 @@ export default function Connect() {
 
       {/* Content sections with z-index above hero */}
       <div className="relative" style={{ zIndex: 1 }}>
-        {/* Ready to Get Started Section */}
-        <section id="ready-to-start" className="py-24 bg-muted relative">
-          <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">
-                Ready to Get Started?
-              </h2>
-
-              <p className="text-xl text-gray-700 mb-12">
-                You've got a prototype. We'll tell you if it's worth building—and build it right.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#contact">
-                <Button 
-                  size="lg"
-                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                >
-                  Submit Your Prototype →
-                </Button>
-              </a>
-                <a 
-                  href="mailto:hello@dovito.ai" 
-                  className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
-                >
-                  hello@dovito.ai
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        {/* Ribbon Divider */}
+        <div className="w-full py-3 text-center text-[#1a3a60] bg-[#1a365d] relative" style={{ zIndex: 1 }}>
+          <p className="text-white text-sm font-medium tracking-wide">Ready to Get Started? You've got a prototype. We'll tell you if it's worth building—and build it right.</p>
+        </div>
 
         {/* Contact Section */}
         <section id="contact" className="py-32 bg-muted relative" style={{ zIndex: 1 }}>
