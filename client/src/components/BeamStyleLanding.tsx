@@ -656,7 +656,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0 }}
-                className="bg-muted rounded-none p-8"
+                className="bg-muted rounded-none p-8 border border-gray-200"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">
                   Not a Dev Shop
@@ -675,7 +675,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-muted rounded-none p-8"
+                className="bg-muted rounded-none p-8 border border-gray-200"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">
                   Not AI-Generated Code
@@ -694,7 +694,7 @@ export default function BeamStyleLanding() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-muted rounded-none p-8"
+                className="bg-muted rounded-none p-8 border border-gray-200"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">
                   Not "Yes Men"
