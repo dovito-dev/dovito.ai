@@ -7,6 +7,7 @@ import BeamStyleLanding from "./components/BeamStyleLanding";
 import AdminPage from "@/pages/AdminPage";
 import BrandKit from "@/pages/BrandKit";
 import AboutUs from "@/pages/AboutUs";
+import Connect from "@/pages/Connect";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/admin" component={AdminPage} />
       <Route path="/brand-kit" component={BrandKit} />
       <Route path="/about" component={AboutUs} />
+      <Route path="/connect" component={Connect} />
       <Route component={NotFound} />
     </Switch>
   );

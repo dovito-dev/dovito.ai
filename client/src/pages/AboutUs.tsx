@@ -196,7 +196,7 @@ export default function AboutUs() {
               ABOUT US
             </span>
             <Link
-              href="/#contact"
+              href="/connect"
               className="relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 text-white/70 hover:text-white"
             >
               CONNECT
@@ -210,7 +210,7 @@ export default function AboutUs() {
             animate={{ x: navbarCollapsed ? 24 : 0 }}
             transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           >
-            <Link href="/#contact">
+            <Link href="/connect">
               <Button 
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
               >

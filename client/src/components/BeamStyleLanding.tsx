@@ -3,18 +3,14 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Zap, Target, TrendingUp, Clock, CheckCircle } from "lucide-react";
 import dovitoLogo from "@assets/white_1749151126542.png";
 import heroBackground from "@assets/dynamic-wang-rV9YIchqXEk-unsplash_1766100911024.jpg";
 import differentBackground from "@assets/getty-images-6y6DGYcuQNo-unsplash_1767651410141.jpg";
 import whoThisIsForBackground from "@assets/curated-lifestyle-gOez03tUGCc-unsplash_1767652895836.jpg";
 import SplashCursor from "./SplashCursor";
-import Beams from "./Beams";
 import AnimationToggle from "./AnimationToggle";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
@@ -39,13 +35,6 @@ export default function BeamStyleLanding() {
     { id: "why-prototype", title: "Why We Require a Prototype First" },
     { id: "faq", title: "FAQ" },
   ];
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: ""
-  });
-  const { toast } = useToast();
 
   const { data: contentSections = [] } = useQuery<any[]>({
     queryKey: ["/api/content"],
@@ -53,7 +42,7 @@ export default function BeamStyleLanding() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "products", "value", "contact"];
+      const sections = ["home"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -116,33 +105,6 @@ export default function BeamStyleLanding() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.name || !formData.email || !formData.company || !formData.message) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    toast({
-      title: "Message sent successfully",
-      description: "We'll get back to you within 24 hours.",
-    });
-
-    setFormData({ name: "", email: "", company: "", message: "" });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
   };
 
   const getContentByKey = (key: string, fallback: string = "") => {
@@ -243,14 +205,12 @@ export default function BeamStyleLanding() {
             >
               ABOUT US
             </Link>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className={`relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 ${
-                activeSection === "contact" ? "text-white" : "text-white/70 hover:text-white"
-              }`}
+            <Link
+              href="/connect"
+              className="relative px-3 py-1.5 text-xs font-medium tracking-wider transition-all duration-300 text-white/70 hover:text-white"
             >
               CONNECT
-            </button>
+            </Link>
           </motion.div>
 
           {/* CTA - slides to right edge */}
@@ -260,12 +220,13 @@ export default function BeamStyleLanding() {
             animate={{ x: navbarCollapsed ? 24 : 0 }}
             transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           >
-            <Button 
-              onClick={() => scrollToSection("contact")}
-              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
-            >
-              Get Started
-            </Button>
+            <Link href="/connect">
+              <Button 
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-2 rounded-lg font-medium uppercase text-xs tracking-wider transition-all duration-300"
+              >
+                Get Started
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Pill Background - wraps all elements */}
@@ -315,13 +276,14 @@ export default function BeamStyleLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
             >
-              <Button 
-                size="lg"
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                onClick={() => scrollToSection("contact")}
-              >
-                Submit Your Prototype →
-              </Button>
+              <Link href="/connect">
+                <Button 
+                  size="lg"
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
+                >
+                  Submit Your Prototype →
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -1247,13 +1209,14 @@ export default function BeamStyleLanding() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button 
-                size="lg"
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                onClick={() => scrollToSection("contact")}
-              >
-                Submit Your Prototype →
-              </Button>
+              <Link href="/connect">
+                <Button 
+                  size="lg"
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
+                >
+                  Submit Your Prototype →
+                </Button>
+              </Link>
               <a 
                 href="mailto:hello@dovito.ai" 
                 className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
@@ -1264,119 +1227,25 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-      {/* Beams Background Container - Contact Section */}
-      <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <Beams
-            beamWidth={3}
-            beamHeight={18}
-            beamNumber={20}
-            lightColor="#4682b4"
-            speed={2.2}
-            noiseIntensity={0}
-            scale={0.24}
-            rotation={28}
-          />
-        </div>
-        
-        {/* Contact Section */}
-        <section id="contact" className="py-32 relative" style={{ zIndex: 1 }}>
-          <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              Ready to Transform?
-            </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
-              Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
-            </p>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <Input
-                      placeholder="Your Name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                      required
-                    />
-                    <Input
-                      type="email"
-                      placeholder="Business Email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                      required
-                    />
-                  </div>
-
-                  <Input
-                    placeholder="Company Name"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                    required
-                  />
-
-                  <Textarea
-                    placeholder="Tell us about your biggest operational challenges..."
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                    required
-                  />
-
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                  >
-                    Schedule Free Consultation
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-          </div>
-        </section>
-
-        {/* Footer with Admin Access */}
-        <footer className="backdrop-blur-sm border-t border-white/10 py-8 mt-20 relative z-10">
+        {/* Footer */}
+        <footer className="bg-[#1a365d] py-8 relative z-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center">
-              <div className="text-sm text-white/60">
+              <div className="text-sm text-white/80">
                 © 2024 Dovito.ai. All rights reserved.
               </div>
               <div className="flex items-center gap-6">
                 <Link
                   href="/brand-kit"
-                  className="text-xs text-white/60 hover:text-white transition-colors"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
                   data-testid="link-brand-kit"
                 >
                   Brand Kit
                 </Link>
                 <a
                   href="/admin"
-                  className="text-xs text-white/60 hover:text-white transition-colors"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
                 >
                   Admin
                 </a>
@@ -1384,7 +1253,6 @@ export default function BeamStyleLanding() {
             </div>
           </div>
         </footer>
-      </div>
     </div>
   );
 }
