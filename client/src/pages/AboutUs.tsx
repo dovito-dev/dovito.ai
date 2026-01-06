@@ -278,10 +278,6 @@ export default function AboutUs() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16 text-center">
-                About dovito.ai
-              </h2>
-
               <div className="grid md:grid-cols-3 gap-8 mb-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
