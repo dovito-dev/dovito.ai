@@ -12,6 +12,7 @@ import differentBackground from "@assets/getty-images-6y6DGYcuQNo-unsplash_17676
 import whoThisIsForBackground from "@assets/curated-lifestyle-gOez03tUGCc-unsplash_1767652895836.jpg";
 import SplashCursor from "./SplashCursor";
 import AnimationToggle from "./AnimationToggle";
+import Beams from "./Beams";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 
@@ -1190,46 +1191,61 @@ export default function BeamStyleLanding() {
           </motion.div>
         </div>
       </section>
-      {/* Ready to Get Started Section */}
-      <section id="ready-to-start" className="py-24 bg-muted relative" style={{ zIndex: 1 }}>
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-8">
-              Ready to Get Started?
-            </h2>
-
-            <p className="text-xl text-gray-700 mb-12">
-              You've got a prototype. We'll tell you if it's worth building—and build it right.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link href="/connect">
-                <Button 
-                  size="lg"
-                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                >
-                  Submit Your Prototype →
-                </Button>
-              </Link>
-              <a 
-                href="mailto:hello@dovito.ai" 
-                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
-              >
-                hello@dovito.ai
-              </a>
-            </div>
-          </motion.div>
+      {/* Beams Background Container - Ready to Transform Section and Footer */}
+      <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Beams
+            beamWidth={3}
+            beamHeight={18}
+            beamNumber={20}
+            lightColor="#4682b4"
+            speed={2.2}
+            noiseIntensity={0}
+            scale={0.24}
+            rotation={28}
+          />
         </div>
-      </section>
+
+        {/* Ready to Transform Section */}
+        <section id="ready-to-start" className="py-24 relative" style={{ zIndex: 1 }}>
+          <div className="max-w-4xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+                Ready to Transform?
+              </h2>
+
+              <p className="text-xl text-white/70 mb-12">
+                You've got a prototype. We'll tell you if it's worth building—and build it right.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <Link href="/connect">
+                  <Button 
+                    size="lg"
+                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
+                  >
+                    Submit Your Prototype →
+                  </Button>
+                </Link>
+                <a 
+                  href="mailto:hello@dovito.ai" 
+                  className="text-white/70 hover:text-white font-medium transition-colors"
+                >
+                  hello@dovito.ai
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Footer */}
-        <footer className="bg-[#1a365d] py-8 relative z-10">
+        <footer className="py-8 relative z-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center">
               <div className="text-sm text-white/80">
@@ -1253,6 +1269,7 @@ export default function BeamStyleLanding() {
             </div>
           </div>
         </footer>
+      </div>
     </div>
   );
 }

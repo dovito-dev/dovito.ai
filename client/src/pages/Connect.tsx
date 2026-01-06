@@ -11,7 +11,6 @@ import dovitoLogo from "@assets/white_1749151126542.png";
 import heroBackground from "@assets/dynamic-wang-rV9YIchqXEk-unsplash_1766100911024.jpg";
 import SplashCursor from "@/components/SplashCursor";
 import AnimationToggle from "@/components/AnimationToggle";
-import Beams from "@/components/Beams";
 
 export default function Connect() {
   const [navbarCollapsed, setNavbarCollapsed] = useState(false);
@@ -235,127 +234,111 @@ export default function Connect() {
           </div>
         </section>
 
-        {/* Beams Background Container - Contact Section and Footer */}
-        <div className="relative section-dark" style={{ background: 'linear-gradient(180deg, #0a1929 0%, #1a365d 100%)' }}>
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <Beams
-              beamWidth={3}
-              beamHeight={18}
-              beamNumber={20}
-              lightColor="#4682b4"
-              speed={2.2}
-              noiseIntensity={0}
-              scale={0.24}
-              rotation={28}
-            />
-          </div>
-          
-          {/* Contact Section */}
-          <section id="contact" className="py-32 relative" style={{ zIndex: 1 }}>
-            <div className="max-w-4xl mx-auto px-6 lg:px-8">
-              <motion.div 
-                className="text-center mb-16"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-                  Ready to Transform?
-                </h2>
-                <p className="text-xl text-white/70 max-w-2xl mx-auto">
-                  Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
-                </p>
-              </motion.div>
+        {/* Contact Section */}
+        <section id="contact" className="py-32 bg-muted relative" style={{ zIndex: 1 }}>
+          <div className="max-w-4xl mx-auto px-6 lg:px-8">
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
+                Ready to Get Started?
+              </h2>
+              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+                Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
+              </p>
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
-                  <CardContent className="p-8">
-                    <form onSubmit={handleFormSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <Input
-                          placeholder="Your Name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                          required
-                        />
-                        <Input
-                          type="email"
-                          placeholder="Business Email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
-                          required
-                        />
-                      </div>
-
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-gray-200 bg-white shadow-lg">
+                <CardContent className="p-8">
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <Input
-                        placeholder="Company Name"
-                        name="company"
-                        value={formData.company}
+                        placeholder="Your Name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleInputChange}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
+                        className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-secondary"
                         required
                       />
-
-                      <Textarea
-                        placeholder="Tell us about your biggest operational challenges..."
-                        name="message"
-                        value={formData.message}
+                      <Input
+                        type="email"
+                        placeholder="Business Email"
+                        name="email"
+                        value={formData.email}
                         onChange={handleInputChange}
-                        rows={4}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-secondary"
+                        className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-secondary"
                         required
                       />
+                    </div>
 
-                      <Button 
-                        type="submit" 
-                        className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
-                      >
-                        Schedule Free Consultation
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </section>
+                    <Input
+                      placeholder="Company Name"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-secondary"
+                      required
+                    />
 
-          {/* Footer */}
-          <footer className="py-8 relative z-10">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8">
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-white/80">
-                  © 2024 Dovito.ai. All rights reserved.
-                </div>
-                <div className="flex items-center gap-6">
-                  <Link
-                    href="/brand-kit"
-                    className="text-xs text-white/80 hover:text-white transition-colors"
-                    data-testid="link-brand-kit"
-                  >
-                    Brand Kit
-                  </Link>
-                  <a
-                    href="/admin"
-                    className="text-xs text-white/80 hover:text-white transition-colors"
-                  >
-                    Admin
-                  </a>
-                </div>
+                    <Textarea
+                      placeholder="Tell us about your biggest operational challenges..."
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={4}
+                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-secondary"
+                      required
+                    />
+
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105"
+                    >
+                      Schedule Free Consultation
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-[#1a365d] py-8 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex justify-between items-center">
+              <div className="text-sm text-white/80">
+                © 2024 Dovito.ai. All rights reserved.
+              </div>
+              <div className="flex items-center gap-6">
+                <Link
+                  href="/brand-kit"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
+                  data-testid="link-brand-kit"
+                >
+                  Brand Kit
+                </Link>
+                <a
+                  href="/admin"
+                  className="text-xs text-white/80 hover:text-white transition-colors"
+                >
+                  Admin
+                </a>
               </div>
             </div>
-          </footer>
-        </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
