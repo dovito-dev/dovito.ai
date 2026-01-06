@@ -207,9 +207,7 @@ export default function Connect() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-                Ready to Get Started?
-              </h2>
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary">Ready to Transform?</h2>
               <p className="text-xl text-gray-700 max-w-2xl mx-auto">
                 Ready to start a new automation project or see our existing solutions in action? Let's discuss your needs
               </p>
