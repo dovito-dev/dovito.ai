@@ -77,7 +77,6 @@ export default function Connect() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <AnimationToggle onToggle={setAnimationsEnabled} />
-      
       {/* Navigation - Same as Home Page */}
       <div className="fixed top-0 left-0 right-0 z-50 pt-4 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto px-6 relative flex justify-between items-center h-14">
@@ -158,7 +157,6 @@ export default function Connect() {
           />
         </div>
       </div>
-
       {/* Hero Section - Fixed background with parallax effect (Same as Home Page) */}
       <section className="fixed top-0 left-0 right-0 h-screen flex items-center overflow-hidden" style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}>
         {animationsEnabled && <SplashCursor />}
@@ -190,15 +188,13 @@ export default function Connect() {
           </motion.div>
         </div>
       </section>
-
       {/* Hero spacer - pushes content down to account for fixed hero */}
       <div className="h-screen" style={{ zIndex: 1 }}></div>
-
       {/* Content sections with z-index above hero */}
       <div className="relative" style={{ zIndex: 1 }}>
         {/* Ribbon Divider */}
         <div className="w-full py-3 text-center text-[#1a3a60] bg-[#1a365d] relative" style={{ zIndex: 1 }}>
-          <p className="text-white text-sm font-medium tracking-wide">Ready to Get Started? You've got a prototype. We'll tell you if it's worth building—and build it right.</p>
+          <p className="text-white text-sm font-medium tracking-wide">You've got a prototype. We'll tell you if it's worth building—and build it right.</p>
         </div>
 
         {/* Contact Section */}
